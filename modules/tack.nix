@@ -128,12 +128,16 @@ in
                     |> lib.concatLines;
 
                   addPatchCommands =
-                    newKeys
-                    |> lib.filter (name: lib.subtractLists (prevPatches name) (currPatches name) != [ ])
-                    |> map (name: "tack patch update ${lib.escapeShellArg name}")
-                    |> lib.concatLines;
+                    let
+                      updatedPatchInputs =
+                        newKeys
+                        |> lib.filter (name: lib.subtractLists (prevPatches name) (currPatches name) != [ ])
+                        |> lib.join " ";
+                    in
+                    "tack patch update ${updatedPatchInputs}";
                 in
-                /* bash */ ''
+                # bash
+                ''
                   PINS_FILE="''${TACK_DIR:-.tack}/pins.toml"
 
                   if [[ ! -f "$PINS_FILE" ]]; then
@@ -141,7 +145,7 @@ in
                     exit 1
                   fi
 
-                  TMP_PINS="$(mktemp old_pins.toml.XXXXX)"
+                  TMP_PINS="$(mktemp -t old_pins.toml.XXXXX)"
                   # Delete temp file on script exit
                   trap 'rm -f "$TMP_PINS"' EXIT
 
@@ -154,12 +158,15 @@ in
                     cat << 'EOF' > "$PINS_FILE"
                     ${tackTomlString}
                     EOF
-                    delta --dark --paging=never --diff-highlight "$TMP_PINS" "$PINS_FILE" || true
                   ''}
 
                   ${lib.optionalString (updatedInputs != [ ]) "tack update ${lib.join " " updatedInputs}"}
 
                   ${addPatchCommands}
+
+                  ${lib.optionalString (cfg != oldTackToml) # bash
+                    ''delta --dark --paging=never --diff-highlight "$TMP_PINS" "$PINS_FILE" || true''
+                  }
 
                   if [[ $# -gt 0 ]]; then
                     nh os "$@"
@@ -191,9 +198,6 @@ in
         gh = "github:{path}";
       };
     };
-
-    # add signers support
-    # https://github.com/manic-systems/tack#signers
 
     all_follow = mkOption {
       type = types.nullOr (types.attrsOf (types.either types.str (types.listOf types.str)));
