@@ -175,9 +175,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "20c667c349bd3e94da69b58ae34921a91b3653b1",
-    "narHash": "sha256-adJNcCtXP+DV5gyHaes/bErSg4ZAZ5LhmVk+i+3ztic=",
-    "lastModified": 1791039050
+    "rev": "e67ef422aef08c4874c103db00ac1f15df4a8646",
+    "narHash": "sha256-dBFbU00/oLpS4qiqiWwawiaWzB5jdBgMBo55VSHTOjw=",
+    "lastModified": 1791073000
   },
   "nix-cachyos-kernel": {
     "type": "github",
@@ -344,9 +344,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "59b4a286b9d509493b783ae860c895204e4eaab6",
-    "narHash": "sha256-kRBQh0ey/D1DWJKSbHQKRBTQ2F+mSBhhzkvBPdGosm8=",
-    "lastModified": 1790801195
+    "rev": "13f612df945b7c3ac3e675fab15b36cb26f63b2f",
+    "narHash": "sha256-W8pYVb6C1prr/Y/mBZ0Ck9KWLvpn+krQ12l+nxfc5mw=",
+    "lastModified": 1791081733
   },
   "yazi": {
     "type": "github",

@@ -26,8 +26,8 @@
                   add_borders = 2,
                   natural_rounding = false,
                   col = {
-                    border_1 = "#131316",
-                    border_2 = "#161619",
+                    border_1 = "#131313",
+                    border_2 = "#151515",
                   },
                   border_size_1 = 2,
                   border_size_2 = 5,

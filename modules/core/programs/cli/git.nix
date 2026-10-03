@@ -101,14 +101,11 @@
             showRandomTip = false;
             sidePanelWidth = 0.25;
             theme = {
-              activeBorderColor = [
-                base0D
-                "bold"
-              ];
+              activeBorderColor = [ base05 ];
+              inactiveBorderColor = [ base04 ];
               cherryPickedCommitBgColor = [ base02 ];
               cherryPickedCommitFgColor = [ base0D ];
               defaultFgColor = [ base05 ];
-              inactiveBorderColor = [ base06 ];
               optionsTextColor = [ base04 ];
               searchingActiveBorderColor = [ base0A ];
               selectedLineBgColor = [ base02 ];

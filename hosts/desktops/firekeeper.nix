@@ -4,7 +4,7 @@
     firekeeper = {
       user = "onelock";
       hardware = "firekeeper";
-      theme = "dark";
+      theme = "monochrome";
       modules = with config.exo.mods; [
         neovim
         media

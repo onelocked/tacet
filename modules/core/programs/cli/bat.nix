@@ -3,7 +3,6 @@
     {
       pkgs,
       wrapPackage,
-      theme,
       lib,
       config,
       ...
@@ -32,7 +31,7 @@
           default = wrapPackage {
             package = pkgs.bat;
             args = [
-              "--theme ${(if theme == "dark" then "TwoDark" else "base16")}"
+              "--theme=TwoDark"
               "--style=plain"
             ];
           };

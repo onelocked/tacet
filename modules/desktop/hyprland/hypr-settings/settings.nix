@@ -1,6 +1,11 @@
 {
   exo.mods.desktop =
-    { theme, config, ... }:
+    {
+      theme,
+      config,
+      scheme,
+      ...
+    }:
     {
       forte.hyprland.lua.settings = # lua
         ''
@@ -20,8 +25,10 @@
             general = {
               no_focus_fallback = true,
               col         = {
-                inactive_border = { colors = { "${if theme == "dark" then "#362D40" else "#8a8078"}" } },
-                active_border   = { colors = { "${if theme == "dark" then "#7d75c0" else "#4b3a2b"}" } },
+                inactive_border = { colors = { "${if theme == "dark" then "#362D40" else scheme.base03}" } },
+                active_border   = { colors = { "${
+                  if theme == "dark" then scheme.base0F else scheme.base05
+                }" } },
               },
 
               resize_on_border  = false,
@@ -37,8 +44,8 @@
               rounding              = 0,
               rounding_power        = 1,
 
-              active_opacity        = ${if theme == "dark" then "1" else "0.9"},
-              inactive_opacity      = ${if theme == "dark" then "0.95" else "0.83"},
+              active_opacity        = 1,
+              inactive_opacity      = 0.95,
 
               blur                  = {
                 enabled  = true,
@@ -49,10 +56,10 @@
               },
 
               shadow = {
-                enabled      = ${if theme == "dark" then "false" else "true"},
+                enabled      = false,
                 range        = 15,
                 render_power = 4,
-                color        = "#59311fCC",
+                color        = "${scheme.base01}",
                 offset       = { 5, 5 }
               },
             },

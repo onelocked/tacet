@@ -1,9 +1,6 @@
 {
   exo.mods.media =
-    { scheme, theme, ... }:
-    let
-      selected_theme = if theme == "light" then "light" else "dark";
-    in
+    { scheme, ... }:
     {
       forte.vesktop = {
         enable = true;
@@ -28,7 +25,7 @@
           useQuickCss = true;
           themeLinks = [ ];
           eagerPatches = false;
-          enabledThemes = [ "${selected_theme}.css" ];
+          enabledThemes = [ "dark.css" ];
           enableReactDevtools = false;
           frameless = false;
           transparent = false;
@@ -297,17 +294,15 @@
       pkgs,
       lib,
       config,
-      theme,
       ...
     }:
     let
       cfg = config.forte.vesktop;
       jsonFormat = lib.generators.toJSON { };
-      selected_theme = if theme == "light" then "light" else "dark";
       theme-repo = pkgs.fetchgit {
         url = "https://codeberg.org/onelock/system-24-with-custom-pallete.git";
-        rev = "6666c1b0700a78ff64a98bf9480bc03a4a74c150";
-        hash = "sha256-M+ud0Bg597/ZSTc5bEgQ17cyDHGG26BQGemiMDe5rF4=";
+        rev = "be3aa5d5908c46029f46719e1a3bea362d48556e";
+        hash = "sha256-C1qdEjhTX9e+obau5VuTd3ClWbR7277MFSUdqAizbNA=";
       };
     in
     {
@@ -322,8 +317,7 @@
             generator = jsonFormat;
             value = cfg.vencord-settings;
           };
-          "vesktop/themes/${selected_theme}.css".source =
-            "${theme-repo}/system24.theme-${selected_theme}.css";
+          "vesktop/themes/dark.css".source = "${theme-repo}/system24.theme-dark.css";
         };
         hj.systemd.services = {
           vesktop = {

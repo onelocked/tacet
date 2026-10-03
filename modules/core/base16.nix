@@ -2,39 +2,6 @@
 {
   config = {
     schemes = {
-      light = {
-        # Backgrounds
-        base00 = "#F4EAE1";
-        base01 = "#e0d8ce";
-        base02 = "#C4B09E";
-        base03 = "#8a8078";
-
-        # Foregrounds (Grey
-        base04 = "#4a4640";
-        base05 = "#1c1a18";
-        base06 = "#1c1a18";
-        base07 = "#000000";
-
-        # Accents
-        base08 = "#b04030";
-        base09 = "#A65D3C";
-        base0A = "#7a6a50";
-        base0B = "#5C7457";
-        base0C = "#5a4a30";
-        base0D = "#8E4D2F";
-        base0E = "#9a6830";
-        base0F = "#8B7D6F";
-
-        # Extended (Brights
-        base10 = "#C2185B"; # Magenta
-        base11 = "#D81B60"; # Pink
-        base12 = "#4527A0"; # Clear Purple
-        base13 = "#283593"; # Indigo
-        base14 = "#0277BD"; # Cerulean
-        base15 = "#00695C"; # Pine
-        base16 = "#558B2F"; # Olive
-        base17 = "#4E342E"; # Deep Coffee
-      };
       dark = {
         # Backgrounds
         base00 = "#131316";
@@ -67,6 +34,39 @@
         base15 = "#8fd4b5";
         base16 = "#a8c8f0";
         base17 = "#e8c4d8";
+      };
+      monochrome = {
+        # Backgrounds
+        base00 = "#131313";
+        base01 = "#1b1b1f";
+        base02 = "#2a2a2f";
+        base03 = "#46464d";
+
+        # Foregrounds
+        base04 = "#8a8a92";
+        base05 = "#cfcfd4";
+        base06 = "#e4e4e8";
+        base07 = "#f2f2f4";
+
+        # Accents
+        base08 = "#c97f8c";
+        base09 = "#c99a82";
+        base0A = "#c3ad70";
+        base0B = "#8fb577";
+        base0C = "#bcbcc2";
+        base0D = "#a0a0a8";
+        base0E = "#8a8a92";
+        base0F = "#6e6e76";
+
+        # Extended
+        base10 = "#0e0e11";
+        base11 = "#09090b";
+        base12 = "#d0756a";
+        base13 = "#c3ad70";
+        base14 = "#a3bb82";
+        base15 = "#78ae95";
+        base16 = "#d0d0d6";
+        base17 = "#c79db6";
       };
     };
     _module.args =

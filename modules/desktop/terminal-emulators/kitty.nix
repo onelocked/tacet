@@ -28,7 +28,7 @@
           wheel_scroll_multiplier = "5.0";
 
           strip_trailing_spaces = "smart";
-          hide_window_decorations = if (theme == "dark") then "yes" else "no";
+          hide_window_decorations = "yes";
 
           enable_audio_bell = "no";
           visual_bell_duration = "0.0";
@@ -132,60 +132,48 @@
             "font_features MapleMono-NF-BoldItalic" = mapleFeatures;
             "font_features MapleMono-NF-ExtraBoldItalic" = mapleFeatures;
           };
-        theme =
-          with scheme;
-          {
-            # Normal colors (0–7)
-            color0 = base00;
-            color1 = base08;
-            color2 = base0B;
-            color3 = base0A;
-            color4 = base0D;
-            color5 = base0E;
-            color6 = base0C;
-            color7 = base05;
+        theme = with scheme; {
+          # Normal colors (0–7)
+          color0 = base00;
+          color1 = base08;
+          color2 = base0B;
+          color3 = base0A;
+          color4 = base0D;
+          color5 = base0E;
+          color6 = base0C;
+          color7 = base05;
 
-            # Bright colors
-            color8 = base03;
-            color9 = base12;
-            color10 = base14;
-            color11 = base09;
-            color12 = base0D;
-            color13 = base17;
-            color14 = base15;
-            color15 = base07;
+          # Bright colors
+          color8 = base03;
+          color9 = base12;
+          color10 = base14;
+          color11 = base09;
+          color12 = base0D;
+          color13 = base17;
+          color14 = base15;
+          color15 = base07;
 
-            background = base00;
-            foreground = base05;
-            cursor = base0D;
-            cursor_text_color = base00;
-            cursor_trail_color = base0E;
+          background = base00;
+          foreground = base05;
+          cursor = base0D;
+          cursor_text_color = base00;
+          cursor_trail_color = base0E;
 
-            # Selection
-            selection_background = base0D;
-            selection_foreground = base02;
+          # Selection
+          selection_background = base0D;
+          selection_foreground = base02;
 
-            # Borders
-            active_border_color = base0D;
-            inactive_border_color = base03;
-            url_color = base0E;
+          # Borders
+          active_border_color = base0D;
+          inactive_border_color = base03;
+          url_color = base0E;
 
-            # Tabs
-            active_tab_foreground = base0D;
-            active_tab_background = base02;
-            inactive_tab_foreground = base04;
-            inactive_tab_background = base00;
-          }
-          // lib.optionalAttrs (theme == "light") {
-            color248 = base04;
-            color249 = base04;
-            color250 = base05;
-            color251 = base05;
-            color252 = base04;
-            color253 = base04;
-            color254 = base05;
-            color255 = base05;
-          };
+          # Tabs
+          active_tab_foreground = base0D;
+          active_tab_background = base02;
+          inactive_tab_foreground = base04;
+          inactive_tab_background = base00;
+        };
       };
     };
   exo.skeleton =

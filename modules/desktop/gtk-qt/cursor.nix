@@ -4,7 +4,6 @@
       lib,
       config,
       self',
-      theme,
       ...
     }:
     let
@@ -12,7 +11,7 @@
     in
     {
       config = {
-        forte.cursor = lib.mkIf (theme == "dark") {
+        forte.cursor = {
           name = "Bibata-Modern-Classic";
           size = 28;
           package = self'.legacyPackages.cursors.hypr-bibata-classic;

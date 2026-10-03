@@ -3,12 +3,10 @@
     {
       scheme,
       pkgs,
-      lib,
-      theme,
       ...
     }:
     {
-      forte = lib.mkIf (theme == "dark") {
+      forte = {
         gtk = {
           icons = {
             name = "Papirus-Dark";
