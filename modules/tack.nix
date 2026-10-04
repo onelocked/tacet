@@ -21,16 +21,17 @@ in
       all_follow = {
         nixpkgs = "nixpkgs";
         systems = "systems";
-        flake-compat = "flake-compat";
         flake-utils = "flake-utils";
+        flake-parts = "flake-parts";
         rust-overlay = "rust-overlay";
-        treefmt-nix = "treefmt-nix";
         tack = "tack";
       };
       omit_inputs.names = [
         "flake-compat"
         "pre-commit-hooks"
         "treefmt-nix"
+        "home-manager"
+        "nix-darwin"
       ];
     };
 

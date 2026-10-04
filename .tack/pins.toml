@@ -1,14 +1,15 @@
 [all_follow]
-flake-compat = "flake-compat"
+flake-parts = "flake-parts"
 flake-utils = "flake-utils"
+hyprgraphics = "hyprland/hyprgraphics"
+hyprland = "hyprland"
 nixpkgs = "nixpkgs"
 rust-overlay = "rust-overlay"
 systems = "systems"
 tack = "tack"
-treefmt-nix = "treefmt-nix"
 
 [omit_inputs]
-names = ["flake-compat","pre-commit-hooks","treefmt-nix"]
+names = ["flake-compat","pre-commit-hooks","treefmt-nix","home-manager","nix-darwin"]
 
 [shorturls]
 applefont = "https://devimages-cdn.apple.com/design/resources/download/{path}"
