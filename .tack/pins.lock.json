@@ -136,9 +136,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "8e9a538fb08dafa094309d3025ac5ec48b9879fe",
-    "narHash": "sha256-QWs5eh6SUO2bWqlxTAPFopXpEpnp0DjYfyqNCEsGCuo=",
-    "lastModified": 1790956643
+    "rev": "19fb395d45314960e6f79f17994a84094f1cd4f6",
+    "narHash": "sha256-AzHQsbLPFyPYF81d+1BVyb9GWxgSS+C3pfJ1XAcGCvU=",
+    "lastModified": 1791130653
   },
   "jellium-desktop": {
     "type": "git",
@@ -175,9 +175,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "e67ef422aef08c4874c103db00ac1f15df4a8646",
-    "narHash": "sha256-dBFbU00/oLpS4qiqiWwawiaWzB5jdBgMBo55VSHTOjw=",
-    "lastModified": 1791073000
+    "rev": "56f430ab2cf028ca3751b4dd164d3980875c58aa",
+    "narHash": "sha256-nq7+7PXtUOvmVzl1jYMrVPxmJTEWwDI1kp+RLoa5MOU=",
+    "lastModified": 1791133220
   },
   "nix-cachyos-kernel": {
     "type": "github",
