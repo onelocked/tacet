@@ -1,15 +1,6 @@
 {
-  tack.inputs.lazygit = {
-    url = "gh:jesseduffield/lazygit";
-    group = "general";
-  };
   exo.core =
-    {
-      scheme,
-      pkgs,
-      self',
-      ...
-    }:
+    { scheme, pkgs, ... }:
     {
       forte.lazygit = {
         enable = true;
@@ -37,9 +28,6 @@
           gui = {
             showCommandLog = false;
             border = "single";
-            authorColors = {
-              "*" = base0D;
-            };
             expandFocusedSidePanel = true;
             expandedSidePanelWeight = 2;
             filterMode = "fuzzy";
@@ -52,6 +40,9 @@
             showRandomTip = false;
             sidePanelWidth = 0.25;
             theme = {
+              authorColors = {
+                "*" = base0D;
+              };
               activeBorderColor = [ base05 ];
               inactiveBorderColor = [ base04 ];
               cherryPickedCommitBgColor = [ base02 ];
@@ -116,11 +107,6 @@
           ];
         };
       };
-      nixpkgs.overlays = [
-        (final: prev: {
-          delta = self'.packages.delta;
-        })
-      ];
     };
   exo.skeleton =
     {
@@ -128,7 +114,6 @@
       config,
       lib,
       wrapPackage,
-      self',
       ...
     }:
     let
@@ -175,7 +160,7 @@
         package = lib.mkOption {
           type = lib.types.package;
           default = wrapPackage {
-            package = self'.packages.lazygit;
+            package = pkgs.lazygit;
             files."configuration/lazygit.yml" = wrapPackage.yaml cfg.settings;
             env.LG_CONFIG_FILE = wrapPackage.out + "configuration/lazygit.yml";
           };
@@ -201,99 +186,4 @@
         };
       };
     };
-  perSystem = { pkgs, packages', ... }: {
-    remotePackages = {
-      lazygit = packages'.lazygit.overrideAttrs { doCheck = false; };
-      delta = pkgs.callPackage (
-        {
-          lib,
-          rustPlatform,
-          buildPackages,
-          fetchFromGitHub,
-          installShellFiles,
-          pkg-config,
-          oniguruma,
-          stdenv,
-          git,
-          zlib,
-          versionCheckHook,
-        }:
-
-        rustPlatform.buildRustPackage (finalAttrs: {
-          pname = "delta";
-          version = "0.20.1";
-
-          src = fetchFromGitHub {
-            owner = "dandavison";
-            repo = "delta";
-            tag = finalAttrs.version;
-            hash = "sha256-p/vYclCifRzk8ockxT5k1zBCBL+eF4oldhD3lTvy2EA=";
-          };
-
-          cargoHash = "sha256-YjmYeSRt9X/+PROEGg3pBQ1IRnNuwziZ30bA/nKqbWc=";
-
-          nativeBuildInputs = [
-            installShellFiles
-            pkg-config
-          ];
-
-          buildInputs = [
-            oniguruma
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isDarwin [
-            zlib
-          ];
-
-          nativeCheckInputs = [ git ];
-
-          env = {
-            RUSTONIG_SYSTEM_LIBONIG = true;
-          };
-
-          postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
-            let
-              emulator = stdenv.hostPlatform.emulator buildPackages;
-            in
-            ''
-              installShellCompletion --cmd delta \
-                --bash <(${emulator} $out/bin/delta --generate-completion bash) \
-                --fish <(${emulator} $out/bin/delta --generate-completion fish) \
-                --zsh <(${emulator} $out/bin/delta --generate-completion zsh)
-            ''
-          );
-
-          # test_env_parsing_with_pager_set_to_bat sets environment variables,
-          # which can be flaky with multiple threads:
-          # https://github.com/dandavison/delta/issues/1660
-          dontUseCargoParallelTests = true;
-
-          checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-            # This test tries to read /etc/passwd, which fails with the sandbox
-            # enabled on Darwin
-            "--skip=test_diff_real_files"
-          ];
-
-          nativeInstallCheckInputs = [
-            versionCheckHook
-          ];
-
-          doInstallCheck = true;
-
-          doCheck = false;
-
-          meta = {
-            homepage = "https://github.com/dandavison/delta";
-            description = "Syntax-highlighting pager for git";
-            changelog = "https://github.com/dandavison/delta/releases/tag/${finalAttrs.version}";
-            license = lib.licenses.mit;
-            maintainers = with lib.maintainers; [
-              zowoq
-              SuperSandro2000
-            ];
-            mainProgram = "delta";
-          };
-        })
-      ) { };
-    };
-  };
 }

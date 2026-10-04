@@ -13,7 +13,6 @@
     "hyprland": "github:hyprwm/Hyprland",
     "jellium-desktop": "github:andrewrabert/jellium-desktop",
     "lan-mouse": "github:feschber/lan-mouse",
-    "lazygit": "github:jesseduffield/lazygit",
     "nito": "github:onelocked/nito",
     "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel",
     "nixos-core": "github:manic-systems/nixos-core",
@@ -185,14 +184,6 @@
     "rev": "f1b96bdcc0294d285bc9050b7e146800a3ef8796",
     "narHash": "sha256-GGmVzbNbIyTV6hvG9lz/FEc+PwIgM2tX8nbcuD1fo9Y=",
     "lastModified": 1790422438
-  },
-  "lazygit": {
-    "type": "github",
-    "owner": "jesseduffield",
-    "repo": "lazygit",
-    "rev": "c5f7158154602d23b0750d4304c73e2aead8df5b",
-    "narHash": "sha256-2edvYQQxCkGNj3CJrLibaUgFF+uxnwULlO7G6SdgWPU=",
-    "lastModified": 1791219264
   },
   "nito": {
     "type": "github",
