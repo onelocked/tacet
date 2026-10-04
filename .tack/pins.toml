@@ -81,6 +81,10 @@ group = "desktop"
 type = "fetch"
 url = "gh:feschber/lan-mouse"
 
+[inputs.lazygit]
+group = "general"
+url = "gh:jesseduffield/lazygit"
+
 [inputs.nito]
 group = "general"
 url = "gh:onelocked/nito"

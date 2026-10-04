@@ -13,6 +13,7 @@
     "hyprland": "github:hyprwm/Hyprland",
     "jellium-desktop": "github:andrewrabert/jellium-desktop",
     "lan-mouse": "github:feschber/lan-mouse",
+    "lazygit": "github:jesseduffield/lazygit",
     "nito": "github:onelocked/nito",
     "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel",
     "nixos-core": "github:manic-systems/nixos-core",
@@ -185,6 +186,14 @@
     "narHash": "sha256-GGmVzbNbIyTV6hvG9lz/FEc+PwIgM2tX8nbcuD1fo9Y=",
     "lastModified": 1790422438
   },
+  "lazygit": {
+    "type": "github",
+    "owner": "jesseduffield",
+    "repo": "lazygit",
+    "rev": "576d21868adc58ba6d949a8be3230e658a07600b",
+    "narHash": "sha256-tpLII6rluxFBRnDM5z1OxxzuTilc3fzW8hD0G3p7XvI=",
+    "lastModified": 1791133235
+  },
   "nito": {
     "type": "github",
     "owner": "onelocked",
@@ -353,6 +362,14 @@
     "rev": "7173dba5d060417fd65764b706856ae609496e31",
     "narHash": "sha256-Vq0AboLzase+tTZ1Erf2cKpF55cm3eHNuXmmQuOknvw=",
     "lastModified": 1773250467
+  },
+  "treefmt-nix": {
+    "type": "github",
+    "owner": "numtide",
+    "repo": "treefmt-nix",
+    "rev": "d1187f8bc71fb8aab02395869ec3f5c1920f75c0",
+    "narHash": "sha256-XE1lKgQ3eIO3E7zWryqcRsax+mYXod/5RHBn4YaR9YE=",
+    "lastModified": 1785360170
   },
   "tuishell": {
     "type": "git",
