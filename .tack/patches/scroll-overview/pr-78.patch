@@ -1,19 +1,225 @@
+diff --git a/DropIndicator.cpp b/DropIndicator.cpp
+index 375b9b7..35a2565 100644
+--- a/DropIndicator.cpp
++++ b/DropIndicator.cpp
+@@ -139,5 +139,5 @@ void CDropIndicator::renderDropIndicator(const SRenderParams& params) {
+     data.round         = indicatorRounding(params);
+     data.roundingPower = indicatorRoundingPower(params);
+ 
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<CRectPassElement>(data));
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRectPassElement>(data));
+ }
 diff --git a/OverviewPassElement.cpp b/OverviewPassElement.cpp
-index 524ffc3..9ba91ca 100644
+index 524ffc3..d2b3d95 100644
 --- a/OverviewPassElement.cpp
 +++ b/OverviewPassElement.cpp
-@@ -161,7 +161,8 @@ std::vector<UP<IPassElement>> COverviewShadowPassElement::draw() {
+@@ -92,21 +92,21 @@ CScrollOverviewPassElement::CScrollOverviewPassElement() {
+     ;
+ }
+ 
+-std::vector<UP<IPassElement>> CScrollOverviewPassElement::draw() {
++std::vector<UP<IPassElement>> CScrollOverviewPassElement::draw(Render::CRenderContext& ctx) {
+     if (const auto overview = activeScrollOverview())
+         overview->fullRender();
+     return {};
+ }
+ 
+-bool CScrollOverviewPassElement::needsLiveBlur() {
++bool CScrollOverviewPassElement::needsLiveBlur(Render::CRenderContext& ctx) {
+     return false;
+ }
+ 
+-bool CScrollOverviewPassElement::needsPrecomputeBlur() {
++bool CScrollOverviewPassElement::needsPrecomputeBlur(Render::CRenderContext& ctx) {
+     return false;
+ }
+ 
+-std::optional<CBox> CScrollOverviewPassElement::boundingBox() {
++std::optional<CBox> CScrollOverviewPassElement::boundingBox(Render::CRenderContext& ctx) {
+     const auto overview = activeScrollOverview();
+     if (!overview || !overview->pMonitor)
+         return std::nullopt;
+@@ -114,7 +114,7 @@ std::optional<CBox> CScrollOverviewPassElement::boundingBox() {
+     return CBox{{}, overview->pMonitor->m_size};
+ }
+ 
+-CRegion CScrollOverviewPassElement::opaqueRegion() {
++CRegion CScrollOverviewPassElement::opaqueRegion(Render::CRenderContext& ctx) {
+     const auto overview = activeScrollOverview();
+     if (!overview || !overview->pMonitor)
+         return CRegion{};
+@@ -126,27 +126,22 @@ COverviewShadowPassElement::COverviewShadowPassElement(const SData& data_) : dat
+     ;
+ }
+ 
+-std::vector<UP<IPassElement>> COverviewShadowPassElement::draw() {
++std::vector<UP<IPassElement>> COverviewShadowPassElement::draw(Render::CRenderContext& ctx) {
+     const auto MONITOR = data.monitor.lock();
+     const bool HASVISIBLECOLOR = std::ranges::any_of(data.color.m_colors, [](const CHyprColor& color) { return color.a > 0.F; });
+     if (!MONITOR || data.fullBox.width < 1 || data.fullBox.height < 1 || data.range <= 0 || !HASVISIBLECOLOR || data.alpha <= 0.F)
+         return {};
+ 
+-    CRegion shadowDamage = g_pHyprRenderer->m_renderData.damage.copy().intersect(data.fullBox);
++    CRegion shadowDamage = ctx.m_data.damage.copy().intersect(data.fullBox);
+     if (data.ignoreWindow)
+         shadowDamage.subtract(roundedRectRegion(data.cutoutBox, data.rounding + 1, data.roundingPower));
+ 
+     if (shadowDamage.empty())
+         return {};
+ 
+-    const auto SAVEDDAMAGE       = g_pHyprRenderer->m_renderData.damage;
+-    const auto SAVEDCURRENTWINDOW = g_pHyprRenderer->m_renderData.currentWindow;
+-    g_pHyprRenderer->m_renderData.damage = shadowDamage;
+-    g_pHyprRenderer->m_renderData.currentWindow.reset();
+-    auto restoreRenderData = Hyprutils::Utils::CScopeGuard([SAVEDDAMAGE, SAVEDCURRENTWINDOW] {
+-        g_pHyprRenderer->m_renderData.damage        = SAVEDDAMAGE;
+-        g_pHyprRenderer->m_renderData.currentWindow = SAVEDCURRENTWINDOW;
+-    });
++    auto savedDrawState = ctx.saveDrawState();
++    ctx.m_data.damage   = shadowDamage;
++    ctx.m_data.currentWindow.reset();
+ 
+     std::optional<int> previousRenderPower;
+     if (data.renderPower > 0) {
+@@ -161,20 +156,21 @@ std::vector<UP<IPassElement>> COverviewShadowPassElement::draw() {
          ScrollOverview::Config::setValue("decoration:shadow:render_power", *previousRenderPower);
      });
  
 -    Render::GL::g_pHyprOpenGL->renderRoundedShadow(data.fullBox, data.rounding, data.roundingPower, data.range, data.color, std::clamp(data.alpha, 0.F, 1.F));
 +    // Overview shadows use precomputed boxes and no current window, so no workspace presentation is needed.
-+    Render::GL::g_pHyprOpenGL->renderRoundedShadow(data.fullBox, data.rounding, data.roundingPower, data.range, data.color, std::clamp(data.alpha, 0.F, 1.F), nullptr);
++    Render::GL::g_pHyprOpenGL->renderRoundedShadow(ctx, data.fullBox, data.rounding, data.roundingPower, data.range, data.color, std::clamp(data.alpha, 0.F, 1.F), {});
  
      return {};
  }
+ 
+-bool COverviewShadowPassElement::needsLiveBlur() {
++bool COverviewShadowPassElement::needsLiveBlur(Render::CRenderContext& ctx) {
+     return false;
+ }
+ 
+-bool COverviewShadowPassElement::needsPrecomputeBlur() {
++bool COverviewShadowPassElement::needsPrecomputeBlur(Render::CRenderContext& ctx) {
+     return false;
+ }
+ 
+-std::optional<CBox> COverviewShadowPassElement::boundingBox() {
++std::optional<CBox> COverviewShadowPassElement::boundingBox(Render::CRenderContext& ctx) {
+     const auto MONITOR = data.monitor.lock();
+     if (!MONITOR)
+         return std::nullopt;
+@@ -182,6 +178,6 @@ std::optional<CBox> COverviewShadowPassElement::boundingBox() {
+     return data.fullBox.copy().scale(1.F / MONITOR->m_scale).round();
+ }
+ 
+-CRegion COverviewShadowPassElement::opaqueRegion() {
++CRegion COverviewShadowPassElement::opaqueRegion(Render::CRenderContext& ctx) {
+     return {};
+ }
+diff --git a/OverviewPassElement.hpp b/OverviewPassElement.hpp
+index ea59be9..e3eef3b 100644
+--- a/OverviewPassElement.hpp
++++ b/OverviewPassElement.hpp
+@@ -8,14 +8,14 @@ class CScrollOverviewPassElement : public IPassElement {
+     CScrollOverviewPassElement();
+     ~CScrollOverviewPassElement() override = default;
+ 
+-    std::vector<UP<IPassElement>> draw() override;
++    std::vector<UP<IPassElement>> draw(Render::CRenderContext& ctx) override;
+     ePassElementType              type() override {
+         return EK_CUSTOM;
+     }
+-    bool                          needsLiveBlur() override;
+-    bool                          needsPrecomputeBlur() override;
+-    std::optional<CBox>           boundingBox() override;
+-    CRegion                       opaqueRegion() override;
++    bool                          needsLiveBlur(Render::CRenderContext& ctx) override;
++    bool                          needsPrecomputeBlur(Render::CRenderContext& ctx) override;
++    std::optional<CBox>           boundingBox(Render::CRenderContext& ctx) override;
++    CRegion                       opaqueRegion(Render::CRenderContext& ctx) override;
+ 
+     const char*                   passName() override {
+         return "CScrollOverviewPassElement";
+@@ -40,14 +40,14 @@ class COverviewShadowPassElement : public IPassElement {
+     COverviewShadowPassElement(const SData& data_);
+     ~COverviewShadowPassElement() override = default;
+ 
+-    std::vector<UP<IPassElement>> draw() override;
++    std::vector<UP<IPassElement>> draw(Render::CRenderContext& ctx) override;
+     ePassElementType              type() override {
+         return EK_CUSTOM;
+     }
+-    bool                          needsLiveBlur() override;
+-    bool                          needsPrecomputeBlur() override;
+-    std::optional<CBox>           boundingBox() override;
+-    CRegion                       opaqueRegion() override;
++    bool                          needsLiveBlur(Render::CRenderContext& ctx) override;
++    bool                          needsPrecomputeBlur(Render::CRenderContext& ctx) override;
++    std::optional<CBox>           boundingBox(Render::CRenderContext& ctx) override;
++    CRegion                       opaqueRegion(Render::CRenderContext& ctx) override;
+ 
+     const char*                   passName() override {
+         return "COverviewShadowPassElement";
+diff --git a/OverviewRender.cpp b/OverviewRender.cpp
+index acab1a3..6dcd114 100644
+--- a/OverviewRender.cpp
++++ b/OverviewRender.cpp
+@@ -8,14 +8,18 @@
+ namespace OverviewRender {
+ 
+ void flushPass(PHLMONITOR monitor) {
+-    if (!monitor || g_pHyprRenderer->m_renderPass.empty())
++    if (!monitor)
++        return;
++
++    auto& pass = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context());
++    if (pass.empty())
+         return;
+ 
+-    g_pHyprRenderer->m_renderPass.render(CRegion{CBox{{}, monitor->m_transformedSize}});
+-    g_pHyprRenderer->m_renderPass.clear();
++    pass.render(g_pHyprRenderer->context(), CRegion{CBox{{}, monitor->m_transformedSize}});
++    pass.clear();
+ }
+ 
+-void queueBlur(const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur) {
++void queueBlur(Render::CRenderContext& ctx, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur) {
+     if (alpha <= 0.F)
+         return;
+ 
+@@ -30,14 +34,14 @@ void queueBlur(const CBox& box, int rounding, float roundingPower, float alpha,
+     data.blur          = true;
+     data.blurA         = alpha;
+     data.xray          = usePrecomputedBlur;
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<CRectPassElement>(data));
++    Render::IHyprRenderer::currentPass(ctx).add(makeUnique<CRectPassElement>(data));
+ }
+ 
+-void renderBlur(PHLMONITOR monitor, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur) {
++void renderBlur(Render::CRenderContext& ctx, PHLMONITOR monitor, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur) {
+     if (!monitor)
+         return;
+ 
+-    queueBlur(box, rounding, roundingPower, alpha, usePrecomputedBlur);
++    queueBlur(ctx, box, rounding, roundingPower, alpha, usePrecomputedBlur);
+     flushPass(monitor);
+ }
+ 
+diff --git a/OverviewRender.hpp b/OverviewRender.hpp
+index a32f903..505f8a6 100644
+--- a/OverviewRender.hpp
++++ b/OverviewRender.hpp
+@@ -5,7 +5,7 @@
+ namespace OverviewRender {
+ 
+ void flushPass(PHLMONITOR monitor);
+-void queueBlur(const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur);
+-void renderBlur(PHLMONITOR monitor, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur);
++void queueBlur(Render::CRenderContext& ctx, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur);
++void renderBlur(Render::CRenderContext& ctx, PHLMONITOR monitor, const CBox& box, int rounding, float roundingPower, float alpha, bool usePrecomputedBlur);
+ 
+ }
 diff --git a/Window.cpp b/Window.cpp
-index 909e7a8..7e0089e 100644
+index 909e7a8..90e0043 100644
 --- a/Window.cpp
 +++ b/Window.cpp
 @@ -7,6 +7,7 @@
@@ -24,40 +230,334 @@ index 909e7a8..7e0089e 100644
  #include <hyprland/src/config/ConfigValue.hpp>
  #include <hyprland/src/managers/SeatManager.hpp>
  #include <hyprland/src/desktop/state/FocusState.hpp>
+@@ -262,7 +263,7 @@ static void roundStandaloneWindowPassElements(const PHLWINDOW& window, PHLMONITO
+     if (rounding <= 0)
+         return;
+ 
+-    auto& passElements = g_pHyprRenderer->m_renderPass.m_passElements;
++    auto& passElements = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).m_passElements;
+     for (size_t i = firstElement; i < passElements.size(); ++i) {
+         const auto& passElement = passElements[i];
+         if (!passElement.element)
+@@ -351,7 +352,7 @@ static void blockOverviewWindowBlurOptimization(const PHLWINDOW& window, size_t
+     if (!window)
+         return;
+ 
+-    auto& passElements = g_pHyprRenderer->m_renderPass.m_passElements;
++    auto& passElements = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).m_passElements;
+     for (size_t i = firstElement; i < passElements.size(); ++i) {
+         const auto& passElement = passElements[i];
+         if (!passElement.element)
+@@ -375,7 +376,7 @@ static void scaleOverviewChildSurfaceGeometry(const PHLWINDOW& window, const Vec
+         return;
+ 
+     const Vector2D SURFACESCALE = targetSize / REPORTEDSIZE;
+-    auto&          passElements = g_pHyprRenderer->m_renderPass.m_passElements;
++    auto&          passElements = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).m_passElements;
+ 
+     for (size_t i = firstElement; i < passElements.size(); ++i) {
+         const auto& passElement = passElements[i];
+@@ -418,7 +419,7 @@ static void raiseWindowPopups(const PHLWINDOW& window, size_t firstElement) {
+     if (!window)
+         return;
+ 
+-    auto& passElements = g_pHyprRenderer->m_renderPass.m_passElements;
++    auto& passElements = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).m_passElements;
+     if (firstElement >= passElements.size())
+         return;
+ 
 @@ -570,7 +571,7 @@ static void renderOverviewHyprbarDecoration(SOverviewCustomDecorationRenderState
          previousReplyData->lastReply = *REPLY;
      decoration->onPositioningReply(*REPLY);
  
 -    decoration->draw(monitor, PARTOFWINDOW ? 1.F : metrics.targetOpacity);
-+    decoration->draw(monitor, PARTOFWINDOW ? 1.F : metrics.targetOpacity, dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace));
++    decoration->draw(g_pHyprRenderer->context(), monitor, PARTOFWINDOW ? 1.F : metrics.targetOpacity, window->presentation().renderPresentation(dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace)));
  
      state.queuedAny = true;
      state.restoreFns.emplace_back([window, decoration, WORKSPACE, OVERRIDEWORKSPACEOFFSET, previousWindowPos, previousWindowSize, previousWorkspaceOffset, previousReply,
-@@ -904,7 +905,7 @@ static void renderOverviewGroupTabs(PHLMONITOR monitor, const PHLWINDOW& window,
+@@ -642,7 +643,7 @@ static void renderOverviewWindowShadow(PHLMONITOR monitor, const PHLWINDOW& wind
+     if (std::ranges::none_of(shadowColor.m_colors, [](const CHyprColor& color) { return color.a > 0.F; }))
+         return;
+ 
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<COverviewShadowPassElement>(COverviewShadowPassElement::SData{
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<COverviewShadowPassElement>(COverviewShadowPassElement::SData{
+         .monitor       = monitor,
+         .fullBox       = shadowBox,
+         .cutoutBox     = cutoutBox.round(),
+@@ -687,7 +688,7 @@ static void renderOverviewWindowBorder(PHLMONITOR monitor, const PHLWINDOW& wind
+         data.lerp     = GRADIENT.progress;
+     } else
+         data.grad1 = grad;
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<CBorderPassElement>(data));
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CBorderPassElement>(data));
+ }
+ 
+ static void renderOverviewGroupTabIndicators(PHLMONITOR monitor, const PHLWINDOW& window, const CBox& windowBox, const SOverviewWindowMetrics& metrics, float alpha) {
+@@ -759,7 +760,7 @@ static void renderOverviewGroupTabIndicators(PHLMONITOR monitor, const PHLWINDOW
+         data.color         = color;
+         data.round         = rounding;
+         data.roundingPower = PROUNDINGPOWER;
+-        g_pHyprRenderer->m_renderPass.add(makeUnique<CRectPassElement>(data));
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRectPassElement>(data));
+     }
+ }
+ 
+@@ -862,7 +863,7 @@ static void renderOverviewGroupTabTitles(PHLMONITOR monitor, const PHLWINDOW& wi
+         data.tex = titleTex;
+         data.box = textBox;
+         data.a   = 1.F;
+-        g_pHyprRenderer->m_renderPass.add(makeUnique<CTexPassElement>(data));
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CTexPassElement>(data));
+     }
+ }
+ 
+@@ -903,9 +904,9 @@ static void renderOverviewGroupTabs(PHLMONITOR monitor, const PHLWINDOW& window,
+     modif.modifs.emplace_back(Render::SRenderModifData::RMOD_TYPE_TRANSLATE, workspaceBox.pos());
  
      GROUPBAR->updateWindow(window);
-     g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
 -    GROUPBAR->draw(monitor, metrics.targetOpacity);
-+    GROUPBAR->draw(monitor, metrics.targetOpacity, dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace));
-     g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
++    GROUPBAR->draw(g_pHyprRenderer->context(), monitor, metrics.targetOpacity, window->presentation().renderPresentation(dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace)));
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
      renderOverviewGroupTabIndicators(monitor, window, windowBox, metrics, metrics.targetOpacity);
  }
-@@ -938,7 +939,7 @@ static SOverviewCustomDecorationRenderState renderOverviewCustomDecorations(PHLM
+ 
+@@ -933,17 +934,17 @@ static SOverviewCustomDecorationRenderState renderOverviewCustomDecorations(PHLM
+         }
+ 
+         if (!drewAny) {
+-            g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
++            Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
+             drewAny = true;
          }
  
          deco->updateWindow(window);
 -        deco->draw(monitor, metrics.targetOpacity);
-+        deco->draw(monitor, metrics.targetOpacity, dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace));
++        deco->draw(g_pHyprRenderer->context(), monitor, metrics.targetOpacity, window->presentation().renderPresentation(dynamicPointerCast<Workspace::CWorkspacePresentable>(window->m_workspace)));
          state.queuedAny = true;
      }
  
-@@ -1040,7 +1041,8 @@ void renderOverviewWindow(const SRenderParams& params) {
+     if (drewAny)
+-        g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
  
-     const size_t firstWindowPassElement = g_pHyprRenderer->m_renderPass.m_passElements.size();
+     return state;
+ }
+@@ -1038,9 +1039,10 @@ void renderOverviewWindow(const SRenderParams& params) {
+             WORKSPACE->m_renderOffset->value() = previousWorkspaceOffset;
+     });
+ 
+-    const size_t firstWindowPassElement = g_pHyprRenderer->m_renderPass.m_passElements.size();
++    const size_t firstWindowPassElement = Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).m_passElements.size();
      const bool   usePrecomputedBlur     = shouldUsePrecomputedBlur(params.window, params.monitor, params.workspaceBox, &params.windowBox, params.dragged);
 -    g_pHyprRenderer->renderWindow(params.window, params.monitor, params.now, false, Render::RENDER_PASS_ALL, false, false);
 +    // Keep the workspace presentation so floating offsets, alpha and blur match the window.
-+    g_pHyprRenderer->renderWindow(params.window, params.monitor, dynamicPointerCast<Workspace::CWorkspacePresentable>(WORKSPACE), params.now, false, Render::RENDER_PASS_ALL, false, false);
++    g_pHyprRenderer->renderWindow(g_pHyprRenderer->context(), params.window, params.monitor, params.window->presentation().renderPresentation(dynamicPointerCast<Workspace::CWorkspacePresentable>(WORKSPACE)), params.now, false, Render::RENDER_PASS_ALL, false, false);
      const Vector2D targetWindowPosition = params.monitor->m_position + params.windowBox.pos() / params.monitor->m_scale;
      scaleOverviewChildSurfaceGeometry(params.window, targetWindowPosition, params.window->sizeAnimation()->value(), firstWindowPassElement);
      if (!usePrecomputedBlur)
+diff --git a/main.cpp b/main.cpp
+index b4eda44..18de1c8 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -38,7 +38,7 @@ static CFunctionHook* g_pScrollScheduleFrameHook   = nullptr;
+ static CFunctionHook* g_pScrollSendFrameEventsHook = nullptr;
+ static CFunctionHook* g_pScrollSurfaceFrameHook    = nullptr;
+ static CFunctionHook* g_pScrollMoveMouseHook       = nullptr;
+-typedef void (*origRenderWorkspace)(void*, PHLMONITOR, PHLWORKSPACE, const Time::steady_tp&, const CBox&);
++typedef void (*origRenderWorkspace)(void*, Render::CRenderContext&, PHLMONITOR, PHLWORKSPACE, const Time::steady_tp&, const CBox&);
+ typedef void (*origAddDamageA)(void*, const CBox&);
+ typedef void (*origAddDamageB)(void*, const pixman_region32_t*);
+ typedef void (*origDamageSurface)(void*, SP<CWLSurfaceResource>, double, double, double);
+@@ -141,10 +141,10 @@ static void hkScheduleFrame(void* thisptr, Aquamarine::IOutput::scheduleFrameRea
+ }
+ 
+ //
+-static void hkRenderWorkspace(void* thisptr, PHLMONITOR pMonitor, PHLWORKSPACE pWorkspace, const Time::steady_tp& now, const CBox& geometry) {
++static void hkRenderWorkspace(void* thisptr, Render::CRenderContext& ctx, PHLMONITOR pMonitor, PHLWORKSPACE pWorkspace, const Time::steady_tp& now, const CBox& geometry) {
+     const auto OVERVIEW = scrollOverviewForMonitor(pMonitor);
+     if (!OVERVIEW || renderingOverview)
+-        rc<origRenderWorkspace>(g_pScrollRenderWorkspaceHook->m_original)(thisptr, pMonitor, pWorkspace, now, geometry);
++        rc<origRenderWorkspace>(g_pScrollRenderWorkspaceHook->m_original)(thisptr, ctx, pMonitor, pWorkspace, now, geometry);
+     else {
+         const bool PREVRENDERINGOVERVIEW = renderingOverview;
+         const auto PREVRENDERINGMONITOR  = renderingOverviewMonitor;
+@@ -675,7 +675,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
+ }
+ 
+ APICALL EXPORT void PLUGIN_EXIT() {
+-    g_pHyprRenderer->m_renderPass.removeAllOfType("CScrollOverviewPassElement");
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).removeAllOfType("CScrollOverviewPassElement");
+ 
+     g_unloading = true;
+     g_configReloadHook.reset();
+diff --git a/scrollOverview.cpp b/scrollOverview.cpp
+index eaffb96..2be9d17 100644
+--- a/scrollOverview.cpp
++++ b/scrollOverview.cpp
+@@ -712,7 +712,7 @@ static void renderOverviewWorkspaceShadow(PHLMONITOR monitor, const CBox& worksp
+     if (baseBox.width < 1 || baseBox.height < 1)
+         return;
+ 
+-    g_pHyprRenderer->m_renderPass.add(makeUnique<COverviewShadowPassElement>(COverviewShadowPassElement::SData{
++    Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<COverviewShadowPassElement>(COverviewShadowPassElement::SData{
+         .monitor       = monitor,
+         .fullBox       = baseBox.copy().expand(RANGE).round(),
+         .cutoutBox     = baseBox,
+@@ -1682,7 +1682,7 @@ static void renderOverviewLayerLevel(PHLMONITOR monitor, uint32_t layer, const C
+             modif.modifs.emplace_back(Render::SRenderModifData::RMOD_TYPE_SCALE, renderScale);
+             modif.modifs.emplace_back(Render::SRenderModifData::RMOD_TYPE_TRANSLATE, workspaceBox.pos());
+ 
+-            g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
++            Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
+             pushedRenderHints = true;
+         }
+ 
+@@ -1693,14 +1693,14 @@ static void renderOverviewLayerLevel(PHLMONITOR monitor, uint32_t layer, const C
+ 			lsAlpha->setValueAndWarp(previousAlpha * std::clamp(alpha, 0.F, 1.F));
+ 		}
+ 
+-        g_pHyprRenderer->renderLayer(LAYER, monitor, now);
++        g_pHyprRenderer->renderLayer(g_pHyprRenderer->context(), LAYER, monitor, now);
+ 
+         if (MODULATEALPHA && lsAlpha->value())
+ 			lsAlpha->setValueAndWarp(previousAlpha);
+     }
+ 
+     if (pushedRenderHints)
+-        g_pHyprRenderer->m_renderPass.add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = Render::SRenderModifData{}}));
+ }
+ 
+ void CScrollOverview::renderWallpaperLayers(PHLMONITOR monitor, const CBox& workspaceBox, float renderScale, const Time::steady_tp& now, float alpha) {
+@@ -1714,13 +1714,13 @@ void CScrollOverview::renderGlobalWallpaper(PHLMONITOR monitor, const Time::stea
+     if (!monitor)
+         return;
+ 
+-    g_pHyprRenderer->renderBackground(monitor);
++    g_pHyprRenderer->renderBackground(g_pHyprRenderer->context(), monitor);
+ 
+     for (auto const& ls : monitor->m_layerSurfaceLayers[ZWLR_LAYER_SHELL_V1_LAYER_BACKGROUND]) {
+         if (!Desktop::View::validMapped(ls.lock()))
+             continue;
+ 
+-        g_pHyprRenderer->renderLayer(ls.lock(), monitor, now);
++        g_pHyprRenderer->renderLayer(g_pHyprRenderer->context(), ls.lock(), monitor, now);
+     }
+ }
+ 
+@@ -1735,7 +1735,7 @@ void CScrollOverview::updateBackdropBlurCache(PHLMONITOR monitor, int wallpaperM
+ 
+     const auto FBSIZE     = monitor->m_transformedSize;
+     const auto RENDERSIZE = monitor->m_transformedSize;
+-    const auto FBFORMAT   = g_pHyprRenderer->m_renderData.currentFB->m_drmFormat;
++    const auto FBFORMAT   = g_pHyprRenderer->context().m_data.currentFB->m_drmFormat;
+     if (!backdropBlurFB)
+         backdropBlurFB = g_pHyprRenderer->createFB("scrolloverview_backdrop_blur");
+ 
+@@ -1750,14 +1750,14 @@ void CScrollOverview::updateBackdropBlurCache(PHLMONITOR monitor, int wallpaperM
+     if (!backdropBlurDirty)
+         return;
+ 
+-    if (g_pHyprRenderer->m_renderData.currentFB)
+-        backdropBlurFB->setImageDescription(g_pHyprRenderer->m_renderData.currentFB->imageDescription());
++    if (g_pHyprRenderer->context().m_data.currentFB)
++        backdropBlurFB->setImageDescription(g_pHyprRenderer->context().m_data.currentFB->imageDescription());
+ 
+     const CRegion fullDamage{CBox{0, 0, RENDERSIZE.x, RENDERSIZE.y}};
+ 
+     {
+-        auto bindBackdrop = g_pHyprRenderer->bindTempFB(backdropBlurFB);
+-        g_pHyprRenderer->draw(CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 1.F}}, fullDamage);
++        auto bindBackdrop = g_pHyprRenderer->bindTempFB(g_pHyprRenderer->context(), backdropBlurFB);
++        g_pHyprRenderer->draw(g_pHyprRenderer->context(), CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 1.F}}, fullDamage);
+         renderGlobalWallpaper(monitor, now);
+         OverviewRender::flushPass(monitor);
+     }
+@@ -1765,18 +1765,18 @@ void CScrollOverview::updateBackdropBlurCache(PHLMONITOR monitor, int wallpaperM
+     auto         blurDamage = fullDamage;
+     SP<Render::ITexture> BLURREDTEX;
+     {
+-        auto bindBackdrop = g_pHyprRenderer->bindTempFB(backdropBlurFB);
+-        const auto blurredFB = g_pHyprRenderer->blurMainFramebuffer(1.F, blurDamage);
++        auto bindBackdrop = g_pHyprRenderer->bindTempFB(g_pHyprRenderer->context(), backdropBlurFB);
++        const auto blurredFB = g_pHyprRenderer->blurMainFramebuffer(g_pHyprRenderer->context(), 1.F, blurDamage);
+         BLURREDTEX = blurredFB ? blurredFB->getTexture() : nullptr;
+     }
+     if (!BLURREDTEX || !BLURREDTEX->m_size.x || !BLURREDTEX->m_size.y)
+         return;
+ 
+     {
+-        auto bindBackdrop = g_pHyprRenderer->bindTempFB(backdropBlurFB);
+-        g_pHyprRenderer->draw(CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 0.F}}, fullDamage);
++        auto bindBackdrop = g_pHyprRenderer->bindTempFB(g_pHyprRenderer->context(), backdropBlurFB);
++        g_pHyprRenderer->draw(g_pHyprRenderer->context(), CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 0.F}}, fullDamage);
+ 
+-        g_pHyprRenderer->draw(
++        g_pHyprRenderer->draw(g_pHyprRenderer->context(), 
+             CTexPassElement::SRenderData{
+                 .tex    = BLURREDTEX,
+                 .box    = CBox{0, 0, RENDERSIZE.x, RENDERSIZE.y},
+@@ -1795,7 +1795,7 @@ void CScrollOverview::renderBackdropBlurCache(PHLMONITOR monitor) {
+     const auto TEX = backdropBlurFB->getTexture();
+     const CRegion fullDamage{CBox{0, 0, monitor->m_transformedSize.x, monitor->m_transformedSize.y}};
+ 
+-    g_pHyprRenderer->draw(
++    g_pHyprRenderer->draw(g_pHyprRenderer->context(), 
+         CTexPassElement::SRenderData{
+             .tex    = TEX,
+             .box    = CBox{0, 0, monitor->m_transformedSize.x, monitor->m_transformedSize.y},
+@@ -4232,7 +4232,7 @@ void CScrollOverview::renderWorkspaceBackground(PHLMONITOR monitor, size_t works
+     renderOverviewWorkspaceShadow(monitor, WORKSPACEBOX, renderScale, wallpaperMode == 0, WORKSPACEALPHA);
+ 
+     if (ScrollOverview::Config::getBlur() && wallpaperMode != 1 && WORKSPACEALPHA > 0.001F)
+-        OverviewRender::queueBlur(WORKSPACEBOX, 0, 2.F, WORKSPACEALPHA, false);
++        OverviewRender::queueBlur(g_pHyprRenderer->context(), WORKSPACEBOX, 0, 2.F, WORKSPACEALPHA, false);
+ 
+     if (wallpaperMode != 0 && WORKSPACEALPHA > 0.001F)
+         renderWallpaperLayers(monitor, WORKSPACEBOX, renderScale, now, WORKSPACEALPHA);
+@@ -5350,9 +5350,9 @@ void CScrollOverview::render() {
+     if (g_pointerGrabOverview && g_pointerGrabOverview != this && g_pointerGrabOverview->dragActiveWindow && isOverviewPointerOnMonitor(MONITOR))
+         lastMousePosLocal = getOverviewMousePosLocal(MONITOR);
+ 
+-    const bool PREVBLOCKSURFACEFEEDBACK       = g_pHyprRenderer->m_bBlockSurfaceFeedback;
+-    g_pHyprRenderer->m_bBlockSurfaceFeedback  = true;
+-    auto restoreSurfaceFeedback               = Hyprutils::Utils::CScopeGuard([PREVBLOCKSURFACEFEEDBACK] { g_pHyprRenderer->m_bBlockSurfaceFeedback = PREVBLOCKSURFACEFEEDBACK; });
++    const bool PREVBLOCKSURFACEFEEDBACK       = g_pHyprRenderer->context().m_blockSurfaceFeedback;
++    g_pHyprRenderer->context().m_blockSurfaceFeedback  = true;
++    auto restoreSurfaceFeedback               = Hyprutils::Utils::CScopeGuard([PREVBLOCKSURFACEFEEDBACK] { g_pHyprRenderer->context().m_blockSurfaceFeedback = PREVBLOCKSURFACEFEEDBACK; });
+ 
+     const auto NOW       = Time::steadyNow();
+     const auto ACTIVEIDX = activeWorkspaceIndex();
+@@ -5378,9 +5378,9 @@ void CScrollOverview::render() {
+     } else if (WALLPAPERMODE == 0 || WALLPAPERMODE == 2) {
+         renderGlobalWallpaper(MONITOR, NOW);
+     } else
+-        g_pHyprRenderer->draw(CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 1.F}}, {});
++        g_pHyprRenderer->draw(g_pHyprRenderer->context(), CClearPassElement::SClearData{CHyprColor{0.F, 0.F, 0.F, 1.F}}, {});
+ 
+-    Event::bus()->m_events.render.stage.emit(RENDER_POST_WALLPAPER);
++    Event::bus()->m_events.render.stage.emit(Event::SRenderStageEvent{.stage = RENDER_POST_WALLPAPER, .monitor = MONITOR, .context = g_pHyprRenderer->context()});
+ 
+     for (size_t workspaceIdx = 0; workspaceIdx < images.size(); ++workspaceIdx) {
+         renderWorkspaceBackground(MONITOR, workspaceIdx, ACTIVEIDX, PITCH, SCALE, WALLPAPERMODE, NOW);
+@@ -5403,7 +5403,7 @@ void CScrollOverview::render() {
+ 
+     const bool NEEDS_PRECOMPUTED_BLUR = hasVisiblePrecomputedBlurWindow(MONITOR, ACTIVEIDX, PITCH, SCALE);
+     if (NEEDS_PRECOMPUTED_BLUR && overviewBlurDirty)
+-        g_pHyprRenderer->m_renderPass.add(makeUnique<CPreBlurElement>());
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CPreBlurElement>());
+ 
+     OverviewRender::flushPass(MONITOR);
+ 
+@@ -5422,7 +5422,7 @@ void CScrollOverview::render() {
+             if (!Desktop::View::validMapped(ls.lock()))
+                 continue;
+ 
+-            g_pHyprRenderer->renderLayer(ls.lock(), MONITOR, NOW);
++            g_pHyprRenderer->renderLayer(g_pHyprRenderer->context(), ls.lock(), MONITOR, NOW);
+         }
+     }
+ 
