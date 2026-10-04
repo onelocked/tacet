@@ -1,6 +1,6 @@
 {
   exo.core =
-    { scheme, theme, ... }:
+    { scheme, ... }:
     {
       forte.starship = {
         enable = true;
@@ -12,7 +12,7 @@
           command_timeout = 1000;
           character = {
             vimcmd_symbol = "[](color_teal)";
-            success_symbol = "[➜](color_teal1)";
+            success_symbol = "[❯](color_teal1)";
             error_symbol = "[](color_red)";
           };
           git_branch = {
@@ -73,7 +73,6 @@
       lib,
       config,
       wrapPackage,
-      theme,
       ...
     }:
     let
