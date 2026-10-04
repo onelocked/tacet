@@ -136,9 +136,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "579829f065b425f7b4e850915054f2dd472b27c8",
-    "narHash": "sha256-CZjwghUIfNoWcNvHI59ImwZMeJwT+NgYF8ncUJyecoE=",
-    "lastModified": 1791114448
+    "rev": "8e9a538fb08dafa094309d3025ac5ec48b9879fe",
+    "narHash": "sha256-QWs5eh6SUO2bWqlxTAPFopXpEpnp0DjYfyqNCEsGCuo=",
+    "lastModified": 1790956643
   },
   "jellium-desktop": {
     "type": "git",
