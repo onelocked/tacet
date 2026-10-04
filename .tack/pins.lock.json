@@ -130,7 +130,21 @@
     "repo": "hyprland-plugins",
     "rev": "64d6f514ea94fe4742faa0e299a3ccce23feaea5",
     "narHash": "sha256-MCwH6CyMp3ijRjVwQc+QPV21sT658pqqMaWj/3ipahY=",
-    "lastModified": 1790934510
+    "lastModified": 1790934510,
+    "patched": {
+      "path": "/nix/store/l2ndhbs8mmz7d93qf95anaplbdhv969a-source",
+      "narHash": "sha256-MIkQlEb44kJtPGRyTmUc9L30DyEI/tOaSIfjnT9a/bA=",
+      "lastModified": 1790934510,
+      "patches": [
+        {
+          "source": "https://github.com/hyprwm/hyprland-plugins/pull/715",
+          "url": "https://github.com/hyprwm/hyprland-plugins/pull/715",
+          "file": "patches/hypr-plugs/pr-715.patch",
+          "sha256": "feb85b30884eb119d9a320bde965c0e4c2f22bc10755c0c7c37d77c91bc1a5e5",
+          "head": "e606588d590c301ec37244b55109ea6d9eb17e2c"
+        }
+      ]
+    }
   },
   "hyprland": {
     "type": "github",
