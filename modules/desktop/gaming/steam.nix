@@ -86,8 +86,8 @@
 
       forte.hyprland.lua.window-rules = # lua
         ''
-          hl.on("workspace.special_active", function(ws, monitor)
-            if not ws or ws.addressable_name ~= "special:magic" then
+          hl.on("workspace.active", function(ws)
+            if not ws or ws.id ~= 5 then
               return
             end
 
@@ -111,7 +111,7 @@
           hl.window_rule({
             name = "steam-move-workspace",
             match = { class = "^steam$" },
-            workspace = "special:magic silent",
+            workspace = "5",
             scrolling_width = 0.505,
           })
 
@@ -163,7 +163,7 @@
             },
             decorate = false,
             content = "game",
-            workspace = "5",
+            workspace = "6",
             fullscreen_state = "3 3",
             idle_inhibit = "focus",
           })
@@ -171,10 +171,10 @@
           -- return to workspace media once the game is closed
           hl.on("window.close", function()
             local ws = hl.get_active_workspace()
-            if ws ~= nil and ws.name == "5" then
+            if ws ~= nil and ws.name == "6" then
               local windows = hl.get_workspace_windows(ws.name)
               if windows ~= nil and #windows <= 1 then
-                hl.dispatch(hl.dsp.focus({ workspace = "special:magic" }))
+                hl.dispatch(hl.dsp.focus({ workspace = "5" }))
               end
             end
           end)
