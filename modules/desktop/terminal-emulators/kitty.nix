@@ -1,36 +1,30 @@
 {
   exo.mods.desktop =
-    {
-      scheme,
-      theme,
-      lib,
-      pkgs,
-      ...
-    }:
+    { scheme, pkgs, ... }:
     {
       forte.kitty = {
         enable = true;
         settings = {
-          wayland_enable_ime = "no";
+          wayland_enable_ime = false;
 
-          sync_to_monitor = "yes";
+          sync_to_monitor = true;
           background_opacity = "0.93";
-          remember_window_position = "no";
+          remember_window_position = false;
 
-          draw_minimal_borders = "yes";
-          placement_strategy = "center";
+          draw_minimal_borders = true;
+          placement_strategy = "bottom";
           update_check_interval = "24";
-          allow_hyperlinks = "yes";
-          allow_remote_control = "yes";
+          allow_hyperlinks = true;
+          allow_remote_control = true;
           listen_on = "unix:/tmp/kitty-\${kitty_pid}";
 
           scrollback_lines = "10000";
           wheel_scroll_multiplier = "5.0";
 
           strip_trailing_spaces = "smart";
-          hide_window_decorations = "yes";
+          hide_window_decorations = true;
 
-          enable_audio_bell = "no";
+          enable_audio_bell = false;
           visual_bell_duration = "0.0";
           repaint_delay = "10";
 
@@ -38,6 +32,7 @@
 
           cursor_trail = "1";
           cursor_trail_decay = "0.1 0.2";
+          custom_shaders = "cursor-trail-motion-blur";
           cursor_shape = "block";
           cursor_blink_interval = "0.5";
           cursor_stop_blinking_after = "15.0";
@@ -45,11 +40,11 @@
 
           window_padding_width = "0 0 0 0";
 
-          detect_urls = "yes";
+          detect_urls = true;
           url_style = "curly";
           mouse_hide_wait = "2.0";
 
-          focus_follows_mouse = "no";
+          focus_follows_mouse = false;
           cursor_shape_unfocused = "hollow";
 
           # Tab bar
@@ -66,8 +61,17 @@
           inactive_tab_font_style = "normal";
 
           window_border_width = "1.5pt";
+
+          # scrollback-kitty nvim plugin
+          "action_alias kitty_scrollback_nvim" =
+            "kitten ${pkgs.vimPlugins.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py";
         };
         keybindings = {
+          # scrollback-kitty nvim plugin
+          "alt+a" = "kitty_scrollback_nvim";
+          "alt+g" = "kitty_scrollback_nvim --config ksb_builtin_last_cmd_output";
+          "alt+h" = "kitten hints --type regex --regex 'sha256-[A-Za-z0-9+/=]{44}' --program @";
+
           # Splits
           "ctrl+a>p>d" = "launch --location=hsplit --cwd=current";
           "ctrl+a>p>n" = "launch --location=vsplit --cwd=current";
@@ -106,15 +110,6 @@
           "right press ungrabbed" = "combine : copy_to_clipboard : clear_selection";
           "left press ungrabbed" = "mouse_selection drag_or_normal_select";
         };
-        extraConfig = ''
-          # scrollback-kitty nvim plugin
-          action_alias kitty_scrollback_nvim kitten ${pkgs.vimPlugins.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py
-          map alt+a kitty_scrollback_nvim
-          map alt+g kitty_scrollback_nvim --config ksb_builtin_last_cmd_output
-          mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
-
-          map alt+h kitten hints --type regex --regex 'sha256-[A-Za-z0-9+/=]{44}' --program @
-        '';
         fontConfig =
           let
             mapleFeatures = "+cv01 +cv04 +cv05 +cv06 +cv07 +cv08 +cv32 +cv34 +cv36 +cv37 +cv39 +cv40 +cv41 +cv66 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +ss09 +ss10 +ss11 +zero";
@@ -191,14 +186,19 @@
         mkOption
         literalExpression
         ;
-
-      settingsValueType =
+      valueType =
         with types;
         oneOf [
           str
           bool
           int
           float
+          (listOf (oneOf [
+            str
+            bool
+            int
+            float
+          ]))
         ];
     in
     {
@@ -252,15 +252,16 @@
           type = lib.types.package;
           default =
             let
-              toKittyConfig = lib.generators.toKeyValue {
-                mkKeyValue =
-                  key: value:
-                  let
-                    yesNo = v: if v then "yes" else "no";
-                    value' = (if builtins.isBool value then yesNo else toString) value;
-                  in
-                  "${key} ${value'}";
-              };
+              toKittyConfig = lib.concatMapAttrsStringSep "\n" (
+                name: value:
+                let
+                  mkValue = v: v |> (if (lib.isBool v) then lib.boolToYesNo else toString);
+                in
+                if lib.isList value then
+                  value |> lib.concatMapStringsSep "\n" (v: "${name} ${mkValue v}")
+                else
+                  "${name} ${mkValue value}"
+              );
             in
             wrapPackage {
               package = pkgs.kitty;
@@ -286,15 +287,17 @@
                     cfg.shellIntegration.mode != null
                   ) "shell_integration ${cfg.shellIntegration.mode}"}
 
-                  # Extra config options
-                  ${cfg.extraConfig}
+                  ${lib.optionalString (cfg.extraConfig != "") ''
+                    #Extra config
+                    ${cfg.extraConfig}
+                  ''}
                 '';
               };
               env.KITTY_CONFIG_DIRECTORY = "${wrapPackage.out'}/configuration";
             };
         };
         settings = mkOption {
-          type = types.attrsOf settingsValueType;
+          type = types.attrsOf valueType;
           default = { };
           example = literalExpression ''
             {
@@ -309,7 +312,7 @@
           '';
         };
         theme = mkOption {
-          type = types.attrsOf types.str;
+          type = types.attrsOf valueType;
           default = { };
           description = "Color scheme attributes for kitty, structurally merged into settings.";
           example = literalExpression ''
@@ -321,7 +324,7 @@
         };
 
         fontConfig = mkOption {
-          type = types.attrsOf types.str;
+          type = types.attrsOf valueType;
           default = { };
           description = "Font configuration for kitty";
         };
@@ -333,7 +336,7 @@
         };
 
         keybindings = mkOption {
-          type = types.attrsOf types.str;
+          type = types.attrsOf valueType;
           default = { };
           apply = lib.mapAttrs' (name: value: lib.nameValuePair ("map " + name) value);
           example = literalExpression ''
@@ -346,7 +349,7 @@
         };
 
         mouseBindings = mkOption {
-          type = types.attrsOf types.str;
+          type = types.attrsOf valueType;
           default = { };
           apply = lib.mapAttrs' (name: value: lib.nameValuePair ("mouse_map " + name) value);
           description = "Mapping of mouse bindings to actions.";
