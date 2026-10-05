@@ -11,6 +11,7 @@ treefmt-nix = "treefmt-nix"
 names = ["flake-compat","pre-commit-hooks","treefmt-nix"]
 
 [shorturls]
+applefont = "https://devimages-cdn.apple.com/design/resources/download/{path}"
 gh = "github:{path}"
 
 [tack]
@@ -139,19 +140,19 @@ url = "gh:yayuuu/hyprland-scroll-overview/new-release"
 frozen = true
 group = "fonts"
 type = "fixed"
-url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg"
+url = "applefont:SF-Compact.dmg"
 
 [inputs.sf-mono]
 frozen = true
 group = "fonts"
 type = "fixed"
-url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg"
+url = "applefont:SF-Mono.dmg"
 
 [inputs.sf-pro]
 frozen = true
 group = "fonts"
 type = "fixed"
-url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg"
+url = "applefont:SF-Pro.dmg"
 
 [inputs.sops-nix]
 group = "nix"
