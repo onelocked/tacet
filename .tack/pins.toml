@@ -191,6 +191,12 @@ group = "sxyazi"
 type = "fetch"
 url = "gh:AminurAlam/yazi-plugins"
 
+[inputs.yaziline]
+group = "sxyazi"
+patches = ["https://github.com/llanosrocas/yaziline.yazi/pull/10"]
+type = "fetch"
+url = "gh:llanosrocas/yaziline.yazi"
+
 [inputs.zen-browser]
 group = "browser"
 url = "gh:0xc000022070/zen-browser-flake"
