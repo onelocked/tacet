@@ -359,7 +359,7 @@ index 909e7a8..90e0043 100644
      scaleOverviewChildSurfaceGeometry(params.window, targetWindowPosition, params.window->sizeAnimation()->value(), firstWindowPassElement);
      if (!usePrecomputedBlur)
 diff --git a/main.cpp b/main.cpp
-index b4eda44..18de1c8 100644
+index b4eda44..b30c991 100644
 --- a/main.cpp
 +++ b/main.cpp
 @@ -38,7 +38,7 @@ static CFunctionHook* g_pScrollScheduleFrameHook   = nullptr;
@@ -384,7 +384,17 @@ index b4eda44..18de1c8 100644
      else {
          const bool PREVRENDERINGOVERVIEW = renderingOverview;
          const auto PREVRENDERINGMONITOR  = renderingOverviewMonitor;
-@@ -675,7 +675,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
+@@ -625,7 +625,8 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
+ 
+     g_pScrollRenderWorkspaceHook = HyprlandAPI::createFunctionHook(
+         SCROLLOVERVIEW_HANDLE,
+-        findFnOrThrow("renderWorkspace", {"CHyprRenderer::renderWorkspace(", "IHyprRenderer::renderWorkspace("}),
++        // Hook the monitor/geometry overload, not the workspace/scene-mode overload.
++        findFnOrThrow("renderWorkspace", {"Render::IHyprRenderer::renderWorkspace(Render::CRenderContext&, Hyprutils::Memory::CSharedPointer<Monitor::CMonitor>,"}),
+         rc<void*>(hkRenderWorkspace));
+ 
+     g_pScrollScheduleFrameHook = HyprlandAPI::createFunctionHook(
+@@ -675,7 +676,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
  }
  
  APICALL EXPORT void PLUGIN_EXIT() {
