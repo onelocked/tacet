@@ -1,11 +1,6 @@
 {
   exo.core =
-    {
-      scheme,
-      config,
-      theme,
-      ...
-    }:
+    { scheme, config, ... }:
     {
       programs = {
         fish = {
@@ -19,7 +14,7 @@
             nrun.body = # fish
               ''
                 set -l package $argv[1]
-                nix run "nixpkgs#$package"
+                nix run "nixpkgs#$package" -- $argv[2..-1]
               '';
             # Open a nix shell with a package
             nget.body = # fish
