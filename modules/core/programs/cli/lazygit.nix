@@ -39,32 +39,49 @@
             showPanelJumps = false;
             showRandomTip = false;
             sidePanelWidth = 0.25;
+            sidePanels = [
+              [
+                "files"
+                "worktrees"
+                "submodules"
+              ]
+              [
+                "branches"
+                "remotes"
+                "tags"
+              ]
+              [
+                "commits"
+                "reflog"
+                "stash"
+              ]
+            ];
             theme = {
               authorColors = {
-                "*" = base0D;
+                "*" = base16;
               };
-              activeBorderColor = [ base05 ];
-              inactiveBorderColor = [ base04 ];
+              activeBorderColor = [ base0D ];
+              inactiveBorderColor = [ base03 ];
               cherryPickedCommitBgColor = [ base02 ];
               cherryPickedCommitFgColor = [ base0D ];
               defaultFgColor = [ base05 ];
               optionsTextColor = [ base04 ];
               searchingActiveBorderColor = [ base0A ];
               selectedLineBgColor = [ base02 ];
+              selectedLineFgColor = [
+                "bold"
+              ];
               unstagedChangesColor = [ base08 ];
             };
           };
 
-          keybinding = {
-            universal = {
-              jumpToBlock = [
-                "0"
-                "1"
-                "2"
-                "3"
-                "4"
-              ];
-            };
+          keybinding.universal = {
+            jumpToBlock = [
+              "1"
+              "2"
+              "3"
+            ];
+            focusMainView = "4";
           };
           promptToReturnFromSubprocess = false;
           os =
