@@ -164,7 +164,6 @@
         })
         (lib.mkIf (cfg.enable && cfg.withWorktrunk) {
           hj.packages = [ cfg.worktrunkPackage ];
-          programs.fish.interactiveShellInit = "${lib.getExe cfg.worktrunkPackage} config shell init fish | source ";
         })
       ];
       options.forte.lazygit = {

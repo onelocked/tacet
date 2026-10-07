@@ -16,11 +16,6 @@
         environment.shellAliases = {
           cat = "${cfg.package}/bin/bat";
         };
-        programs.fish.interactiveShellInit = # fish
-          ''
-            ${lib.getExe pkgs.bat-extras.batman} --export-env | source
-            eval (${lib.getExe pkgs.bat-extras.batpipe})
-          '';
       };
       options.forte.bat = {
         enable = lib.mkEnableOption "bat" // {

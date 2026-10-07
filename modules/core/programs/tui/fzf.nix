@@ -66,7 +66,6 @@
             cfg.defaultOptions ++ lib.optional (cfg.colors != { }) "--color=${renderedColors cfg.colors}"
           );
         };
-        programs.fish.interactiveShellInit = "${lib.getExe cfg.package} --fish | source";
       };
     };
 }
