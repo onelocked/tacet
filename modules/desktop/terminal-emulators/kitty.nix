@@ -235,16 +235,6 @@
           ]
           |> map (mime: lib.nameValuePair mime [ "kitty.desktop" ])
           |> lib.listToAttrs;
-
-        programs.fish.interactiveShellInit =
-          lib.mkIf cfg.shellIntegration.enableFishIntegration # fish
-            ''
-              if set -q KITTY_INSTALLATION_DIR
-                set --global KITTY_SHELL_INTEGRATION "${cfg.shellIntegration.mode}"
-                source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
-                set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
-              end
-            '';
       };
       options.forte.kitty = {
         enable = lib.mkEnableOption "kitty";
@@ -281,11 +271,6 @@
 
                   # Mouse Bindings
                   ${toKittyConfig cfg.mouseBindings}
-
-                  # Shell Integration
-                  ${lib.optionalString (
-                    cfg.shellIntegration.mode != null
-                  ) "shell_integration ${cfg.shellIntegration.mode}"}
 
                   ${lib.optionalString (cfg.extraConfig != "") ''
                     #Extra config
@@ -359,30 +344,6 @@
               "left click" = "ungrabbed no-op";
             };
           '';
-        };
-
-        shellIntegration = {
-          mode = mkOption {
-            type = types.nullOr types.str;
-            default = "no-rc";
-            example = "no-cursor";
-            apply = lib.mapNullable (
-              o:
-              let
-                modes = lib.splitString " " o;
-                filtered = lib.filter (m: m != "no-rc") modes;
-              in
-              lib.concatStringsSep " " ([ "no-rc" ] ++ filtered)
-            );
-            description = ''
-              Set the mode of the shell integration. This accepts the same options
-              as the `shell_integration` option of Kitty. Note that
-              `no-rc` is always implied, unless this set to `null`.
-            '';
-          };
-          enableFishIntegration = lib.mkEnableOption "fish integration" // {
-            default = true;
-          };
         };
       };
     };
