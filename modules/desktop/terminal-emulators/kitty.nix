@@ -202,40 +202,56 @@
         ];
     in
     {
-      config = lib.mkIf (cfg.enable) {
-        hj.packages = [ cfg.package ];
-        xdg.terminal-exec.settings = {
-          default = [ "kitty.desktop" ];
-        };
-        forte.hyprland.lua = {
-          window-rules = # lua
-            ''
-              hl.window_rule({
-                name             = "kitty",
-                match            = { class = "kitty" },
-                opacity          = "1 override 1 override",
-                fullscreen_state = "0 1",
-              })
-              hl.window_rule({
-                name  = "kitty-scroll",
-                match = { class = "kitty", workspace = "r[2-3] w[t3-99]" },
-                scrolling_width = 0.333,
-              })
-            '';
-          keybinds = # lua
-            ''
-              hl.bind("SUPER + T", hl.dsp.exec_raw("kitty -1"))
-            '';
-        };
-        xdg.mime.defaultApplications =
-          [
-            "terminal"
-            "x-terminal-emulator"
-            "inode/directory"
-          ]
-          |> map (mime: lib.nameValuePair mime [ "kitty.desktop" ])
-          |> lib.listToAttrs;
-      };
+      config =
+        lib.mkIf cfg.enable
+        <| lib.mkMerge [
+          {
+            hj.packages = [ cfg.package ];
+            xdg.terminal-exec.settings = {
+              default = [ "kitty.desktop" ];
+            };
+            forte.hyprland.lua = {
+              window-rules = # lua
+                ''
+                  hl.window_rule({
+                    name             = "kitty",
+                    match            = { class = "kitty" },
+                    opacity          = "1 override 1 override",
+                    fullscreen_state = "0 1",
+                  })
+                  hl.window_rule({
+                    name  = "kitty-scroll",
+                    match = { class = "kitty", workspace = "r[2-3] w[t3-99]" },
+                    scrolling_width = 0.333,
+                  })
+                '';
+              keybinds = # lua
+                ''
+                  hl.bind("SUPER + T", hl.dsp.exec_raw("kitty -1"))
+                '';
+            };
+            xdg.mime.defaultApplications =
+              [
+                "terminal"
+                "x-terminal-emulator"
+                "inode/directory"
+              ]
+              |> map (mime: lib.nameValuePair mime [ "kitty.desktop" ])
+              |> lib.listToAttrs;
+          }
+          (lib.mkIf cfg.server {
+            hj.systemd.services.kitty-server = {
+              description = "Kitty background instance";
+              after = [ "graphical-session.target" ];
+              partOf = [ "graphical-session.target" ];
+              wantedBy = [ "graphical-session.target" ];
+              serviceConfig = {
+                ExecStart = "${cfg.package}/bin/kitty --single-instance --start-as=hidden";
+                Restart = "on-failure";
+              };
+            };
+          })
+        ];
       options.forte.kitty = {
         enable = lib.mkEnableOption "kitty";
         package = lib.mkOption {
@@ -280,6 +296,9 @@
               };
               env.KITTY_CONFIG_DIRECTORY = "${wrapPackage.out'}/configuration";
             };
+        };
+        server = lib.mkEnableOption "kitty-server" // {
+          default = true;
         };
         settings = mkOption {
           type = types.attrsOf valueType;

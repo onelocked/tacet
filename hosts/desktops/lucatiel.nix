@@ -17,6 +17,7 @@
         {
           sops.defaultSopsFile = ../../.secrets/personal.yaml;
           forte.flatpak.enable = true;
+          forte.kitty.server = false;
 
           services.nfs.server = {
             enable = true;
