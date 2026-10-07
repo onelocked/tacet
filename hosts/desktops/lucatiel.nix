@@ -76,7 +76,7 @@
       hardware.nvidia = {
         branch = "bleeding_edge";
         modesetting.enable = true;
-        open = false;
+        open = true;
         nvidiaSettings = false;
 
         powerManagement.enable = true;
