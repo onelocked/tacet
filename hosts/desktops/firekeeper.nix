@@ -14,6 +14,7 @@
       extraConfig =
         { lib, ... }:
         {
+          forte.bluetooth.enable = true;
           forte.openssh.enable = lib.mkForce false;
           forte.opkssh.enable = true;
           sops.defaultSopsFile = ../../.secrets/personal.yaml;
