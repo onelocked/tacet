@@ -1,5 +1,6 @@
 { config, ... }:
 {
+  tack.inputs.rclip-sync.url = "gh:onelocked/rclip-sync";
   exo.configurations = {
     firekeeper = {
       user = "onelock";
@@ -12,7 +13,13 @@
         cachyos-kernel
       ];
       extraConfig =
-        { lib, ... }:
+        {
+          lib,
+          inputs',
+          pkgs,
+          config,
+          ...
+        }:
         {
           forte.bluetooth.enable = true;
           forte.openssh.enable = lib.mkForce false;
@@ -73,6 +80,57 @@
               Host *
                 IdentitiesOnly yes
             '';
+
+          #rclip sync
+          sops.secrets."wireguard/rclip-sync/firekeeper" = { };
+          networking.wireguard.interfaces."rclip-sync" = {
+            ips = [ "10.0.0.1/24" ];
+            listenPort = 51820;
+            privateKeyFile = config.sops.secrets."wireguard/rclip-sync/firekeeper".path;
+
+            peers = [
+              {
+                name = "lucatiel";
+                publicKey = "R+Dw+BaZ1v39J+r2HrsEuvFTNiDq+JWL//2z9CJqrTg=";
+                allowedIPs = [ "10.0.0.2/32" ];
+                endpoint = "10.13.37.216:51820";
+              }
+              {
+                name = "dante";
+                publicKey = "560//IBBTMUjOzNj65Eec9gXtGV8Roq2cJSp9M0vjRY=";
+                allowedIPs = [ "10.0.0.3/32" ];
+                endpoint = "192.168.1.209:51820";
+              }
+            ];
+          };
+          networking.firewall.allowedTCPPorts = [ 24837 ];
+          networking.firewall.allowedUDPPorts = [ 51820 ];
+
+          hj.systemd.services.rclip-sync = {
+            description = "rclip-sync LAN clipboard sharing daemon";
+            after = [ "graphical-session.target" ];
+            partOf = [ "graphical-session.target" ];
+            wantedBy = [ "graphical-session.target" ];
+            path = [
+              pkgs.iproute2
+              pkgs.coreutils
+              pkgs.gnugrep
+            ];
+            serviceConfig = {
+              Type = "simple";
+              ExecStartPre = pkgs.writeShellScript "wait-for-wg" ''
+                for i in $(seq 1 30); do
+                  ip -4 addr show dev rclip-sync | grep -q "inet 10.0.0.1/" && exit 0
+                  sleep 1
+                done
+                echo "rclip-sync interface never came up" >&2
+                exit 1
+              '';
+              ExecStart = "${inputs'.rclip-sync.packages.rclip-sync}/bin/rclip serve --bind 10.0.0.1 --peer 10.0.0.2 --peer 10.0.0.3";
+              Restart = "on-failure";
+              RestartSec = 5;
+            };
+          };
         };
     };
   };

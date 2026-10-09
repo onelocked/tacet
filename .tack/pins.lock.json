@@ -22,6 +22,7 @@
     "pkg-install": "github:Muggle345/PKGInstall",
     "preservation": "github:nix-community/preservation",
     "quickshell": "github:quickshell-mirror/quickshell",
+    "rclip-sync": "github:onelocked/rclip-sync",
     "rust-overlay": "github:oxalica/rust-overlay",
     "scroll-overview": "github:yayuuu/hyprland-scroll-overview/new-release",
     "sf-compact": "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg",
@@ -258,6 +259,14 @@
     "rev": "11ca60be22b063478ed9586ca1d7f92f0f261caf",
     "narHash": "sha256-ar6lvXon8TcQ7S0xZPS3zPmfB43vhZnDl1rK86r7koI=",
     "lastModified": 1791260458
+  },
+  "rclip-sync": {
+    "type": "github",
+    "owner": "onelocked",
+    "repo": "rclip-sync",
+    "rev": "26a82bceab0f1ef95109b883d21fa18dfad9b00f",
+    "narHash": "sha256-Qo38ndRd/qx47sXam3wFGmfcPPhePf1drwKyr0NUcvI=",
+    "lastModified": 1791558929
   },
   "rust-overlay": {
     "type": "github",

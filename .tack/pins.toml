@@ -124,6 +124,9 @@ url = "gh:nix-community/preservation"
 group = "desktop"
 url = "gh:quickshell-mirror/quickshell"
 
+[inputs.rclip-sync]
+url = "gh:onelocked/rclip-sync"
+
 [inputs.rust-overlay]
 url = "gh:oxalica/rust-overlay"
 
