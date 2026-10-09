@@ -239,7 +239,7 @@
               |> map (mime: lib.nameValuePair mime [ "kitty.desktop" ])
               |> lib.listToAttrs;
           }
-          (lib.mkIf cfg.server {
+          (lib.mkIf cfg.server.enable {
             hj.systemd.services.kitty-server = {
               description = "Kitty background instance";
               after = [ "graphical-session.target" ];
@@ -297,7 +297,7 @@
               env.KITTY_CONFIG_DIRECTORY = "${wrapPackage.out'}/configuration";
             };
         };
-        server = lib.mkEnableOption "kitty-server" // {
+        server.enable = lib.mkEnableOption "kitty-server" // {
           default = true;
         };
         settings = mkOption {
