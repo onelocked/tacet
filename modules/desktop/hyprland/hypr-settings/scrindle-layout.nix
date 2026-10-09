@@ -7,7 +7,7 @@
             if not ws or ws.tiled_layout ~= "scrolling" then
                 return
             end
-            if ws.name ~= "2" and ws.name ~= "3" then
+            if ws.name ~= "3" and ws.name ~= "4" then
                 return
             end
 

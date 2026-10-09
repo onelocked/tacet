@@ -3,7 +3,7 @@
     forte.hyprland.lua.settings = # lua
       ''
         -- persist workspaces 1 to 5
-        for i = 1, 5 do
+        for i = 1, 6 do
           hl.workspace_rule({ workspace = tostring(i), persistent = true })
         end
 
@@ -100,7 +100,7 @@
           hl.workspace_rule {
             workspace = "2",
             layout_opts = {
-              explicit_column_widths = "0.333,0.5," .. w169
+              explicit_column_widths = "0.333,0.5,0.667," .. w169 .. "," .. w219
             }
           }
 
@@ -112,7 +112,14 @@
           }
 
           hl.workspace_rule {
-            workspace = "5",
+            workspace = "4",
+            layout_opts = {
+              explicit_column_widths = "0.333,0.5," .. w169
+            }
+          }
+
+          hl.workspace_rule {
+            workspace = "6",
             layout_opts = {
               explicit_column_widths = "0.5," .. w169 .. "," .. w219
             }
@@ -137,7 +144,7 @@
         hl.on("config.reloaded", refresh)
 
         hl.workspace_rule {
-          workspace = "4",
+          workspace = "5",
           layout_opts = {
             explicit_column_widths = "0.333,0.5"
           }
