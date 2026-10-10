@@ -5,12 +5,7 @@
       confirm-dialog = "gh:onelocked/confirm-dialog.yazi";
       extra-metadata = "gh:boydaihungst/file-extra-metadata.yazi";
       no-header-prompt = "gh:onelocked/no-header-prompt.yazi";
-      yaziline = {
-        url = "gh:llanosrocas/yaziline.yazi";
-        patches = [
-          "https://github.com/llanosrocas/yaziline.yazi/pull/10"
-        ];
-      };
+      yazbar = "gh:onelocked/yazbar.yazi";
     }
     |> builtins.mapAttrs (
       _: v:
@@ -47,7 +42,7 @@
         // (
           [
             "fuzzy-search"
-            "yaziline"
+            "yazbar"
             "no-header-prompt"
             "confirm-dialog"
             "extra-metadata"
@@ -113,7 +108,7 @@
               -- Order of status signs showing in the linemode
             order = 1500,
           }
-          require("yaziline"):setup({
+          require("yazbar"):setup({
             color = "${base0D}",               -- blue (active/primary)
             secondary_color = "${base02}",     -- selection background
             default_files_color = "${base04}", -- dark foreground (inactive)
@@ -125,6 +120,8 @@
 
             select_symbol = "",
             yank_symbol = "󰆐",
+
+            permissions_style = "octal", -- can be either "octal" or "rwx"
 
             filename_max_length = 24, -- truncate when filename > 24
             filename_truncate_length = 6, -- leave 6 chars on both sides
