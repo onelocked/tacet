@@ -63,7 +63,6 @@ url = "gh:feel-co/hjem"
 
 [inputs.hypr-plugs]
 group = "hypr"
-patches = ["https://github.com/hyprwm/hyprland-plugins/pull/715"]
 type = "fetch"
 url = "gh:hyprwm/hyprland-plugins"
 

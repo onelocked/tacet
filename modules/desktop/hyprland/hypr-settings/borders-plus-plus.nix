@@ -3,7 +3,6 @@
     url = "gh:hyprwm/hyprland-plugins";
     type = "fetch";
     group = "hypr";
-    patches = [ "https://github.com/hyprwm/hyprland-plugins/pull/715" ];
   };
   exo.mods.desktop = { self', ... }: {
     forte.hyprland.plugins = [ self'.legacyPackages.borders-plus-plus ];
