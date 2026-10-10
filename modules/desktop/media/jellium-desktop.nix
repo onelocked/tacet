@@ -7,7 +7,7 @@
       ...
     }:
     let
-      cfg = config.forte.jellyfin-desktop;
+      cfg = config.forte.jellium-desktop;
     in
     {
       config = lib.mkIf cfg.enable {
@@ -20,7 +20,7 @@
           ''
             hl.window_rule({
               name             = "jellium-desktop",
-              match            = { class = "wlroots" },
+              match            = { class = "net.nullsum.JelliumDesktop" },
               workspace        = "5",
               opacity          = "1 override",
               idle_inhibit = "focus",
@@ -28,7 +28,7 @@
           '';
       };
 
-      options.forte.jellyfin-desktop = {
+      options.forte.jellium-desktop = {
         enable = lib.mkEnableOption "jellium-desktop" // {
           default = true;
         };
