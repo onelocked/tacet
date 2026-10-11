@@ -3,21 +3,13 @@
     { lib, server, ... }:
     {
       networking = {
-        useDHCP = false; # needs to be disabled to avoid conflict with systemd networking
         firewall.enable = true;
-        networkmanager.enable = false;
+        networkmanager.enable = true;
       };
 
-      # enable systemd networking
+      forte.persist.root.directories = [ "/var/lib/NetworkManager" ];
+
       services.resolved.enable = true;
-      systemd.network = {
-        enable = true;
-        wait-online.enable = false;
-        networks.wired = {
-          matchConfig.Name = "en* eth*";
-          networkConfig.DHCP = "yes";
-        };
-      };
 
       services.avahi = lib.mkIf (!server) {
         enable = true;
