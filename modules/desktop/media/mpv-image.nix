@@ -1,5 +1,5 @@
 {
-  exo.mods.media = {
+  exo.mods.media = { scheme, ... }: {
     forte.mpv-image = {
       enable = true;
       conf = # ini
@@ -15,6 +15,8 @@
           profile=gpu-hq
           vo=gpu-next
           gpu-api=auto
+          background=color
+          background-color="${scheme.base00}"
         '';
       input = # bash
         ''

@@ -1,6 +1,6 @@
 {
   exo.mods.media =
-    { config, ... }:
+    { config, scheme, ... }:
     {
       forte.mpv = {
         enable = true;
@@ -33,6 +33,8 @@
             loop-file=inf
             autofit=x1355
             msg-level=ffmpeg=fatal,vd=fatal,vo=fatal
+            background=color
+            background-color="${scheme.base00}"
           '';
         input = # bash
           ''
