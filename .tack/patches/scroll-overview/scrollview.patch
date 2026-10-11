@@ -1,0 +1,101 @@
+diff --git a/Window.cpp b/Window.cpp
+index 90e0043..28c8f2f 100644
+--- a/Window.cpp
++++ b/Window.cpp
+@@ -3,6 +3,7 @@
+ #include <cmath>
+ #include <dlfcn.h>
+ #include <functional>
++#include <string>
+ #define private public
+ #define protected public
+ #include <hyprland/src/render/Renderer.hpp>
+@@ -691,6 +692,74 @@ static void renderOverviewWindowBorder(PHLMONITOR monitor, const PHLWINDOW& wind
+     Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CBorderPassElement>(data));
+ }
+ 
++static bool isOverviewBordersPlusPlusDecoration(IHyprWindowDecoration* decoration) {
++    return decoration && decoration->getDecorationType() == DECORATION_CUSTOM && decoration->getDisplayName() == "Borders++";
++}
++
++static size_t getOverviewBordersPlusPlusCount() {
++    return static_cast<size_t>(std::clamp(ScrollOverview::Config::getValue<int>("plugin:borders-plus-plus:add_borders"), 0, 9));
++}
++
++static int getOverviewBordersPlusPlusLogicalSize(size_t index) {
++    const auto VALUE = ScrollOverview::Config::getValue<int>("plugin:borders-plus-plus:border_size_" + std::to_string(index + 1));
++
++    return std::max(0, VALUE == -1 ? ScrollOverview::Config::getValue<int>("general:border_size") : VALUE);
++}
++
++static CHyprColor getOverviewBordersPlusPlusColor(size_t index) {
++    return CHyprColor{ScrollOverview::Config::getValue<uint64_t>("plugin:borders-plus-plus:col.border_" + std::to_string(index + 1))};
++}
++
++// borders-plus-plus derives its ring geometry from the window's live box, which in the
++// overview is only temporarily moved around the render pass. Its own draw would therefore
++// land on stale geometry, so the rings are rebuilt here from the overview window box.
++static void renderOverviewBordersPlusPlusDecoration(PHLMONITOR monitor, const PHLWINDOW& window, const CBox& windowBox, const SOverviewWindowMetrics& metrics) {
++    if (!monitor || !window || !window->mapped())
++        return;
++
++    if (!window->m_ruleApplicator->decorate().valueOrDefault())
++        return;
++
++    const auto COUNT = getOverviewBordersPlusPlusCount();
++
++    if (COUNT < 1 || metrics.targetOpacity <= 0.F)
++        return;
++
++    const bool NATURALROUNDING = ScrollOverview::Config::getValue<bool>("plugin:borders-plus-plus:natural_rounding");
++    const float roundingPower   = metrics.roundingPower;
++
++    // Same base rounding the plugin uses: the window rounding plus the border it sits on.
++    const int rounding = metrics.roundingBase <= 0.F ? 0 : sc<int>(std::round((metrics.roundingBase + metrics.borderSize) * metrics.pxScale));
++
++    // Ring i is drawn outward from the box of ring i - 1, exactly like the plugin does it.
++    CBox box  = getOverviewBorderBox(windowBox, metrics);
++    int  loop = rounding;
++
++    for (size_t i = 0; i < COUNT; ++i) {
++        // renderBorder scales the size by the monitor scale itself, so only the overview
++        // scale is applied here. The very same value grows the box, keeping the rings nested.
++        const auto thickness = std::max(1, sc<int>(std::round(getOverviewBordersPlusPlusLogicalSize(i) * metrics.renderScale) * monitor->m_scale));
++
++        if (box.width - thickness * 2 <= 0 || box.height - thickness * 2 <= 0)
++            break;
++
++        if (i != 0)
++            loop += thickness;
++
++        CBorderPassElement::SBorderData data;
++        data.box           = box;
++        data.grad1         = Config::CGradientValueData{getOverviewBordersPlusPlusColor(i)};
++        data.round         = NATURALROUNDING ? rounding : loop;
++        data.outerRound    = NATURALROUNDING ? rounding : -1;
++        data.roundingPower = roundingPower;
++        data.a             = metrics.targetOpacity;
++        data.borderSize    = thickness;
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CBorderPassElement>(data));
++
++        box = box.copy().expand(thickness);
++    }
++}
++
+ static void renderOverviewGroupTabIndicators(PHLMONITOR monitor, const PHLWINDOW& window, const CBox& windowBox, const SOverviewWindowMetrics& metrics, float alpha) {
+     if (!monitor || !window || !window->grouping().group() || window->grouping().group()->size() < 1)
+         return;
+@@ -933,6 +1002,12 @@ static SOverviewCustomDecorationRenderState renderOverviewCustomDecorations(PHLM
+             continue;
+         }
+ 
++        if (isOverviewBordersPlusPlusDecoration(deco.get())) {
++            if (layer == DECORATION_LAYER_OVER)
++                renderOverviewBordersPlusPlusDecoration(monitor, window, windowBox, metrics);
++            continue;
++        }
++
+         if (!drewAny) {
+             Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
+             drewAny = true;
+

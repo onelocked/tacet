@@ -2,7 +2,10 @@
   tack.inputs = {
     scroll-overview = {
       url = "gh:yayuuu/hyprland-scroll-overview/new-release";
-      patches = [ "https://github.com/yayuuu/hyprland-scroll-overview/pull/78" ];
+      patches = [
+        "https://github.com/yayuuu/hyprland-scroll-overview/pull/78"
+        "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch"
+      ];
       type = "fetch";
       group = "hypr";
     };
