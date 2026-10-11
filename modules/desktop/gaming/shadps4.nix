@@ -2,7 +2,10 @@
   exo.mods.shadps4 = { pkgs, ... }: {
     hj.packages = [ pkgs.shadps4-qtlauncher ];
     programs.steam.extraPackages = [ pkgs.shadps4-qtlauncher ];
-    forte.persist.home.directories = [ ".local/share/shadPS4" ];
+    forte.persist.home.directories = [
+      ".local/share/shadPS4"
+      ".config/bbport-launcher"
+    ];
   };
   tack.inputs.pkg-install = {
     url = "gh:Muggle345/PKGInstall";
