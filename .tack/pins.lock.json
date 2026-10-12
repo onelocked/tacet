@@ -159,7 +159,7 @@
           "source": "https://github.com/andrewrabert/jellium-desktop/pull/717",
           "url": "https://github.com/andrewrabert/jellium-desktop/pull/717",
           "file": "patches/jellium-desktop/pr-717.patch",
-          "sha256": "b120d1f4057cbe86311574b94d1900480aae86058dd88511b19a49fd8cb80987",
+          "sha256": "ab7b954ec7e6de3a736bd34faa9ff3897ce6fad24dfac87bcef07c13d209342b",
           "head": "ff055a77f68c3e723386ad4e172b0791fb718104"
         }
       ]
