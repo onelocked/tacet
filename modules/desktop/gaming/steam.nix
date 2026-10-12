@@ -4,6 +4,7 @@
       config,
       pkgs,
       lib,
+      self',
       ...
     }:
     {
@@ -15,6 +16,10 @@
           gamemode
           pulseaudio
           systemd
+        ];
+        extraCompatPackages = with self'.packages; [
+          proton-ge
+          proton-cachyos
         ];
         package = pkgs.steam.override {
           extraLibraries = pkgs: [

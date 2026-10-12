@@ -54,7 +54,6 @@
         lib.mkIf cfg.enable
         <| lib.mkMerge [
           {
-            hj.packages = [ pkgs.protonup-rs ];
             preservation = {
               preserveAt = {
                 "/steam" = {

@@ -21,6 +21,8 @@
     "no-header-prompt": "github:onelocked/no-header-prompt.yazi",
     "pkg-install": "github:Muggle345/PKGInstall",
     "preservation": "github:nix-community/preservation",
+    "proton-cachyos": "https://github.com/CachyOS/proton-cachyos/releases/download/{tag}/proton-cachyos-{version}-slr-x86_64_v3.tar.xz",
+    "proton-ge": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/{tag}/{tag}-x86_64.tar.gz",
     "quickshell": "github:quickshell-mirror/quickshell",
     "rclip-sync": "github:onelocked/rclip-sync",
     "rust-overlay": "github:oxalica/rust-overlay",
@@ -237,6 +239,22 @@
     "rev": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
     "narHash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY=",
     "lastModified": 1757436102
+  },
+  "proton-cachyos": {
+    "type": "fixed",
+    "url": "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20261005-slr/proton-cachyos-11.0-20261005-slr-x86_64_v3.tar.xz",
+    "sha256": "sha256-ulKk8xoGD/yiuOBfwA5RvDnkwVAZKOtakhiw+ge/yMc=",
+    "unpack": "tarball",
+    "tag": "cachyos-11.0-20261005-slr",
+    "version": "11.0-20261005"
+  },
+  "proton-ge": {
+    "type": "fixed",
+    "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-7/GE-Proton11-7-x86_64.tar.gz",
+    "sha256": "sha256-xUSLdqIwOE4te8a+tcy5e6+34sO2xSfLA6GlRrvLAKA=",
+    "unpack": "tarball",
+    "tag": "GE-Proton11-7",
+    "version": "11-7"
   },
   "quickshell": {
     "type": "github",
