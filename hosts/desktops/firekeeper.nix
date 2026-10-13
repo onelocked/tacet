@@ -11,6 +11,7 @@
         media
         remote-access
         cachyos-kernel
+        opencode
       ];
       extraConfig =
         {

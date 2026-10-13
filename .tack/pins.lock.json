@@ -179,9 +179,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "93f4ebd5f658b16299a99b08132be2af48b628e9",
-    "narHash": "sha256-ftd6FPWkYZ+qRVftUxZDqn2SYLxBkIME9m/xbJLo8ek=",
-    "lastModified": 1791581926
+    "rev": "8e016f03e3015f525dc9aa907d8f64a5faf165c2",
+    "narHash": "sha256-EYZEZc5/GNkI/e/vd2YQ/NrRrUiECsfCogXDXMMoH7A=",
+    "lastModified": 1791900095
   },
   "nix-cachyos-kernel": {
     "type": "github",
