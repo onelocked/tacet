@@ -140,9 +140,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "1bd31aaa579a40680ce876e1547e371b60c45522",
-    "narHash": "sha256-mrUYWjc1UsDzf1pxufndPicShoD6tl9Nf/Fw4kTO9Vw=",
-    "lastModified": 1791886032
+    "rev": "e2ad066c9ffd45ddfbe4dc76d2de16b382fbe3eb",
+    "narHash": "sha256-sqWBYgjkJd5xTJKd9Jz/SbtrJfY3eTqxyqn1xfH6O00=",
+    "lastModified": 1792003461
   },
   "jellium-desktop": {
     "type": "git",
@@ -179,9 +179,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "8e016f03e3015f525dc9aa907d8f64a5faf165c2",
-    "narHash": "sha256-EYZEZc5/GNkI/e/vd2YQ/NrRrUiECsfCogXDXMMoH7A=",
-    "lastModified": 1791900095
+    "rev": "f93878e710fef044c0f6d66da4f049b2850c0d1d",
+    "narHash": "sha256-tImvuzMAJEZIEq7Eb8WPXNQLzgvY0WuTnZ5W+JB/Pjo=",
+    "lastModified": 1791987536
   },
   "nix-cachyos-kernel": {
     "type": "github",
@@ -195,9 +195,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "nixos-core",
-    "rev": "8cc795588d743dd38e78ec129f5d6550eca77bfb",
-    "narHash": "sha256-wLoiBBvvUYPt61717RZowAMDxwMMJXyoaQ/7muCq/Z8=",
-    "lastModified": 1791741529
+    "rev": "d3c2e1de4f6387da12713a26ef5b9a7930f46b22",
+    "narHash": "sha256-ZBvWH97NmR6P5Rapi4YXjrQTmmwXtw8RYgmIortbXyU=",
+    "lastModified": 1791933734
   },
   "nixos-hardware": {
     "type": "github",
@@ -250,11 +250,11 @@
   },
   "proton-ge": {
     "type": "fixed",
-    "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-7/GE-Proton11-7-x86_64.tar.gz",
-    "sha256": "sha256-xUSLdqIwOE4te8a+tcy5e6+34sO2xSfLA6GlRrvLAKA=",
+    "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-9/GE-Proton11-9-x86_64.tar.gz",
+    "sha256": "sha256-ss9KYypw7DIc25kE+jlqKkXUBhEp+f3InYon6lzuudY=",
     "unpack": "tarball",
-    "tag": "GE-Proton11-7",
-    "version": "11-7"
+    "tag": "GE-Proton11-9",
+    "version": "11-9"
   },
   "quickshell": {
     "type": "github",
@@ -276,9 +276,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "3100cf6ff140fb298f09192de610f4037d3bab0f",
-    "narHash": "sha256-7KXUW3FKbZAstFiK09LJ1sUnPN2dO5RX9ROCZgGbeZw=",
-    "lastModified": 1791882738
+    "rev": "8111d2b45adcbaeaff037f996643f1ac43f944e6",
+    "narHash": "sha256-rEB0dvSZw1niBVJvt0AiWygNS/OMdA81lquTzLIWuvo=",
+    "lastModified": 1791962566
   },
   "scroll-overview": {
     "type": "github",
@@ -368,9 +368,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "ceef477f4c9fada177872d29ac00a8651f21df8b",
-    "narHash": "sha256-IMSEULXBQoHKobbnr6mqVUujm36RXvdvE1Tt5OdRj2E=",
-    "lastModified": 1791839790
+    "rev": "cb825647a30e7f54915babbec5b5786c647772d6",
+    "narHash": "sha256-F+sgyf1KB/ogY41JJ52WPYuWXosB6dXTlO3J/m+xcww=",
+    "lastModified": 1791942069
   },
   "theme-store": {
     "type": "github",
@@ -384,9 +384,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "8c8e81df9f6223dca9c6503e0ae464aae46cd6f8",
-    "narHash": "sha256-qgS8cO1wEs5xkdmtxfBhcvvEDBB0Pn1O4j5etyx68CY=",
-    "lastModified": 1791915189
+    "rev": "c92d99dbf37604c7bbfb9fd68f21866a8434e0a8",
+    "narHash": "sha256-xjzPYmsmVWulwn4SJnIDzMKyibaLY0/mEb337ycZA70=",
+    "lastModified": 1791978119
   },
   "yazbar": {
     "type": "github",
@@ -416,8 +416,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "c495e98991c333c9cb2b6f9dda7e32e49e54d66d",
-    "narHash": "sha256-92V8wFy1G9ajZcuJNHcckzj8UwF34RYXiZisUQyyWCA=",
-    "lastModified": 1791851212
+    "rev": "d98522a05b8a63509a1e649b0df3fadacd0e8faf",
+    "narHash": "sha256-1Wmx50qG3+R7nWcqRhuOhqm16e+g6nGzu77WBdagBUw=",
+    "lastModified": 1791961831
   }
 }

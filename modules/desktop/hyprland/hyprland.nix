@@ -1,9 +1,5 @@
 {
   tack = {
-    all_follow = {
-      hyprland = "hyprland";
-      hyprgraphics = "hyprland/hyprgraphics";
-    };
     inputs = {
       hyprland = {
         url = "gh:hyprwm/Hyprland";
