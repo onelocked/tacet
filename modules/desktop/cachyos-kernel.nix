@@ -2,7 +2,7 @@
   tack.inputs.nix-cachyos-kernel = {
     url = "gh:xddxdd/nix-cachyos-kernel";
     exclude_follow = [ "nixpkgs" ];
-    group = "nix";
+    group = "gaming";
     frozen = true;
   };
   exo.mods.cachyos-kernel =

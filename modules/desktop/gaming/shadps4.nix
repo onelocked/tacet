@@ -12,6 +12,7 @@
     type = "fetch";
     frozen = true;
     submodules = true;
+    group = "gaming";
   };
   perSystem =
     { pkgs, inputs, ... }:

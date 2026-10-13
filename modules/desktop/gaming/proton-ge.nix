@@ -4,6 +4,7 @@
     type = "fixed";
     unpack = "tarball";
     tag = "GE-Proton{version}";
+    group = "gaming";
   };
   perSystem = { inputs, pkgs, ... }: {
     packages.proton-ge = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {

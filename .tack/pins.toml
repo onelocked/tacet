@@ -89,7 +89,7 @@ url = "gh:onelocked/nito"
 [inputs.nix-cachyos-kernel]
 exclude_follow = ["nixpkgs"]
 frozen = true
-group = "nix"
+group = "gaming"
 url = "gh:xddxdd/nix-cachyos-kernel"
 
 [inputs.nixos-core]
@@ -111,6 +111,7 @@ url = "gh:onelocked/no-header-prompt.yazi"
 
 [inputs.pkg-install]
 frozen = true
+group = "gaming"
 submodules = true
 type = "fetch"
 url = "gh:Muggle345/PKGInstall"
@@ -120,12 +121,14 @@ group = "nix"
 url = "gh:nix-community/preservation"
 
 [inputs.proton-cachyos]
+group = "gaming"
 tag = "cachyos-{version}-slr"
 type = "fixed"
 unpack = "tarball"
 url = "https://github.com/CachyOS/proton-cachyos/releases/download/{tag}/proton-cachyos-{version}-slr-x86_64_v3.tar.xz"
 
 [inputs.proton-ge]
+group = "gaming"
 tag = "GE-Proton{version}"
 type = "fixed"
 unpack = "tarball"

@@ -4,6 +4,7 @@
     type = "fixed";
     unpack = "tarball";
     tag = "cachyos-{version}-slr";
+    group = "gaming";
   };
   perSystem = { inputs, pkgs, ... }: {
     packages.proton-cachyos = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
