@@ -13,7 +13,7 @@
         enable = true;
         protontricks.enable = true;
         extraPackages = with pkgs; [
-          mangohud
+          self'.packages.mangohud
           gamemode
           pulseaudio
           systemd
@@ -24,7 +24,7 @@
         ];
         package = pkgs.steam.override {
           extraLibraries = pkgs: [
-            pkgs.mangohud
+            self'.packages.mangohud
             pkgs.gamemode.lib
           ];
           extraEnv = {

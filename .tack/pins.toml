@@ -1,8 +1,6 @@
 [all_follow]
 flake-parts = "flake-parts"
 flake-utils = "flake-utils"
-hyprgraphics = "hyprland/hyprgraphics"
-hyprland = "hyprland"
 nixpkgs = "nixpkgs"
 rust-overlay = "rust-overlay"
 systems = "systems"
@@ -81,6 +79,12 @@ url = "gh:andrewrabert/jellium-desktop"
 group = "desktop"
 type = "fetch"
 url = "gh:feschber/lan-mouse"
+
+[inputs.mangohud]
+group = "gaming"
+submodules = true
+type = "fetch"
+url = "gh:flightlessmango/MangoHud"
 
 [inputs.nito]
 group = "general"
