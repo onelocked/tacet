@@ -144,7 +144,6 @@ url = "gh:oxalica/rust-overlay"
 
 [inputs.scroll-overview]
 group = "hypr"
-patches = ["https://github.com/yayuuu/hyprland-scroll-overview/pull/78","https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch","https://gist.githubusercontent.com/onelocked/a0fa34cdfbf8c3773d4ed6b9f42b4915/raw/50d19d6fde38615f51dcdc5ac63cd9a1cbf21ccf/scrollview-opt.patch"]
 type = "fetch"
 url = "gh:yayuuu/hyprland-scroll-overview/new-release"
 
