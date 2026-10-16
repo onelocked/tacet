@@ -90,12 +90,6 @@ url = "gh:flightlessmango/MangoHud"
 group = "general"
 url = "gh:onelocked/nito"
 
-[inputs.nix-cachyos-kernel]
-exclude_follow = ["nixpkgs"]
-frozen = true
-group = "gaming"
-url = "gh:xddxdd/nix-cachyos-kernel"
-
 [inputs.nixos-core]
 group = "nix"
 url = "gh:manic-systems/nixos-core"

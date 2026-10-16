@@ -10,7 +10,6 @@
         gaming
         neovim
         shadps4
-        cachyos-kernel
       ];
       extraConfig =
         {

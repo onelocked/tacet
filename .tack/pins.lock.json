@@ -15,7 +15,6 @@
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
     "nito": "github:onelocked/nito",
-    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel",
     "nixos-core": "github:manic-systems/nixos-core",
     "nixos-hardware": "github:NixOS/nixos-hardware",
     "nixpkgs": "github:nixos/nixpkgs/nixos-unstable",
@@ -192,14 +191,6 @@
     "rev": "f93878e710fef044c0f6d66da4f049b2850c0d1d",
     "narHash": "sha256-tImvuzMAJEZIEq7Eb8WPXNQLzgvY0WuTnZ5W+JB/Pjo=",
     "lastModified": 1791987536
-  },
-  "nix-cachyos-kernel": {
-    "type": "github",
-    "owner": "xddxdd",
-    "repo": "nix-cachyos-kernel",
-    "rev": "b1332396df6e880d7e3b6b451c6a74132ce8cf66",
-    "narHash": "sha256-ANcKKTLB5oitjAYPp+iWts5clpbowVbDPVvt03P7Hes=",
-    "lastModified": 1790564970
   },
   "nixos-core": {
     "type": "github",
