@@ -164,13 +164,11 @@
 
           hl.window_rule({
             name = "move-all-games",
-            match = {
-              xdg_tag = "proton-game"
-            },
+            match = { xdg_tag = "proton-game" },
             decorate = false,
             content = "game",
             workspace = "6",
-            fullscreen_state = "3 3",
+            fullscreen_state = "0 1",
             idle_inhibit = "focus",
           })
 
