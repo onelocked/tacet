@@ -135,28 +135,19 @@
               "options nvidia NVreg_UsePageAttributeTable=1 ";
 
             boot.kernelParams = [
-              "mitigations=off"
-
-              "usbcore.autosuspend=-1" # don't sleep usb devices
-
               "pcie_aspm=off" # disables PCIe Active State Power Management (ASPM) across all PCIe links on the system
               "nowatchdog" # Disables the software watchdog, freeing up a tiny bit of CPU time
               "nmi_watchdog=0" # Disables the NMI watchdog
-              "split_lock_detect=off" # Prevents the kernel from throttling games that use split locks
 
               "transparent_hugepage=madvise"
               "thp_anon=madvise"
 
               "hpet=disable" # Kill the High Precision Event Timer
-              "tsc=reliable" # Trust the CPU's Time Stamp Counter completely
-              "clocksource=tsc" # Force TSC as the system clock source
-
               "intel_idle.max_cstate=1"
             ];
             boot.kernel.sysctl = {
               "kernel.sched_cfs_bandwidth_slice_us" = 3000;
               "net.ipv4.tcp_fin_timeout" = 5;
-              "kernel.split_lock_mitigate" = 0;
               "vm.max_map_count" = 2147483642;
 
               # Prevent background writeback micro-stutters
