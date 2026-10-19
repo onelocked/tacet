@@ -148,7 +148,7 @@
       ...
     }:
     {
-      packages.mangohud =
+      remotePackages.mangohud =
         let
           # Derived from subprojects/imgui.wrap
           imgui = {
