@@ -25,7 +25,7 @@
             ghrun.body = # fish
               ''
                 set -l url (string match -r 'https://github\.com/\S+/actions/runs/\d+' -- (gh workflow run cachix.yml $argv 2>&1))
-                xdg-open $url
+                xdg-open $url &>/dev/null
               '';
 
             "__yazi-fuzzy-zoxide".body = # fish
