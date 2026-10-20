@@ -112,6 +112,37 @@
           EDITOR = "nvim-focus";
           VISUAL = "nvim-focus";
         };
+        forte.lazygit.settings = {
+          os =
+            let
+              lazygitEdit = pkgs.writeShellApplication {
+                name = "lazygit-edit";
+                runtimeInputs = [ pkgs.coreutils ];
+                text = ''
+                  file=$(realpath -m -- "$1")
+                  line=''${2:-0}
+
+                  if [ -z "''${NVIM:-}" ]; then
+                    if [ "$line" -gt 0 ]; then
+                      exec nvim-focus "+$line" "$file"
+                    fi
+                    exec nvim-focus "$file"
+                  fi
+
+                  q="'"
+                  esc=''${file//$q/$q$q}
+
+                  nvim --server "$NVIM" --remote-send '<C-\><C-n><cmd>close<cr>'
+                  nvim --server "$NVIM" --remote-expr "v:lua.LazygitEdit('$esc', $line)" >/dev/null
+                '';
+              };
+            in
+            {
+              editInTerminal = true;
+              edit = "${lazygitEdit}/bin/lazygit-edit {{filename}}";
+              editAtLine = "${lazygitEdit}/bin/lazygit-edit {{filename}} {{line}}";
+            };
+        };
       };
       options.forte.neovim = {
         enable = lib.mkEnableOption "neovim";
