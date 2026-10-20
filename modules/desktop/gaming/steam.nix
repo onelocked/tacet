@@ -168,7 +168,6 @@
             decorate = false,
             content = "game",
             workspace = "6",
-            fullscreen_state = "0 1",
             idle_inhibit = "focus",
           })
 
