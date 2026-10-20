@@ -289,8 +289,8 @@
     "narHash": "sha256-Ptp8MhrPKovr19z4jGqls1DMD4DFM8eMMoXQS4J8gLs=",
     "lastModified": 1792026012,
     "patched": {
-      "path": "/nix/store/q8qgihgxhss7r5hb22jlb25c4vv7zbwk-source",
-      "narHash": "sha256-s7UZgEk7HlhKy5+Ton13bMNytNA1eUPfBF50v1yMj/c=",
+      "path": "/nix/store/dlikkw7qy3j2gl0hzib5pkmvjhji6jf7-source",
+      "narHash": "sha256-GmBmV0veurSu+dfsCYnrTrxQWVv+/BGUkHRbH5svQ6Q=",
       "lastModified": 1792026012,
       "patches": [
         {
@@ -305,6 +305,12 @@
           "url": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
           "file": "patches/scroll-overview/scrollview.patch",
           "sha256": "38269529fdf6b12145ea3e753640ab15137b0fb636f2a9cdcc21d935ded6e691"
+        },
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch",
+          "file": "patches/scroll-overview/scroll-overview-events.patch",
+          "sha256": "9a2fbbe1675532ba44b30129a7d7fd08995d5f54310b8e39398514bad3283788"
         }
       ]
     }

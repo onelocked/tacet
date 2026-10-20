@@ -5,6 +5,7 @@
       patches = [
         "https://github.com/yayuuu/hyprland-scroll-overview/pull/83"
         "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch"
+        "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch"
       ];
       type = "fetch";
       group = "hypr";
@@ -45,18 +46,25 @@
                 },
               })
 
-              local blur_enabled = true
-
               hl.bind("SUPER + G", function()
-                  blur_enabled = not blur_enabled
+                  hl.plugin.scrolloverview.overview("toggle all")
+              end)
+
+              -- blur follows the overview state
+              hl.on("scrolloverview.opened", function(monitor)
                   hl.config({
                       decoration = {
-                          blur = {
-                              enabled = blur_enabled,
-                          },
+                          blur = { enabled = false },
                       },
                   })
-                  hl.plugin.scrolloverview.overview("toggle all")
+              end)
+
+              hl.on("scrolloverview.closed", function(monitor)
+                  hl.config({
+                      decoration = {
+                          blur = { enabled = true },
+                      },
+                  })
               end)
             end
           end)
