@@ -11,7 +11,7 @@
     "hjem": "github:feel-co/hjem",
     "hypr-plugs": "github:hyprwm/hyprland-plugins",
     "hyprland": "github:hyprwm/Hyprland",
-    "jellium-desktop": "github:andrewrabert/jellium-desktop",
+    "jellium-desktop": "github:andrewrabert/jellium-desktop/14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
     "nito": "github:onelocked/nito",
@@ -147,15 +147,15 @@
   "jellium-desktop": {
     "type": "git",
     "url": "https://github.com/andrewrabert/jellium-desktop.git",
-    "ref": "HEAD",
-    "rev": "1b73a13b32e427c27815dac48b0bd82de771f454",
-    "narHash": "sha256-qawW4q4wztT294+gEWXuaVes4UM7yC0DFi+o3vKqPiw=",
-    "lastModified": 1792373381,
+    "ref": "14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
+    "rev": "14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
+    "narHash": "sha256-vU7Fuw2gMvGdBBYEJ4ngu7cHayffEPdHswQA7NtNGj8=",
+    "lastModified": 1789852673,
     "submodules": true,
     "patched": {
-      "path": "/nix/store/p9r6rfy7953qpmakrh8mhxmw3arfsx8n-source",
-      "narHash": "sha256-UtkFLK3keh3rMDDFbIt17iDwWjxU+ydGiKkiWb4SoAQ=",
-      "lastModified": 1792373381,
+      "path": "/nix/store/9kwfj6vl6qfr5nz8cc6qpw84j8n5ss3x-source",
+      "narHash": "sha256-jrdMoQfxET+EdSWEuoY9Kz6E1DUIXTuoc79lHzYYqMo=",
+      "lastModified": 1789852673,
       "patches": [
         {
           "source": "https://github.com/andrewrabert/jellium-desktop/pull/717",
