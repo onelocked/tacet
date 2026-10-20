@@ -287,7 +287,27 @@
     "repo": "hyprland-scroll-overview",
     "rev": "9a658551a962dd788017734bfb8b37c80d11d522",
     "narHash": "sha256-Ptp8MhrPKovr19z4jGqls1DMD4DFM8eMMoXQS4J8gLs=",
-    "lastModified": 1792026012
+    "lastModified": 1792026012,
+    "patched": {
+      "path": "/nix/store/q8qgihgxhss7r5hb22jlb25c4vv7zbwk-source",
+      "narHash": "sha256-s7UZgEk7HlhKy5+Ton13bMNytNA1eUPfBF50v1yMj/c=",
+      "lastModified": 1792026012,
+      "patches": [
+        {
+          "source": "https://github.com/yayuuu/hyprland-scroll-overview/pull/83",
+          "url": "https://github.com/yayuuu/hyprland-scroll-overview/pull/83",
+          "file": "patches/scroll-overview/pr-83.patch",
+          "sha256": "7b083b71d3fa4ad977c1d505cf9cc24999f6e6f4737efdbad27c2c017518ead2",
+          "head": "25163b1e6a61c67e6b0cc7b5c51ab584b18f70e8"
+        },
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
+          "file": "patches/scroll-overview/scrollview.patch",
+          "sha256": "38269529fdf6b12145ea3e753640ab15137b0fb636f2a9cdcc21d935ded6e691"
+        }
+      ]
+    }
   },
   "sf-compact": {
     "type": "fixed",

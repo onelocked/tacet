@@ -2,6 +2,10 @@
   tack.inputs = {
     scroll-overview = {
       url = "gh:yayuuu/hyprland-scroll-overview/new-release";
+      patches = [
+        "https://github.com/yayuuu/hyprland-scroll-overview/pull/83"
+        "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch"
+      ];
       type = "fetch";
       group = "hypr";
     };
@@ -41,8 +45,18 @@
                 },
               })
 
+              local blur_enabled = true
+
               hl.bind("SUPER + G", function()
-                hl.plugin.scrolloverview.overview("toggle all")
+                  blur_enabled = not blur_enabled
+                  hl.config({
+                      decoration = {
+                          blur = {
+                              enabled = blur_enabled,
+                          },
+                      },
+                  })
+                  hl.plugin.scrolloverview.overview("toggle all")
               end)
             end
           end)
