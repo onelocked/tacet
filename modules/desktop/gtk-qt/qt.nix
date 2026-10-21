@@ -64,11 +64,11 @@
       config = lib.mkIf cfg.enable {
         qt = {
           enable = true;
-          platformTheme = "qt5ct";
           style = "adwaita-dark";
         };
 
         environment.sessionVariables = {
+          QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
           QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         };
 
