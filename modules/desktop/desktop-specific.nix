@@ -5,7 +5,6 @@
       config = {
         hardware.graphics.enable = true;
 
-        services.ddccontrol.enable = true;
         services.displayManager.enable = lib.mkForce false;
 
         services.gvfs.enable = false;
@@ -38,7 +37,6 @@
         hj.packages = with pkgs; [
           silicon
           wl-clipboard
-          ddcutil
           app2unit
         ];
       };
