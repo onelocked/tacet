@@ -47,6 +47,7 @@
           };
           diff = {
             colorMoved = "default";
+            algorithm = "histogram";
           };
           pager = {
             diff = "diffnav";

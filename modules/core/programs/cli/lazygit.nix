@@ -87,10 +87,10 @@
           customCommands = [
             {
               key = "D";
-              command = "git show {{.SelectedLocalCommit.Hash}} | diffnav";
+              command = "nvim -c 'DiffviewOpen {{.SelectedLocalCommit.Hash}}^!' -c 'autocmd User DiffviewViewClosed qa'";
               context = "commits";
               output = "terminal";
-              description = "Open selected commit in diffnav";
+              description = "Open selected commit in diffview";
             }
           ];
         };
