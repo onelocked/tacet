@@ -161,17 +161,26 @@
             },
             fullscreen_state = "3 3",
           })
+          hl.on("window.open", function(w)
+              if not w or w.xdg_tag ~= "proton-game" then
+                  return
+              end
 
+              local winsOnWs6 = hl.get_workspace_windows("6")
+
+              if #winsOnWs6 == 1 and w.floating then
+                  hl.dispatch(hl.dsp.window.float({ window = w, action = "disable" }))
+              end
+          end)
           hl.window_rule({
             name = "move-all-games",
             match = { xdg_tag = "proton-game" },
-            decorate = false,
             content = "game",
             workspace = "6",
             idle_inhibit = "focus",
+            suppress_event = "fullscreen maximize"
           })
-
-          -- return to workspace media once the game is closed
+          -- return to workspace 5 once the game is closed
           hl.on("window.close", function()
             local ws = hl.get_active_workspace()
             if ws ~= nil and ws.name == "6" then
