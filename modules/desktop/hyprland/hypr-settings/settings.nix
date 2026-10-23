@@ -82,6 +82,7 @@
               disable_splash_rendering = true,
               middle_click_paste         = false,
               enable_swallow             = true,
+              swallow_regex = "^(kitty)$",
               on_focus_under_fullscreen  = 1,
               initial_workspace_tracking = true,
               disable_autoreload         = false,

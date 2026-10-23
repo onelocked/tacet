@@ -97,6 +97,8 @@
               hl.dispatch(hl.dsp.window.center())
             end
           end)
+          -- toggle window swallowing
+          hl.bind("ALT + SHIFT + S", hl.dsp.window.toggle_swallow())
 
           -- Move focus with SUPER + arrow keys
           hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
