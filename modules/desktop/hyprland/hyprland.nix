@@ -1,10 +1,8 @@
 {
-  tack = {
-    inputs = {
-      hyprland = {
-        url = "gh:hyprwm/Hyprland";
-        group = "hypr";
-      };
+  tack.inputs = {
+    hyprland = {
+      url = "gh:hyprwm/Hyprland";
+      group = "hypr";
     };
   };
   exo.mods.desktop = {

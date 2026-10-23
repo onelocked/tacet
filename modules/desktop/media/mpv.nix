@@ -85,8 +85,6 @@
             Ctrl+0 set sub-scale 0
 
             q quit
-            Q quit-watch-later
-            q {encode} quit 4
             p cycle pause
             SPACE cycle pause
             f cycle fullscreen
@@ -95,7 +93,6 @@
             N playlist-prev
 
             o show-progress
-            O script-binding stats/display-stats-toggle
 
             s cycle sub
             v cycle video
