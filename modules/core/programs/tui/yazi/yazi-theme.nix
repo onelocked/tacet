@@ -7,6 +7,7 @@
         flavorContent = # toml
           ''
             [mgr]
+            border_set = { as = "plain" }
             cwd = { fg = "${base05}" }
 
             find_keyword = { fg = "${base08}", bold = true, italic = true, underline = true }
@@ -46,6 +47,7 @@
 
             [mode]
 
+            border_set = { as = "plain" }
             normal_main = { bg = "${base0D}", fg = "${base07}", bold = true }
             normal_alt  = { bg = "${base03}", fg = "${base05}" }
 
@@ -57,6 +59,7 @@
 
 
             [input]
+            border_set = { as = "plain" }
             border = { fg = "${base0D}" }
             title = {}
             value = { fg = "${base05}" }
@@ -77,6 +80,7 @@
 
 
             [which]
+            border_set = { as = "plain" }
             cols = 3
             mask = { bg = "${base00}" }
             cand = { fg = "${base0D}" }
@@ -86,6 +90,7 @@
             separator_style = { fg = "${base05}" }
 
             [spot]
+            border_set = { as = "plain" }
             border   = { fg = "${base0D}" }
             title    = { fg = "${base0D}" }
             tbl_col  = { fg = "${base05}" }
@@ -93,17 +98,20 @@
 
 
             [help]
+            border_set = { as = "plain" }
             on = { fg = "${base05}" }
             run = { fg = "${base05}" }
             hovered = { reversed = true, bold = true }
             footer = { fg = "${base01}", bg = "${base06}" }
 
             [notify]
+            border_set = { as = "plain" }
             title_info = { fg = "${base0E}" }
             title_warn = { fg = "${base0D}" }
             title_error = { fg = "${base08}" }
 
             [filetype]
+            border_set = { as = "plain" }
 
             rules = [
                 { mime = "image/*", fg = "${base15}" },
