@@ -47,7 +47,6 @@
             mkKeymap = on: run: desc: { inherit on run desc; };
           in
           [
-            (mkKeymap [ "l" "g" ] "plugin lazygit" "run lazygit")
             (mkKeymap [ "g" "r" ] ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"'' "git root")
             (mkKeymap [ "g" "s" ] "shell -- ya emit cd /mnt/s3" "Go to S3")
             (mkKeymap [ "i" "m" ] "shell -- nix run nixpkgs#yt-dlp $(wl-paste)" "Download video")

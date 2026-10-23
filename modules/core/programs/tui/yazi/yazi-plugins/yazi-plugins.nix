@@ -6,6 +6,7 @@
       extra-metadata = "gh:boydaihungst/file-extra-metadata.yazi";
       no-header-prompt = "gh:onelocked/no-header-prompt.yazi";
       yazbar = "gh:onelocked/yazbar.yazi";
+      yazi-plugins = "gh:yazi-rs/plugins";
     }
     |> builtins.mapAttrs (
       _: v:
@@ -28,15 +29,8 @@
       forte.yazi = {
         plugins = {
           inherit (pkgs.yaziPlugins)
-            full-border
             ouch
-            lazygit
-            git
-            piper
-            chmod
-            smart-filter
             wl-clipboard
-            toggle-pane
             ;
         }
         // (
@@ -54,6 +48,29 @@
                 pname = name;
                 version = "git";
                 src = inputs.${name};
+              }
+            )
+          )
+          |> lib.listToAttrs
+        )
+        // (
+          [
+            "full-border"
+            "toggle-pane"
+            "piper"
+            "chmod"
+            "git"
+          ]
+          |> map (
+            name:
+            lib.nameValuePair name (
+              pkgs.yaziPlugins.mkYaziPlugin {
+                pname = name;
+                version = inputs._meta.yazi-plugins.rev;
+                src = pkgs.lib.cleanSourceWith {
+                  src = "${inputs.yazi-plugins}/${name}.yazi";
+                  filter = path: _type: baseNameOf path == "main.lua";
+                };
               }
             )
           )
@@ -92,7 +109,6 @@
               (mkKeymap [ "<S-z>" ] "plugin fuzzy-search -- zoxide --TL=3" "Zoxide Search")
               (mkKeymap [ "c" "m" ] "plugin chmod" "chmod on files")
               (mkKeymap [ "C" ] "plugin ouch" "Compress files with ouch")
-              (mkKeymap [ "f" ] "plugin smart-filter" "Smart filter")
               (mkKeymap [ "<C-y>" ] "plugin wl-clipboard" "copy to clipboard")
             ];
         };
@@ -102,7 +118,7 @@
         ''
           require("no-header-prompt"):setup()
           require("full-border"):setup {
-          	type = ui.Border.PLAIN,
+            set = "plain",
           }
           require("git"):setup {
               -- Order of status signs showing in the linemode

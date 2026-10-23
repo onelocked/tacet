@@ -7,11 +7,6 @@
       url = "gh:sxyazi/yazi";
       group = "sxyazi";
     };
-    yazi-plugins = {
-      url = "gh:AminurAlam/yazi-plugins";
-      type = "fetch";
-      group = "sxyazi";
-    };
   };
   exo.core =
     {

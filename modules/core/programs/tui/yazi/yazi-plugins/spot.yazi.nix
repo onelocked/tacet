@@ -1,5 +1,12 @@
 { inputs, ... }:
 {
+  tack.inputs = {
+    spot = {
+      url = "gh:AminurAlam/yazi-plugins";
+      type = "fetch";
+      group = "sxyazi";
+    };
+  };
   exo.core =
     { pkgs, lib, ... }:
     {
@@ -18,7 +25,7 @@
                 pname = name;
                 version = "1.0";
                 src = pkgs.lib.cleanSourceWith {
-                  src = "${inputs.yazi-plugins}/${name}.yazi";
+                  src = "${inputs.spot}/${name}.yazi";
                   filter = path: _type: baseNameOf path == "main.lua";
                 };
               }

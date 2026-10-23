@@ -175,6 +175,11 @@ url = "gh:Mic92/sops-nix"
 group = "desktop"
 url = "gh:Gerg-L/spicetify-nix"
 
+[inputs.spot]
+group = "sxyazi"
+type = "fetch"
+url = "gh:AminurAlam/yazi-plugins"
+
 [inputs.systemctl-tui]
 group = "general"
 type = "fetch"
@@ -210,7 +215,7 @@ url = "gh:sxyazi/yazi"
 [inputs.yazi-plugins]
 group = "sxyazi"
 type = "fetch"
-url = "gh:AminurAlam/yazi-plugins"
+url = "gh:yazi-rs/plugins"
 
 [inputs.zen-browser]
 group = "browser"

@@ -32,6 +32,7 @@
     "sf-pro": "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg",
     "sops-nix": "github:Mic92/sops-nix",
     "spicetify-nix": "github:Gerg-L/spicetify-nix",
+    "spot": "github:AminurAlam/yazi-plugins",
     "systemctl-tui": "github:rgwood/systemctl-tui",
     "systems": "github:nix-systems/default-linux",
     "tack": "github:manic-systems/tack",
@@ -39,7 +40,7 @@
     "tuishell": "git+https://gitea.onelock.org/onelock/tuishell",
     "yazbar": "github:onelocked/yazbar.yazi",
     "yazi": "github:sxyazi/yazi",
-    "yazi-plugins": "github:AminurAlam/yazi-plugins",
+    "yazi-plugins": "github:yazi-rs/plugins",
     "zen-browser": "github:0xc000022070/zen-browser-flake"
   },
   "apple-font-emoji": {
@@ -349,6 +350,14 @@
     "narHash": "sha256-W76wP2Kr/a/E2IMK3wtBD5WaTJJnB21C25pWUbD5IC8=",
     "lastModified": 1792312987
   },
+  "spot": {
+    "type": "github",
+    "owner": "AminurAlam",
+    "repo": "yazi-plugins",
+    "rev": "72bdb41827b389b346db91a3bfe5cb114399c932",
+    "narHash": "sha256-tNI1SpI146BufWeC+hZXEgSPl5elzNgdJNs/P3F9PX8=",
+    "lastModified": 1792644224
+  },
   "systemctl-tui": {
     "type": "github",
     "owner": "rgwood",
@@ -407,11 +416,11 @@
   },
   "yazi-plugins": {
     "type": "github",
-    "owner": "AminurAlam",
-    "repo": "yazi-plugins",
-    "rev": "72bdb41827b389b346db91a3bfe5cb114399c932",
-    "narHash": "sha256-tNI1SpI146BufWeC+hZXEgSPl5elzNgdJNs/P3F9PX8=",
-    "lastModified": 1792644224
+    "owner": "yazi-rs",
+    "repo": "plugins",
+    "rev": "e0bbd205de9759e7aa81857e1ff616eb5123e305",
+    "narHash": "sha256-H/4Oi/D2M/aDEk/AourPURxfhoMxSm5UjaRgpeXrQ1Q=",
+    "lastModified": 1792734954
   },
   "zen-browser": {
     "type": "github",
