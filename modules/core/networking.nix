@@ -13,7 +13,9 @@
 
       services.avahi = lib.mkIf (!server) {
         enable = true;
-        publish.enable = true;
+        settings = {
+          publish."disable-publishing" = false;
+        };
         openFirewall = true;
         nssmdns4 = true;
       };
