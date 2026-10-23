@@ -117,7 +117,7 @@
             },
 
             input = {
-              kb_layout           = "us",
+              kb_layout           = "us,ru",
               kb_variant          = "",
               kb_model            = "",
               kb_options          = "",

@@ -305,6 +305,39 @@
         hyprland = packages'.hyprland.overrideAttrs (oldAttrs: {
           doCheck = false;
           patches = (oldAttrs.patches or [ ]) ++ [
+            (pkgs.writeText "virtual-keyboard.patch" # cpp
+              ''
+                diff --git a/src/devices/VirtualKeyboard.cpp b/src/devices/VirtualKeyboard.cpp
+                index 21752cb..7bb4fcb 100644
+                --- a/src/devices/VirtualKeyboard.cpp
+                +++ b/src/devices/VirtualKeyboard.cpp
+                @@ -26,7 +26,10 @@ CVirtualKeyboard::CVirtualKeyboard(SP<CVirtualKeyboardV1Resource> keeb_) : m_key
+                         m_keyboardEvents.key.emit(event);
+                     });
+                     m_listeners.modifiers = keeb_->m_events.modifiers.listen([this](const SModifiersEvent& event) {
+                -        updateModifiers(event.depressed, event.latched, event.locked, event.group);
+                +        if (event.group != 0)
+                +            m_clientControlsLayoutGroup = true;
+                +
+                +        updateModifiers(event.depressed, event.latched, event.locked, m_clientControlsLayoutGroup ? event.group : m_modifiersState.group);
+                         m_keyboardEvents.modifiers.emit(SModifiersEvent{
+                             .depressed = m_modifiersState.depressed,
+                             .latched   = m_modifiersState.latched,
+                diff --git a/src/devices/VirtualKeyboard.hpp b/src/devices/VirtualKeyboard.hpp
+                index 93f92dd..984305a 100644
+                --- a/src/devices/VirtualKeyboard.hpp
+                +++ b/src/devices/VirtualKeyboard.hpp
+                @@ -18,6 +18,8 @@ class CVirtualKeyboard : public IKeyboard {
+
+                     WP<CVirtualKeyboardV1Resource> m_keyboard;
+
+                +    bool m_clientControlsLayoutGroup = false;
+                +
+                     struct {
+                         CHyprSignalListener destroy;
+                         CHyprSignalListener key;
+              ''
+            )
             (pkgs.writeText "per-workspace-scrolling-width" # cpp
               ''
                 diff --git a/src/layout/algorithm/tiled/scrolling/ScrollingAlgorithm.cpp b/src/layout/algorithm/tiled/scrolling/ScrollingAlgorithm.cpp

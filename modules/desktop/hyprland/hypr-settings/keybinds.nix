@@ -66,6 +66,9 @@
           hl.permission({ binary = "${pkgs.wayfreeze}/bin/wayfreeze", type = "screencopy", mode = "allow" })
           hl.bind("Print", hl.dsp.exec_raw("${pkgs.wayfreeze}/bin/wayfreeze --after-freeze-cmd '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | wl-copy; killall wayfreeze'"))
 
+          -- cycle keyboard lang layout
+          hl.bind("CTRL + Space", hl.dsp.exec_cmd("hyprctl switchxkblayout all next"))
+
           -- fullscreen keybind
           hl.bind("SUPER + M", hl.dsp.window.fullscreen())
 
