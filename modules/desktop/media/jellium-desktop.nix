@@ -21,7 +21,7 @@
             hl.window_rule({
               name             = "jellium-desktop",
               match            = { class = "net.nullsum.JelliumDesktop" },
-              workspace        = "5",
+              workspace        = "6",
               opacity          = "1 override",
               idle_inhibit = "focus",
             })
