@@ -61,9 +61,9 @@
     "type": "github",
     "owner": "SHORiN-KiWATA",
     "repo": "cliphist-tui",
-    "rev": "3b1a0c983adc8933953dd90b41c41da8b00e11ea",
-    "narHash": "sha256-fOwy54AF5qZkJPpfKvV0Hv/Nnrjzbt4uqVqbZZs3JX8=",
-    "lastModified": 1791519338
+    "rev": "c54f131bb680b433022df0f5e363793646640d7e",
+    "narHash": "sha256-GtRI74NdZNmIOh8xlgWdMTmW7wCpLpMNDQ1NClr99NY=",
+    "lastModified": 1792771539
   },
   "confirm-dialog": {
     "type": "github",
@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "171c93933f08cf8655a3d576f0b934d6279255fa",
-    "narHash": "sha256-HZEfZyYgEO13AWfwTKrfEtxoGxO4dMT3ydbiFZHS6Ks=",
-    "lastModified": 1792762490
+    "rev": "a1c2428f79b3b05c3fd36c27378e3538c8c6a014",
+    "narHash": "sha256-Eyfa/D6qKg90jVcx30+/n84SQbH6F0n91m22tQ1kSpM=",
+    "lastModified": 1792798293
   },
   "jellium-desktop": {
     "type": "git",
@@ -180,9 +180,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "a47200ad4223de998de2f7a3df3d72ed4dae84b5",
-    "narHash": "sha256-2jEDjG2sbUDPgRvnjEYEcl/iI5ZAQLCWsJRKGXa4Iac=",
-    "lastModified": 1792765627,
+    "rev": "a68858a15456cc24a08075e20a8c4e40367b2dbd",
+    "narHash": "sha256-UI8DIkXJaK0DE/SJmu7jxfIs784j1P+8kkoCZOnBDw8=",
+    "lastModified": 1792816476,
     "submodules": true
   },
   "nito": {
@@ -197,9 +197,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "nixos-core",
-    "rev": "ea3d43aab1da4ab847065d50892c774904aa492d",
-    "narHash": "sha256-4XPY3uV0guJjLwzQb2wbio448zKfgkaH3dEh7ui2Bxg=",
-    "lastModified": 1792210974
+    "rev": "13d9c52c1ea8275e5c5b99878f96a8435bebad9f",
+    "narHash": "sha256-zWTz3A7cZyjCV8a9z/d20cDborKQgt+2YfDLIsnZkVQ=",
+    "lastModified": 1792822547
   },
   "nixos-hardware": {
     "type": "github",
@@ -278,9 +278,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "b0829a2cc9f7b596583331d78a942c1e5170d8a0",
-    "narHash": "sha256-M2rr/yPbTHvgAzCyZ+zHJHflFM0XU7t42Sw2skA3TQM=",
-    "lastModified": 1792739799
+    "rev": "5b9f1198b59bcb31c5c3250b332e7d77590e6306",
+    "narHash": "sha256-aphXA2IFNd3q48++TKmfuuvDDjkrgGdJDnDIhij9684=",
+    "lastModified": 1792825530
   },
   "scroll-overview": {
     "type": "github",
@@ -338,9 +338,9 @@
     "type": "github",
     "owner": "Mic92",
     "repo": "sops-nix",
-    "rev": "e80b8b733d8452a751a25d0063abc9683b6c8185",
-    "narHash": "sha256-4ChDjNgJM5uKwTuecLHxGlafAtoyKo5a7ip23J5IG3M=",
-    "lastModified": 1792655475
+    "rev": "442449fa7b1fe6c692d0103ac9fc8f9e82931cf3",
+    "narHash": "sha256-KV+CaZX7QS0hcdKxwGKehDb1jmUgx6lbkTPpaoIW5Nw=",
+    "lastModified": 1792809984
   },
   "spicetify-nix": {
     "type": "github",
