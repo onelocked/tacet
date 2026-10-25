@@ -77,6 +77,11 @@
                 LocalForward 2053 127.0.0.1:2053
                 IdentityFile ~/.ssh/shorekeeper
 
+              Host pipi
+                User pipi
+                HostName 10.8.0.3
+                IdentityFile ~/.ssh/shorekeeper
+
               Host *
                 IdentitiesOnly yes
             '';
