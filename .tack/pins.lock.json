@@ -117,9 +117,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "2aa77b2f0cb27c486e27f37f9fcd1c6f826076ac",
-    "narHash": "sha256-1hqI63X3aUiPBZqodC1u78lcxiKz1TL2/cL7rdpyA1Q=",
-    "lastModified": 1792674624
+    "rev": "cd495e8607666e5bb4381be5aef2db0b171b4aa1",
+    "narHash": "sha256-wMCQcg9MIDnYVLpfxrGq3972BXNHrGGaufeEKL/c/Xo=",
+    "lastModified": 1793010284
   },
   "hjem": {
     "type": "github",
@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "a1c2428f79b3b05c3fd36c27378e3538c8c6a014",
-    "narHash": "sha256-Eyfa/D6qKg90jVcx30+/n84SQbH6F0n91m22tQ1kSpM=",
-    "lastModified": 1792798293
+    "rev": "c4e7596a3db89cb0d213eeb3e436599422995b43",
+    "narHash": "sha256-3Q9x7UnMrDBwEcCLNH1P86IZHdAD8j1toPEEIi1Flmc=",
+    "lastModified": 1792919706
   },
   "jellium-desktop": {
     "type": "git",
@@ -172,9 +172,9 @@
     "type": "github",
     "owner": "feschber",
     "repo": "lan-mouse",
-    "rev": "f1b96bdcc0294d285bc9050b7e146800a3ef8796",
-    "narHash": "sha256-GGmVzbNbIyTV6hvG9lz/FEc+PwIgM2tX8nbcuD1fo9Y=",
-    "lastModified": 1790422438
+    "rev": "69958c625163649b69e27d0a6fb5a3edd596a467",
+    "narHash": "sha256-5M3fR20KcHo2YjrQRKf9geVYh37yrlWZ55XWXecAn1k=",
+    "lastModified": 1792937279
   },
   "mangohud": {
     "type": "git",
@@ -189,9 +189,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "70ba3a03c9ccb8d0659561618c660aff1a8b01ff",
-    "narHash": "sha256-PQ/iMXMNKD7LljD9mHKkYmPtzSJwPNSIumXL8tJlJLI=",
-    "lastModified": 1792761138
+    "rev": "49748c8f63df76381a01dd6d63e3f4d2d3dbd259",
+    "narHash": "sha256-O0s6wFb2igtsemi2+7JNRq2NnzmyFemOWkX+q9rPRiI=",
+    "lastModified": 1792967488
   },
   "nixos-core": {
     "type": "github",
@@ -213,9 +213,9 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
-    "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
-    "lastModified": 1792502884
+    "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
+    "narHash": "sha256-rZLrzrC6i+jnTAlvPZHogKDulY7WWDEv9hJeHieO7Zw=",
+    "lastModified": 1792773339
   },
   "no-header-prompt": {
     "type": "github",
@@ -238,9 +238,9 @@
     "type": "github",
     "owner": "nix-community",
     "repo": "preservation",
-    "rev": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
-    "narHash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY=",
-    "lastModified": 1757436102
+    "rev": "00be7f7dd1a11ae0605386f2272288de7cf33abe",
+    "narHash": "sha256-s/A2rSO2Ndf8Y5yiouesnI/3Zkn9pmVGF2NxFxOUvx8=",
+    "lastModified": 1792953443
   },
   "proton-cachyos": {
     "type": "fixed",
@@ -278,9 +278,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "5b9f1198b59bcb31c5c3250b332e7d77590e6306",
-    "narHash": "sha256-aphXA2IFNd3q48++TKmfuuvDDjkrgGdJDnDIhij9684=",
-    "lastModified": 1792825530
+    "rev": "0d0575988e4bb9ebc4cf1afb1cec1ceac0b5914e",
+    "narHash": "sha256-6sLQgHX/V/yF8VrhmsJroujeRua1GY3nDTEpnY7tHF4=",
+    "lastModified": 1793000331
   },
   "scroll-overview": {
     "type": "github",
@@ -346,9 +346,9 @@
     "type": "github",
     "owner": "Gerg-L",
     "repo": "spicetify-nix",
-    "rev": "fc58c85761e0893299092f482150305b1ef60914",
-    "narHash": "sha256-W76wP2Kr/a/E2IMK3wtBD5WaTJJnB21C25pWUbD5IC8=",
-    "lastModified": 1792312987
+    "rev": "f6eb8135c060130150c8fbcc6b7cf5e22e5179d8",
+    "narHash": "sha256-gJ8uPmQFhJ98X+VWPpD+o0tnQ0nJjbG+Z3QDHcSJKw0=",
+    "lastModified": 1792919014
   },
   "spot": {
     "type": "github",
@@ -426,8 +426,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "f19490ac889eabb05bdb7e8dcb85225ee75bd87b",
-    "narHash": "sha256-kH/E0uJDslOgYcnmU+c0cm6HrUjsEtvZQKZtuQ1+uvo=",
-    "lastModified": 1792595242
+    "rev": "ed68d814d6cf2e221ba43d84f1e32429f5e2786f",
+    "narHash": "sha256-ThRNX0+T2Gb3ZD0Xf+/R3wJdL93/mW80ubMnLjZelTY=",
+    "lastModified": 1792963762
   }
 }
