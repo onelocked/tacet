@@ -161,25 +161,39 @@
             },
             fullscreen_state = "3 3",
           })
+
+          -- custom lua snippet to tile the first proton wayland window
+          -- for some reason proton spawns all windows and its children in fullscreen
+          -- this tiles the first spawned window and lets the other ones be floats due to the
+          -- fullscreen and maximize suppression
+          local GAME_TAG = "proton-game"
+          hl.window_rule({
+              name  = "move-all-games",
+              match = { xdg_tag = GAME_TAG },
+
+              content        = "game",
+              workspace      = "6",
+              idle_inhibit   = "focus",
+              suppress_event = "fullscreen maximize",
+          })
+
           hl.on("window.open", function(w)
-              if not w or w.xdg_tag ~= "proton-game" then
+              if not w or w.xdg_tag ~= GAME_TAG then
                   return
               end
 
-              local winsOnWs6 = hl.get_workspace_windows("6")
+              local anotherGameWindow = false
 
-              if #winsOnWs6 == 1 and w.floating then
+              for _, other in ipairs(hl.get_windows()) do
+                  if other ~= w and other.xdg_tag == GAME_TAG then
+                      anotherGameWindow = true
+                      break
+                  end
+              end
+              if not anotherGameWindow then
                   hl.dispatch(hl.dsp.window.float({ window = w, action = "disable" }))
               end
           end)
-          hl.window_rule({
-            name = "move-all-games",
-            match = { xdg_tag = "proton-game" },
-            content = "game",
-            workspace = "6",
-            idle_inhibit = "focus",
-            suppress_event = "fullscreen maximize"
-          })
           -- return to workspace 5 once the game is closed
           hl.on("window.close", function()
             local ws = hl.get_active_workspace()
