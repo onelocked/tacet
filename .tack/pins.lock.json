@@ -125,9 +125,9 @@
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "4cd448d5b3220b8bbccdb6e7e8185b515f63a776",
-    "narHash": "sha256-xj1hq1P05Lekx9tAtyJGSMFw8Z5oK4jh+n7Qr0Q1m5k=",
-    "lastModified": 1792547720
+    "rev": "d219ef55ab7311d884cf33e114561082fec95f34",
+    "narHash": "sha256-BohcZsIqBOd6YL6+jUkdM4GE+aQc72E6yrqVyt1z5X4=",
+    "lastModified": 1793026809
   },
   "hypr-plugs": {
     "type": "github",
@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "c4e7596a3db89cb0d213eeb3e436599422995b43",
-    "narHash": "sha256-3Q9x7UnMrDBwEcCLNH1P86IZHdAD8j1toPEEIi1Flmc=",
-    "lastModified": 1792919706
+    "rev": "fb6e5380228b2908ed9b74867a32b26f623a0cec",
+    "narHash": "sha256-LRXOFW/j7IrbTcjcSRxXTVLadf1v7nMMAiznHFcUx5Q=",
+    "lastModified": 1793028007
   },
   "jellium-desktop": {
     "type": "git",
@@ -163,7 +163,7 @@
           "url": "https://github.com/andrewrabert/jellium-desktop/pull/717",
           "file": "patches/jellium-desktop/pr-717.patch",
           "sha256": "ab7b954ec7e6de3a736bd34faa9ff3897ce6fad24dfac87bcef07c13d209342b",
-          "head": "ff055a77f68c3e723386ad4e172b0791fb718104"
+          "head": "49deceea901fcc7a43bc6a15280506034ca3b3bd"
         }
       ]
     }
@@ -180,9 +180,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "a68858a15456cc24a08075e20a8c4e40367b2dbd",
-    "narHash": "sha256-UI8DIkXJaK0DE/SJmu7jxfIs784j1P+8kkoCZOnBDw8=",
-    "lastModified": 1792816476,
+    "rev": "059ddaf22e24fbd529ff052ef5ab938539a5eeaf",
+    "narHash": "sha256-PgpEuURRtETb2DWvTPmJ7kAK5PNvObCtH9GbQOSuPu4=",
+    "lastModified": 1793106099,
     "submodules": true
   },
   "nito": {
@@ -205,9 +205,9 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixos-hardware",
-    "rev": "1b418b8f203e49a92f250f8babdd19af1b6f7a7f",
-    "narHash": "sha256-2UBK0jdmPANGaeAIoVOZY+hSPB2Gy13ZuZeSxP3vF8k=",
-    "lastModified": 1792697326
+    "rev": "8ba09466dc929acf5c8bb3e0cc40f472a7df3630",
+    "narHash": "sha256-mhud3nRH8RoP0h9MydfkJ8mISpj+QE/S//wOt9bNgC0=",
+    "lastModified": 1793054847
   },
   "nixpkgs": {
     "type": "github",
@@ -278,9 +278,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "0d0575988e4bb9ebc4cf1afb1cec1ceac0b5914e",
-    "narHash": "sha256-6sLQgHX/V/yF8VrhmsJroujeRua1GY3nDTEpnY7tHF4=",
-    "lastModified": 1793000331
+    "rev": "c7e9d512653a35ef4d5879c3df4d44d7b78d0e6d",
+    "narHash": "sha256-ObKS44vw4IIVpQ69YJzUGjZ0IwnpWoUlwjJSY7gefdo=",
+    "lastModified": 1793086596
   },
   "scroll-overview": {
     "type": "github",
@@ -290,16 +290,16 @@
     "narHash": "sha256-Ptp8MhrPKovr19z4jGqls1DMD4DFM8eMMoXQS4J8gLs=",
     "lastModified": 1792026012,
     "patched": {
-      "path": "/nix/store/dlikkw7qy3j2gl0hzib5pkmvjhji6jf7-source",
-      "narHash": "sha256-GmBmV0veurSu+dfsCYnrTrxQWVv+/BGUkHRbH5svQ6Q=",
+      "path": "/nix/store/qr21vbj8xp26zz75m7az10sjy5jibp3m-source",
+      "narHash": "sha256-FHEIiG3Z4Tk9orPtl0nAAtSapCcO9trfb2e7qCiBdHU=",
       "lastModified": 1792026012,
       "patches": [
         {
           "source": "https://github.com/yayuuu/hyprland-scroll-overview/pull/83",
           "url": "https://github.com/yayuuu/hyprland-scroll-overview/pull/83",
           "file": "patches/scroll-overview/pr-83.patch",
-          "sha256": "7b083b71d3fa4ad977c1d505cf9cc24999f6e6f4737efdbad27c2c017518ead2",
-          "head": "25163b1e6a61c67e6b0cc7b5c51ab584b18f70e8"
+          "sha256": "b7bae530495df3a521b192345b08cba675eae6ed96c2f325f8169592b6953aae",
+          "head": "7af2497494be22661c093d3307f49fdf05874834"
         },
         {
           "source": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
@@ -338,9 +338,9 @@
     "type": "github",
     "owner": "Mic92",
     "repo": "sops-nix",
-    "rev": "442449fa7b1fe6c692d0103ac9fc8f9e82931cf3",
-    "narHash": "sha256-KV+CaZX7QS0hcdKxwGKehDb1jmUgx6lbkTPpaoIW5Nw=",
-    "lastModified": 1792809984
+    "rev": "60182817ee048ac94b4c68ea76d5ef2e8aac730d",
+    "narHash": "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=",
+    "lastModified": 1793052255
   },
   "spicetify-nix": {
     "type": "github",
@@ -354,9 +354,9 @@
     "type": "github",
     "owner": "AminurAlam",
     "repo": "yazi-plugins",
-    "rev": "72bdb41827b389b346db91a3bfe5cb114399c932",
-    "narHash": "sha256-tNI1SpI146BufWeC+hZXEgSPl5elzNgdJNs/P3F9PX8=",
-    "lastModified": 1792644224
+    "rev": "50d82a7232cfa58f25cf95ca7c532a427263d682",
+    "narHash": "sha256-dU/X7bJpdKj8E3hqfa9y3HwHqqQZN9Xu5RXxWx21bTs=",
+    "lastModified": 1793032830
   },
   "systemctl-tui": {
     "type": "github",
@@ -426,8 +426,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "ed68d814d6cf2e221ba43d84f1e32429f5e2786f",
-    "narHash": "sha256-ThRNX0+T2Gb3ZD0Xf+/R3wJdL93/mW80ubMnLjZelTY=",
-    "lastModified": 1792963762
+    "rev": "cfb35e5835c4ca6faa811ba38a94f755ecfcb393",
+    "narHash": "sha256-avFKNlbqAAdwJtmB5gbB5W/1fQz0ftIH4ET6FQcpXu0=",
+    "lastModified": 1793063583
   }
 }
