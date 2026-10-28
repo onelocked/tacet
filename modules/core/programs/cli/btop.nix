@@ -10,7 +10,7 @@
         settings = {
           color_theme = "oneshill";
           vim_keys = true;
-          rounded_corners = true;
+          rounded_corners = false;
           proc_tree = false;
           proc_gradient = false;
           show_gpu_info = "on";
@@ -75,7 +75,7 @@
   perSystem =
     { pkgs, ... }:
     {
-      packages.btop = pkgs.btop.overrideAttrs (oldAttrs: {
+      remotePackages.btop = pkgs.btop.overrideAttrs (oldAttrs: {
         doCheck = false;
         patches = (oldAttrs.patches or [ ]) ++ [
           (pkgs.fetchpatch2 {
