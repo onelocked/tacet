@@ -85,12 +85,15 @@
               on_focus_under_fullscreen  = 1,
               initial_workspace_tracking = true,
               disable_autoreload         = false,
-              layers_hog_keyboard_focus  = false,
               focus_on_activate          = true,
               vrr = 0,
               session_lock_blur = true,
               session_lock_xray = true,
               render_unfocused_fps = 5,
+            },
+
+            layers = {
+              layers_hog_keyboard_focus  = false,
             },
 
             binds = {
