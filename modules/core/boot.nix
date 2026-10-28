@@ -18,7 +18,7 @@
     }:
     {
       imports = [ inputs.nixos-core.nixosModules.default ];
-      system.nixos-core.enable = true;
+      system.nixos-core.enable = false;
 
       boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
 
