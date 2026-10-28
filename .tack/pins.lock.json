@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "fb6e5380228b2908ed9b74867a32b26f623a0cec",
-    "narHash": "sha256-LRXOFW/j7IrbTcjcSRxXTVLadf1v7nMMAiznHFcUx5Q=",
-    "lastModified": 1793028007
+    "rev": "7a5e469c780d9c54ffd62c8ef345ec55131c08d7",
+    "narHash": "sha256-MJyYUqNXKw/PrLIlyoQGq0Y9y+S4xYfEz4m/rqaETMQ=",
+    "lastModified": 1793205164
   },
   "jellium-desktop": {
     "type": "git",
@@ -180,9 +180,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "059ddaf22e24fbd529ff052ef5ab938539a5eeaf",
-    "narHash": "sha256-PgpEuURRtETb2DWvTPmJ7kAK5PNvObCtH9GbQOSuPu4=",
-    "lastModified": 1793106099,
+    "rev": "e47fac804ea7aa301e87662e9761d1695e5bb266",
+    "narHash": "sha256-A9VxZK9Knkg5h5cTiUJlQRvxPniS9p10FzD721st1to=",
+    "lastModified": 1793202589,
     "submodules": true
   },
   "nito": {
@@ -213,9 +213,9 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
-    "narHash": "sha256-rZLrzrC6i+jnTAlvPZHogKDulY7WWDEv9hJeHieO7Zw=",
-    "lastModified": 1792773339
+    "rev": "31ecbaca1bdefa45dffc409f0250bd8039ea0010",
+    "narHash": "sha256-dhoW6VgFWlaodSY5jrBn+CF2FLmaUvDVgM7+C7T2+NM=",
+    "lastModified": 1793110635
   },
   "no-header-prompt": {
     "type": "github",
@@ -278,9 +278,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "c7e9d512653a35ef4d5879c3df4d44d7b78d0e6d",
-    "narHash": "sha256-ObKS44vw4IIVpQ69YJzUGjZ0IwnpWoUlwjJSY7gefdo=",
-    "lastModified": 1793086596
+    "rev": "19ecdd08213836b36c4296a3a4f4af5a3d5308db",
+    "narHash": "sha256-u5nUf4cewaT36iIzG1s/VECktqUMiZaGF5BsgervsvQ=",
+    "lastModified": 1793174968
   },
   "scroll-overview": {
     "type": "github",
@@ -410,24 +410,24 @@
     "type": "github",
     "owner": "sxyazi",
     "repo": "yazi",
-    "rev": "40a91421893bfd1ae02ef7a55afd41f886558d8c",
-    "narHash": "sha256-j8WhDW2kjCiTu+nrfLBGUDmARbNet4wa6UeMEqtlOdM=",
-    "lastModified": 1792730142
+    "rev": "ec4ce8f27d7a34045791606ebe83b0795defe4b6",
+    "narHash": "sha256-S+4LGf9l8RDFqAJ87HUorHPVasfnnMTE/ysaj3SWIk8=",
+    "lastModified": 1793195788
   },
   "yazi-plugins": {
     "type": "github",
     "owner": "yazi-rs",
     "repo": "plugins",
-    "rev": "e0bbd205de9759e7aa81857e1ff616eb5123e305",
-    "narHash": "sha256-H/4Oi/D2M/aDEk/AourPURxfhoMxSm5UjaRgpeXrQ1Q=",
-    "lastModified": 1792734954
+    "rev": "896fa5aec1db0163e2f65d07a130d064de53b0b2",
+    "narHash": "sha256-0nD3jSkUt7mcsfPnJ3yBwdJYRY6JVSxVAj4eXEgBWus=",
+    "lastModified": 1793196370
   },
   "zen-browser": {
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "cfb35e5835c4ca6faa811ba38a94f755ecfcb393",
-    "narHash": "sha256-avFKNlbqAAdwJtmB5gbB5W/1fQz0ftIH4ET6FQcpXu0=",
-    "lastModified": 1793063583
+    "rev": "4434539379bc839480edb8b919de9b67f70cb520",
+    "narHash": "sha256-YDtNVswt0oYB7LNEzZWmFmo57MME8EVS9VxAdqWm/Co=",
+    "lastModified": 1793144002
   }
 }
