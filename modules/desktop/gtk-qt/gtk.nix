@@ -33,8 +33,8 @@
             cursor-theme = cursor.name;
             cursor-size = cursor.size;
             color-scheme = "prefer-dark";
-            font-name = mkFont font.serif;
-            document-font-name = mkFont font.sansSerif;
+            font-name = mkFont font.sansSerif;
+            document-font-name = mkFont font.serif;
             monospace-font-name = mkFont font.mono;
             font-antialiasing = "rgba";
             font-hinting = "full";
@@ -55,6 +55,12 @@
         hj.packages = with cfg; [
           theme.package
           icons.package
+        ];
+
+        environment.sessionVariables.XDG_DATA_DIRS = [
+          "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+          "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+          "${pkgs.gtk4}/share/gsettings-schemas/${pkgs.gtk4.name}"
         ];
 
         hj.xdg.config.files = lib.optionalAttrs (cfg.theme.css != "") (

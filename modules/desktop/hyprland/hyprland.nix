@@ -157,6 +157,7 @@
               "org.freedesktop.impl.portal.Chooser" = lib.mkForce [ "none" ];
               "org.freedesktop.impl.portal.AppChooser" = lib.mkForce [ "gtk" ];
               "org.freedesktop.impl.portal.OpenURI" = lib.mkForce [ "gtk" ];
+              "org.freedesktop.impl.portal.Settings" = lib.mkForce [ "gtk" ];
             };
           })
           (lib.mkIf (cfg.withUWSM) {
