@@ -94,4 +94,7 @@
         };
       };
     };
+  perSystem = { pkgs, ... }: {
+    remotePackages.papirus-grey = pkgs.papirus-icon-theme.override { color = "grey"; };
+  };
 }
