@@ -23,12 +23,12 @@
         })
 
         hl.window_rule({
-          name     = "screenshare portal",
-          match    = {
-            title      = "^Select what to share$",
-            float      = true,
+          name  = "screenshare portal",
+          match = {
+            class = "hyprland-share-picker",
           },
-            size = {500, 290 },
+          size  = { 700, 350 },
+          float = true,
         })
 
         -- Float browser popups that only get their real title after the window opens.
