@@ -20,7 +20,7 @@
               ''
                 @define-color accent_color ${base0F};
                 @define-color accent_bg_color ${base0F};
-                @define-color accent_fg_color ${base0D};
+                @define-color accent_fg_color ${base00};
                 @define-color destructive_bg_color ${base08};
                 @define-color destructive_fg_color ${base10};
                 @define-color error_bg_color ${base08};
@@ -46,17 +46,30 @@
                 @define-color sidebar_border_color @window_bg_color;
                 @define-color secondary_sidebar_bg_color ${base00};
                 @define-color secondary_sidebar_fg_color ${base07};
+                /* Selection (text highlight) */
+                @define-color theme_selected_bg_color ${base0D};
+                @define-color theme_selected_fg_color ${base00};
                 /* Backdrop/unfocused states */
                 @define-color theme_unfocused_fg_color @window_fg_color;
                 @define-color theme_unfocused_text_color @view_fg_color;
                 @define-color theme_unfocused_bg_color @window_bg_color;
                 @define-color theme_unfocused_base_color @window_bg_color;
-                @define-color theme_unfocused_selected_bg_color @accent_bg_color;
-                @define-color theme_unfocused_selected_fg_color @accent_fg_color;
+                @define-color theme_unfocused_selected_bg_color @theme_selected_bg_color;
+                @define-color theme_unfocused_selected_fg_color @theme_selected_fg_color;
+
+                selection,
+                *:selected,
+                text selection,
+                entry selection,
+                textview text selection {
+                    background-color: ${base0D};
+                    color: ${base00};
+                }
+
                 :root {
                     --accent-color: ${base0F};
                     --accent-bg-color: ${base0F};
-                    --accent-fg-color: ${base0D};
+                    --accent-fg-color: ${base00};
                     --destructive-bg-color: ${base08};
                     --destructive-fg-color: ${base10};
                     --error-bg-color: ${base08};
@@ -68,7 +81,7 @@
                     --view-fg-color: ${base07};
                     --headerbar-bg-color: ${base00};
                     --headerbar-fg-color: ${base07};
-                    --headerbar-backdrop-color: @window_bg_color;
+                    --headerbar-backdrop-color: ${base00};
                     --popover-bg-color: ${base01};
                     --popover-fg-color: ${base07};
                     --card-bg-color: ${base01};
@@ -79,8 +92,8 @@
                     --overview-fg-color: ${base07};
                     --sidebar-bg-color: ${base01};
                     --sidebar-fg-color: ${base07};
-                    --sidebar-backdrop-color: @window_bg_color;
-                    --sidebar-border-color: @window_bg_color;
+                    --sidebar-backdrop-color: ${base00};
+                    --sidebar-border-color: ${base00};
                     --warning-bg-color: ${base02};
                     --warning-fg-color: ${base17};
                     --warning-color: ${base0E};
