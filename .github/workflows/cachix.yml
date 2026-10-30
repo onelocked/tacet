@@ -46,7 +46,7 @@ jobs:
                 rm -f "$err"
                 return 0
               fi
-              mapfile -t found < <(grep -oP 'tack materialize \K[A-Za-z0-9._-]+' "$err" | sort -u)
+              mapfile -t found < <(grep -oP "patched tree of '\\K[^']+" "$err" | sort -u)
               new=()
               for i in "${found[@]}"; do
                 if [ -z "${seen[$i]:-}" ]; then
@@ -118,7 +118,7 @@ jobs:
             if nix eval --raw ".#packages.x86_64-linux.${pkg}.outPath" >/dev/null 2>"$err"; then
               exit 0
             fi
-            mapfile -t found < <(grep -oP 'tack materialize \K[A-Za-z0-9._-]+' "$err" | sort -u)
+            mapfile -t found < <(grep -oP "patched tree of '\\K[^']+" "$err" | sort -u)
             new=()
             for i in "${found[@]}"; do
               if [ -z "${seen[$i]:-}" ]; then
