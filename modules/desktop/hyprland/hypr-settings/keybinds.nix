@@ -70,7 +70,17 @@
           hl.bind("CTRL + Space", hl.dsp.exec_cmd("hyprctl switchxkblayout all next"))
 
           -- fullscreen keybind
-          hl.bind("SUPER + M", hl.dsp.window.fullscreen())
+          hl.bind("SUPER + M", function()
+              local win = hl.get_active_window()
+              if not win then return end
+
+              if win.fullscreen ~= 0 then
+                  hl.dispatch(hl.dsp.window.fullscreen({ action = "unset" }))
+                  hl.dispatch(hl.dsp.window.float({ action = "off" }))  -- "off"/"disable", not "unset"
+              else
+                  hl.dispatch(hl.dsp.window.fullscreen({ action = "set" }))
+              end
+          end)
 
           -- cycle between floating and tiled
           hl.bind("ALT + TAB", function()
