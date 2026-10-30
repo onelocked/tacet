@@ -117,9 +117,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "cd495e8607666e5bb4381be5aef2db0b171b4aa1",
-    "narHash": "sha256-wMCQcg9MIDnYVLpfxrGq3972BXNHrGGaufeEKL/c/Xo=",
-    "lastModified": 1793010284
+    "rev": "6d6114ae2fbb1a895bc89ed05eca6a9b28465c6c",
+    "narHash": "sha256-VZDg+XLqxhu2t740bXuelxoPPHHLeLoJL7ojOrFjrb4=",
+    "lastModified": 1793365859
   },
   "hjem": {
     "type": "github",
