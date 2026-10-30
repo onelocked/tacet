@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "27bdfef92d25c73b51a1cc0c3defded09e0a0344",
-    "narHash": "sha256-MiMWmEOnTG8r9/yzPIYutfCf1i6LRcc0ujqQCNTpw1o=",
-    "lastModified": 1793363706
+    "rev": "4b9ac40d71ceeeb027cfa06992c9212e3c3077b6",
+    "narHash": "sha256-osHsscDFNtf1D2Syj4rXnU1oz82rZohSap0Boemz2b8=",
+    "lastModified": 1793379737
   },
   "jellium-desktop": {
     "type": "git",
@@ -165,7 +165,8 @@
           "sha256": "ab7b954ec7e6de3a736bd34faa9ff3897ce6fad24dfac87bcef07c13d209342b",
           "head": "49deceea901fcc7a43bc6a15280506034ca3b3bd"
         }
-      ]
+      ],
+      "diff": "365d240c73edc9ee4e726dbefd85f052c87fe7c7de729097b77b5452990d3e75"
     }
   },
   "lan-mouse": {
@@ -313,7 +314,8 @@
           "file": "patches/scroll-overview/scroll-overview-events.patch",
           "sha256": "9a2fbbe1675532ba44b30129a7d7fd08995d5f54310b8e39398514bad3283788"
         }
-      ]
+      ],
+      "diff": "5571f416eac8f866cb8c2b071394452ccdb99bab7708277dbcf124521d3ef838"
     }
   },
   "sf-compact": {

@@ -1,0 +1,328 @@
+diff --git a/Window.cpp b/Window.cpp
+--- a/Window.cpp
++++ b/Window.cpp
+@@ -3,6 +3,7 @@
+ #include <cmath>
+ #include <dlfcn.h>
+ #include <functional>
++#include <string>
+ #define private public
+ #define protected public
+ #include <hyprland/src/render/Renderer.hpp>
+@@ -691,6 +692,74 @@
+     Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CBorderPassElement>(data));
+ }
+ 
++static bool isOverviewBordersPlusPlusDecoration(IHyprWindowDecoration* decoration) {
++    return decoration && decoration->getDecorationType() == DECORATION_CUSTOM && decoration->getDisplayName() == "Borders++";
++}
++
++static size_t getOverviewBordersPlusPlusCount() {
++    return static_cast<size_t>(std::clamp(ScrollOverview::Config::getValue<int>("plugin:borders-plus-plus:add_borders"), 0, 9));
++}
++
++static int getOverviewBordersPlusPlusLogicalSize(size_t index) {
++    const auto VALUE = ScrollOverview::Config::getValue<int>("plugin:borders-plus-plus:border_size_" + std::to_string(index + 1));
++
++    return std::max(0, VALUE == -1 ? ScrollOverview::Config::getValue<int>("general:border_size") : VALUE);
++}
++
++static CHyprColor getOverviewBordersPlusPlusColor(size_t index) {
++    return CHyprColor{ScrollOverview::Config::getValue<uint64_t>("plugin:borders-plus-plus:col.border_" + std::to_string(index + 1))};
++}
++
++// borders-plus-plus derives its ring geometry from the window's live box, which in the
++// overview is only temporarily moved around the render pass. Its own draw would therefore
++// land on stale geometry, so the rings are rebuilt here from the overview window box.
++static void renderOverviewBordersPlusPlusDecoration(PHLMONITOR monitor, const PHLWINDOW& window, const CBox& windowBox, const SOverviewWindowMetrics& metrics) {
++    if (!monitor || !window || !window->mapped())
++        return;
++
++    if (!window->m_ruleApplicator->decorate().valueOrDefault())
++        return;
++
++    const auto COUNT = getOverviewBordersPlusPlusCount();
++
++    if (COUNT < 1 || metrics.targetOpacity <= 0.F)
++        return;
++
++    const bool NATURALROUNDING = ScrollOverview::Config::getValue<bool>("plugin:borders-plus-plus:natural_rounding");
++    const float roundingPower   = metrics.roundingPower;
++
++    // Same base rounding the plugin uses: the window rounding plus the border it sits on.
++    const int rounding = metrics.roundingBase <= 0.F ? 0 : sc<int>(std::round((metrics.roundingBase + metrics.borderSize) * metrics.pxScale));
++
++    // Ring i is drawn outward from the box of ring i - 1, exactly like the plugin does it.
++    CBox box  = getOverviewBorderBox(windowBox, metrics);
++    int  loop = rounding;
++
++    for (size_t i = 0; i < COUNT; ++i) {
++        // renderBorder scales the size by the monitor scale itself, so only the overview
++        // scale is applied here. The very same value grows the box, keeping the rings nested.
++        const auto thickness = std::max(1, sc<int>(std::round(getOverviewBordersPlusPlusLogicalSize(i) * metrics.renderScale) * monitor->m_scale));
++
++        if (box.width - thickness * 2 <= 0 || box.height - thickness * 2 <= 0)
++            break;
++
++        if (i != 0)
++            loop += thickness;
++
++        CBorderPassElement::SBorderData data;
++        data.box           = box;
++        data.grad1         = Config::CGradientValueData{getOverviewBordersPlusPlusColor(i)};
++        data.round         = NATURALROUNDING ? rounding : loop;
++        data.outerRound    = NATURALROUNDING ? rounding : -1;
++        data.roundingPower = roundingPower;
++        data.a             = metrics.targetOpacity;
++        data.borderSize    = thickness;
++        Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CBorderPassElement>(data));
++
++        box = box.copy().expand(thickness);
++    }
++}
++
+ static void renderOverviewGroupTabIndicators(PHLMONITOR monitor, const PHLWINDOW& window, const CBox& windowBox, const SOverviewWindowMetrics& metrics, float alpha) {
+     if (!monitor || !window || !window->grouping().group() || window->grouping().group()->size() < 1)
+         return;
+@@ -933,6 +1002,12 @@
+             continue;
+         }
+ 
++        if (isOverviewBordersPlusPlusDecoration(deco.get())) {
++            if (layer == DECORATION_LAYER_OVER)
++                renderOverviewBordersPlusPlusDecoration(monitor, window, windowBox, metrics);
++            continue;
++        }
++
+         if (!drewAny) {
+             Render::IHyprRenderer::currentPass(g_pHyprRenderer->context()).add(makeUnique<CRendererHintsPassElement>(CRendererHintsPassElement::SData{.renderModif = modif}));
+             drewAny = true;
+diff --git a/docs/wiki/Advanced-configuration.md b/docs/wiki/Advanced-configuration.md
+--- a/docs/wiki/Advanced-configuration.md
++++ b/docs/wiki/Advanced-configuration.md
+@@ -4,3 +4,4 @@
+ - [Dynamic workspaces](Dynamic-workspaces.md) — create a new workspace by scrolling past the last populated workspace
+ - [ALT + Tab overview](ALT-Tab-overview.md) — use ScrollOverview as a visual window switcher
+ - [Toggle scroll direction](Toggle-scroll-direction.md) — temporarily change the scrolling mode while holding Shift
++- [Events](Events.md) — react to the overview opening and closing with `hl.on`
+diff --git a/docs/wiki/Events.md b/docs/wiki/Events.md
+new file mode 100644
+--- /dev/null
++++ b/docs/wiki/Events.md
+@@ -0,0 +1,30 @@
++# Events
++
++ScrollOverview emits two Lua events you can subscribe to with `hl.on`:
++
++- `scrolloverview.opened` — an overview opened. Receives the monitor it opened on.
++- `scrolloverview.closed` — an overview closed. Receives the monitor it was on.
++
++```lua
++hl.on("scrolloverview.opened", function(monitor)
++  hl.notification("overview opened on " .. monitor.name, "info")
++end)
++
++hl.on("scrolloverview.closed", function(monitor)
++  hl.notification("overview closed on " .. monitor.name, "info")
++end)
++```
++
++A common use is toggling something (e.g. blur) while the overview is active:
++
++```lua
++local blur_enabled = true
++
++hl.on("scrolloverview.opened", function()
++  hl.config({ decoration = { blur = { enabled = false } } })
++end)
++
++hl.on("scrolloverview.closed", function()
++  hl.config({ decoration = { blur = { enabled = blur_enabled } } })
++end)
++```
+diff --git a/globals.hpp b/globals.hpp
+--- a/globals.hpp
++++ b/globals.hpp
+@@ -2,9 +2,14 @@
+ 
+ #include <cstdint>
+ #include <hyprland/src/plugins/PluginAPI.hpp>
++#include <hyprland/src/desktop/DesktopTypes.hpp>
+ 
+ inline HANDLE SCROLLOVERVIEW_HANDLE = nullptr;
+ 
+ bool ensureScrollOverviewHooks();
+ void disableScrollOverviewHooks();
+ bool consumeOverviewMouseAxisBind(uint32_t lastInputTimeMs);
++bool registerOverviewEvents();
++void removeOverviewEvents();
++void emitOverviewOpened(PHLMONITOR monitor);
++void emitOverviewClosed(PHLMONITOR monitor);
+diff --git a/main.cpp b/main.cpp
+--- a/main.cpp
++++ b/main.cpp
+@@ -51,6 +51,68 @@
+ 
+ static bool g_unloading = false;
+ 
++// Custom event bus events exposed to Lua (hl.on).
++static SP<Event::CEventBus::CCustomEvent> g_overviewOpenedEvent;
++static SP<Event::CEventBus::CCustomEvent> g_overviewClosedEvent;
++
++bool registerOverviewEvents() {
++    using CCustomEvent = Event::CEventBus::CCustomEvent;
++    using enum CCustomEvent::eType;
++
++    if (g_overviewOpenedEvent)
++        return true;
++
++    g_overviewOpenedEvent = makeShared<CCustomEvent>("scrolloverview.opened", std::vector<CCustomEvent::eType>{TYPE_MONITOR});
++    g_overviewClosedEvent = makeShared<CCustomEvent>("scrolloverview.closed", std::vector<CCustomEvent::eType>{TYPE_MONITOR});
++
++    const auto OPENED  = Event::bus()->addPluginEvent(g_overviewOpenedEvent);
++    const auto CLOSED  = Event::bus()->addPluginEvent(g_overviewClosedEvent);
++    const bool SUCCESS = OPENED && CLOSED;
++    if (!SUCCESS) {
++        removeOverviewEvents();
++        return false;
++    }
++    return true;
++}
++
++void removeOverviewEvents() {
++    if (g_overviewOpenedEvent)
++        (void)Event::bus()->removePluginEvent(g_overviewOpenedEvent->m_name);
++    if (g_overviewClosedEvent)
++        (void)Event::bus()->removePluginEvent(g_overviewClosedEvent->m_name);
++    g_overviewOpenedEvent.reset();
++    g_overviewClosedEvent.reset();
++}
++
++// Config reloads destroy the Lua state and its event handler; the new handler only
++// bridges plugin events announced after its creation. Re-announce ours so hl.on
++// subscriptions made in the fresh config actually receive emissions.
++static void reannounceOverviewEvents() {
++    if (g_unloading)
++        return;
++
++    if (g_overviewOpenedEvent)
++        Event::bus()->m_events.pluginEventAdded.emit(g_overviewOpenedEvent);
++    if (g_overviewClosedEvent)
++        Event::bus()->m_events.pluginEventAdded.emit(g_overviewClosedEvent);
++}
++
++static void emitOverviewEvent(SP<Event::CEventBus::CCustomEvent>& event, PHLMONITOR monitor) {
++    if (g_unloading || !event)
++        return;
++
++    if (const auto res = event->emit({PHLMONITORREF{monitor}}); !res)
++        HyprlandAPI::addNotification(SCROLLOVERVIEW_HANDLE, "[scrolloverview] failed emitting " + event->m_name + ": " + res.error(), CHyprColor{1.0, 0.2, 0.2, 1.0}, 5000);
++}
++
++void emitOverviewOpened(PHLMONITOR monitor) {
++    emitOverviewEvent(g_overviewOpenedEvent, monitor);
++}
++
++void emitOverviewClosed(PHLMONITOR monitor) {
++    emitOverviewEvent(g_overviewClosedEvent, monitor);
++}
++
+ // Do NOT change this function.
+ APICALL EXPORT std::string PLUGIN_API_VERSION() {
+     return HYPRLAND_API_VERSION;
+@@ -325,6 +387,7 @@
+     auto overview = makeShared<CScrollOverview>(monitor->m_activeWorkspace, swipe, monitor);
+     registerScrollOverview(overview);
+     reconcileNativeDragHook();
++    emitOverviewOpened(monitor);
+     return {.overview = overview, .created = true};
+ }
+ 
+@@ -689,7 +752,10 @@
+             overview->onPreRender();
+     });
+ 
+-    g_configReloadHook = Event::bus()->m_events.config.reloaded.listen([] { reconcileNativeDragHook(); });
++    g_configReloadHook = Event::bus()->m_events.config.reloaded.listen([] {
++        reconcileNativeDragHook();
++        reannounceOverviewEvents();
++    });
+ 
+     g_nativeDragMouseMoveHook = Event::bus()->m_events.input.mouse.move.listen([](Vector2D, Event::SCallbackInfo& info) {
+         if (info.cancelled || g_unloading || scrollOverviews().empty())
+@@ -709,6 +775,9 @@
+     ScrollOverview::Config::registerGesture(::onRegisterOverviewGesture, ::overviewGestureKeyword);
+     ScrollOverview::Config::registerConfig();
+ 
++    if (!registerOverviewEvents())
++        HyprlandAPI::addNotification(SCROLLOVERVIEW_HANDLE, "[scrolloverview] failed registering Lua events", CHyprColor{1.0, 0.75, 0.2, 1.0}, 7500);
++
+     return {"scrolloverview", "A plugin for an overview", "Vaxry, yayuuu", SCROLLOVERVIEW_VERSION};
+ }
+ 
+@@ -722,6 +791,7 @@
+         g_pScrollChangeWorkspaceHook->unhook();
+     clearScrollOverviews();
+     disableScrollOverviewHooks();
++    removeOverviewEvents();
+ 
+     if (g_pTrackpadGestures)
+         g_pTrackpadGestures->clearGestures();
+diff --git a/scrollOverview.cpp b/scrollOverview.cpp
+--- a/scrollOverview.cpp
++++ b/scrollOverview.cpp
+@@ -19,7 +19,6 @@
+ #include <hyprland/src/Compositor.hpp>
+ #include <hyprland/src/config/ConfigValue.hpp>
+ #include <hyprland/src/config/ConfigManager.hpp>
+-#include <hyprland/src/config/lua/ConfigManager.hpp>
+ #include <hyprland/src/config/shared/actions/ConfigActions.hpp>
+ #include <hyprland/src/config/shared/animation/AnimationTree.hpp>
+ #include <hyprland/src/config/shared/complex/ComplexDataTypes.hpp>
+@@ -64,7 +63,6 @@
+ #include <hyprland/src/render/decorations/CHyprGroupBarDecoration.hpp>
+ #include <hyprland/src/render/decorations/DecorationPositioner.hpp>
+ #include <hyprutils/utils/ScopeGuard.hpp>
+-#include <hyprutils/string/Numeric.hpp>
+ #undef protected
+ #undef private
+ #include "Config.hpp"
+@@ -156,6 +154,7 @@
+ 
+     const auto PMONITOR = overview->pMonitor.lock();
+     unregisterScrollOverview(overview);
++    emitOverviewClosed(PMONITOR);
+     if (scrollOverviews().empty())
+         disableScrollOverviewHooks();
+ 
+@@ -1669,7 +1668,7 @@
+     windowMoveHook      = Event::bus()->m_events.window.moveToWorkspace.listen(onWindowMove);
+     windowActiveHook    = Event::bus()->m_events.window.active.listen(onWindowActive);
+     windowFullscreenHook = Event::bus()->m_events.window.fullscreen.listen(onWindowFullscreen);
+-    workspaceCreatedHook = Event::bus()->m_events.workspace.created.listen(onWorkspaceLifecycle);
++    workspaceCreatedHook = Event::bus()->m_events.workspace.createdLate.listen(onWorkspaceLifecycle);
+     workspaceRemovedHook = Event::bus()->m_events.workspace.removed.listen(onWorkspaceLifecycle);
+     activateSubmapIfConfigured();
+     if (!usesSubmapKeybinds)
+@@ -5545,10 +5544,8 @@
+     if (KEYBIND == BINDS.end())
+         return false;
+ 
+-    const auto INDEX = Hyprutils::String::strToNumber<int>((*KEYBIND)->metadata().argument);
+-    const auto MGR   = Config::Lua::mgr();
+-    if (!INDEX || !MGR)
+-        return false;
++    // Keep the callback alive if it removes its own binding.
++    const auto BIND = *KEYBIND;
+ 
+     auto&      actionState          = *Config::Actions::state();
+     const int PREVIOUSPASSPRESSED   = actionState.m_passPressed;
+@@ -5566,7 +5563,7 @@
+         actionState.m_lastMouseCode       = PREVIOUSMOUSECODE;
+     });
+ 
+-    const auto RESULT = MGR->callLuaFnBind(*INDEX);
++    const auto RESULT = BIND->invoke();
+     return RESULT.success;
+ }
+ 
