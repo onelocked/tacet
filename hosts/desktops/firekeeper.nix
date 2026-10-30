@@ -40,6 +40,15 @@
                 position = "0x0",
                 scale    = "1",
                 bitdepth = 10,
+                supports_wide_color = 1,
+              })
+              hl.config({
+                render = {
+                  cm_sdr_eotf = "srgb",
+                  cm_enabled = true,
+                  cm_auto_hdr = 0,
+                  non_shader_cm = 2,
+                },
               })
             '';
 

@@ -105,9 +105,6 @@
               direct_scanout = 1,
               new_render_scheduling = false,
               use_fp16 = 1,
-              cm_enabled = false,
-              cm_auto_hdr = 0,
-              non_shader_cm = 3,
             },
 
             --  ▀                       █
