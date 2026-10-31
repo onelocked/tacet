@@ -18,7 +18,17 @@
     }:
     {
       imports = [ inputs.nixos-core.nixosModules.default ];
-      system.nixos-core.enable = false;
+      system.nixos-core = {
+        enable = true;
+        components = {
+          extraUtilsCommand.enable = false;
+          initialRamdisk.enable = false;
+
+          bootStage1.enable = true;
+          bootStage2.enable = true;
+          nixosInitCompat.enable = true;
+        };
+      };
 
       boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
 
