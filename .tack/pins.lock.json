@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "4b9ac40d71ceeeb027cfa06992c9212e3c3077b6",
-    "narHash": "sha256-osHsscDFNtf1D2Syj4rXnU1oz82rZohSap0Boemz2b8=",
-    "lastModified": 1793379737
+    "rev": "ecbcfe6e36ab8e510d464bb2e72c550710563093",
+    "narHash": "sha256-cpCfoBsBuCRJMaJZFUtTv8ipZvtS1XU/fhQLcrU30V0=",
+    "lastModified": 1793469163
   },
   "jellium-desktop": {
     "type": "git",
@@ -428,8 +428,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "2656d974602749ca5594b133e3022a241ab5d4e0",
-    "narHash": "sha256-d1Tvbgn//HQ3f1PDh/iIMEpvuUu9Lc4lJqiwGl18cY8=",
-    "lastModified": 1793309674
+    "rev": "e152a4cd523e946333f0ddc13fca3178d53b905a",
+    "narHash": "sha256-5vQ9amos4ZEJa/wYw/xaEryvc3SM2181hyCxzOUvMJs=",
+    "lastModified": 1793470528
   }
 }
