@@ -117,9 +117,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "6d6114ae2fbb1a895bc89ed05eca6a9b28465c6c",
-    "narHash": "sha256-VZDg+XLqxhu2t740bXuelxoPPHHLeLoJL7ojOrFjrb4=",
-    "lastModified": 1793365859
+    "rev": "01339298dd9165e961a6975e35364eb49fe929e8",
+    "narHash": "sha256-jVx5cGTxU862QnrWyQrz1nkc4NHF81ZRpicjQ9JEX4o=",
+    "lastModified": 1793407847
   },
   "hjem": {
     "type": "github",
@@ -181,9 +181,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "4bf65ade2fa49f97933c4d67cbb59c5e796e33fe",
-    "narHash": "sha256-q8aPH1M1vnmXkQTFW7eNR+x75Mz4jmT8rCg0tUz/wE0=",
-    "lastModified": 1793366074,
+    "rev": "a10dbbaf0e5ccca1e5a43f7b56071b83f945f966",
+    "narHash": "sha256-++C9GzLpuu7vFXAabiCxwJBzT9DjJPXTH8SINVhxuNE=",
+    "lastModified": 1793448543,
     "submodules": true
   },
   "nito": {
@@ -198,9 +198,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "nixos-core",
-    "rev": "13d9c52c1ea8275e5c5b99878f96a8435bebad9f",
-    "narHash": "sha256-zWTz3A7cZyjCV8a9z/d20cDborKQgt+2YfDLIsnZkVQ=",
-    "lastModified": 1792822547
+    "rev": "f6d88810c1b082568d195c0c025b34b7bb7a3a61",
+    "narHash": "sha256-ge22NAvGv5CzsamFUGMHUtpf46H4A4U9iOQDQicNCxY=",
+    "lastModified": 1793420539
   },
   "nixos-hardware": {
     "type": "github",
@@ -214,9 +214,9 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "31ecbaca1bdefa45dffc409f0250bd8039ea0010",
-    "narHash": "sha256-dhoW6VgFWlaodSY5jrBn+CF2FLmaUvDVgM7+C7T2+NM=",
-    "lastModified": 1793110635
+    "rev": "1c89083e451e891152365b799595cf7790a43325",
+    "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
+    "lastModified": 1793341285
   },
   "no-header-prompt": {
     "type": "github",
@@ -279,9 +279,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "96a0986b0486341fbc163fa2fabc6d3b44cdcbf1",
-    "narHash": "sha256-qv+P8z2xS5Xdws5Kigvr/WKJiaJSa6Ke8iH7ozmO53w=",
-    "lastModified": 1793348683
+    "rev": "6ecf534a7c16e7c969f26838fdd8c93597ae93f3",
+    "narHash": "sha256-+sgVNI2c67di+XIeMaz5KSei4T65kX68s5Nl0E5Gzbc=",
+    "lastModified": 1793434469
   },
   "scroll-overview": {
     "type": "github",
@@ -380,9 +380,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "ae4e10ee310a169ebeca050fd3a4d778f5f4e008",
-    "narHash": "sha256-lIjyz0oblEd74AfJviLzijEgefoE10CbrCqk4fAJycY=",
-    "lastModified": 1793365221
+    "rev": "e23a2e52e369636d3f753c1e6a1929a9c2f23cf6",
+    "narHash": "sha256-GmTLGnYVdPmmh/DRfL3hQDChNnJoYw31F0zmmbG2sjc=",
+    "lastModified": 1793433204
   },
   "theme-store": {
     "type": "github",
