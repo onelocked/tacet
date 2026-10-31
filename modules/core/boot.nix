@@ -24,7 +24,7 @@
           extraUtilsCommand.enable = false;
           initialRamdisk.enable = false;
 
-          bootStage1.enable = true;
+          bootStage1.enable = false;
           bootStage2.enable = true;
           nixosInitCompat.enable = true;
         };

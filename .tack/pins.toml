@@ -115,10 +115,6 @@ submodules = true
 type = "fetch"
 url = "gh:Muggle345/PKGInstall"
 
-[inputs.preservation]
-group = "nix"
-url = "gh:nix-community/preservation"
-
 [inputs.proton-cachyos]
 group = "gaming"
 tag = "cachyos-{version}-slr"

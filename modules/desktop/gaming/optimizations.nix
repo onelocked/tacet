@@ -54,45 +54,29 @@
         lib.mkIf cfg.enable
         <| lib.mkMerge [
           {
-            preservation = {
-              preserveAt = {
-                "/steam" = {
-                  commonMountOptions = [ "x-gvfs-hide" ];
-                  users.${constants.username} = {
-                    directories = (
-                      lib.unique [
-                        ".local/share/vulkan"
-                        ".cache/winetricks"
-                        ".cache/umu-protonfixes"
-                        ".cache/mesa_shader_cache"
-                        ".local/share/dxvk-cache"
-                      ]
-                      ++ lib.optionals config.programs.steam.enable [
-                        ".steam"
-                        ".local/share/Steam"
-                      ]
-                      ++ lib.optionals (builtins.elem "nvidia" config.services.xserver.videoDrivers) [
-                        ".nv"
-                        ".cache/nvidia"
-                      ]
-                    );
-                  };
-                };
-              };
-            };
-            systemd.tmpfiles.settings.preservation = {
-              "/steam".d = {
-                user = constants.username;
-                group = "users";
-                mode = "0755";
-              };
-              "/games".d = {
-                user = constants.username;
-                group = "users";
-                mode = "0755";
-              };
-            };
+            system.nixos-core.persistence = {
+              stores."/steam" = {
+                commonMountOptions = [ "x-gvfs-hide" ];
 
+                users.${constants.username} = lib.unique (
+                  [
+                    ".local/share/vulkan"
+                    ".cache/winetricks"
+                    ".cache/umu-protonfixes"
+                    ".cache/mesa_shader_cache"
+                    ".local/share/dxvk-cache"
+                  ]
+                  ++ lib.optionals config.programs.steam.enable [
+                    ".steam"
+                    ".local/share/Steam"
+                  ]
+                  ++ lib.optionals (builtins.elem "nvidia" config.services.xserver.videoDrivers) [
+                    ".nv"
+                    ".cache/nvidia"
+                  ]
+                );
+              };
+            };
             forte.allowUnfree = [
               "steam"
               "steam-unwrapped"

@@ -12,11 +12,11 @@
     {
       config = lib.mkIf cfg.enable {
         services.flatpak.enable = true;
-        preservation.preserveAt = {
-          "/games" = {
+        system.nixos-core.persistence = {
+          stores."/games" = {
             commonMountOptions = [ "x-gvfs-hide" ];
-            directories = lib.unique [ "/var/lib/flatpak" ];
-            users.${constants.username}.directories = lib.unique [
+            entries = lib.unique [ "/var/lib/flatpak" ];
+            users.${constants.username} = lib.unique [
               ".local/share/flatpak"
               ".cache/flatpak"
               ".var/app"

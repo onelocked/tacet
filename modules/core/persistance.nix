@@ -1,53 +1,58 @@
 {
-  tack.inputs.preservation = {
-    url = "gh:nix-community/preservation";
-    group = "nix";
-  };
   exo.core =
     {
       config,
       constants,
       lib,
-      inputs,
       ...
     }:
     let
       cfg = config.forte.persist;
     in
     {
-      imports = [ inputs.preservation.nixosModules.default ];
-      # setup persistence
       config = {
         fileSystems."/nix".neededForBoot = true;
         fileSystems."/persist".neededForBoot = true;
 
+        fileSystems."/var/lib/nixos" = {
+          device = "/persist/var/lib/nixos";
+          fsType = "none";
+          options = [ "bind" ];
+          neededForBoot = true;
+        };
+        fileSystems."/etc/machine-id" = {
+          device = "/persist/etc/machine-id";
+          fsType = "none";
+          options = [ "bind" ];
+          neededForBoot = true;
+        };
+
         systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
-        security.sudo-rs.extraConfig = ''Defaults lecture="never" ''; # shut up sudo
 
-        preservation = {
-          enable = true;
-          preserveAt = {
-            "/persist" = {
+        system.nixos-core.persistence =
+          let
+            asFile = f: {
+              target = f;
+              kind = "file";
+            };
+          in
+          {
+            enable = true;
+            stores."/persist" = {
               commonMountOptions = [ "x-gvfs-hide" ];
-              files = [
-                {
-                  file = "/etc/machine-id";
-                  inInitrd = true;
-                }
-              ]
-              ++ cfg.root.files;
-              directories = lib.unique (
-                [
-                  "/var/lib/nixos" # for persisting user uids and gids
-                  "/var/log" # logs
-                  "/var/lib/systemd"
-                ]
-                ++ cfg.root.directories
-              );
 
-              users.${constants.username} = {
-                files = lib.unique cfg.home.files;
-                directories = lib.unique (
+              entries =
+                lib.unique (
+                  [
+                    "/var/log"
+                    "/var/lib/systemd"
+                  ]
+                  ++ cfg.root.directories
+                )
+                ++ map asFile cfg.root.files;
+
+              users.${constants.username} =
+                lib.unique (
                   [
                     "Development"
                     "Documents"
@@ -57,12 +62,12 @@
                     "Downloads"
                   ]
                   ++ cfg.home.directories
-                );
-              };
+                )
+                ++ map asFile (lib.unique cfg.home.files);
             };
           };
-        };
       };
+
       options.forte = {
         persist = {
           root =
@@ -70,7 +75,7 @@
               assertNoHomeDirs =
                 paths:
                 let
-                  isHomePath = p: (if lib.isAttrs p then p.file else p) |> lib.hasPrefix "/home/";
+                  isHomePath = p: (if lib.isAttrs p then p.target else p) |> lib.hasPrefix "/home/";
                 in
                 assert lib.assertMsg (!(paths |> lib.any isHomePath)) "/home used in a root persist!";
                 paths;

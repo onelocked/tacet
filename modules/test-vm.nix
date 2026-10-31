@@ -8,6 +8,13 @@
           "-device virtio-vga-gl"
           "-display gtk,gl=on,grab-on-hover=on"
         ];
+        emptyDiskImages = [ 1024 ];
+        fileSystems."/persist" = {
+          device = "/dev/vdb";
+          fsType = "ext4";
+          autoFormat = true;
+          neededForBoot = true;
+        };
       };
       environment.sessionVariables = {
         LIBGL_ALWAYS_SOFTWARE = "1";

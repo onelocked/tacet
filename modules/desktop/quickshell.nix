@@ -127,17 +127,12 @@
             ''
           )
           |> lib.join "\n";
-        systemd.tmpfiles.settings.preservation = {
-          "${config.hj.directory}/.netrc".z = lib.mkForce {
-            user = constants.username;
-            group = "users";
-            mode = "0600";
-          };
-        };
+
         forte.persist.home = {
           files = [ ".netrc" ];
           directories = [ ".cache/tuishell" ];
         };
+
       };
       options = {
         forte.quickshell = {

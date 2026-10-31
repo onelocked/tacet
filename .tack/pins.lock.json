@@ -20,7 +20,6 @@
     "nixpkgs": "github:nixos/nixpkgs/nixos-unstable",
     "no-header-prompt": "github:onelocked/no-header-prompt.yazi",
     "pkg-install": "github:Muggle345/PKGInstall",
-    "preservation": "github:nix-community/preservation",
     "proton-cachyos": "https://github.com/CachyOS/proton-cachyos/releases/download/{tag}/proton-cachyos-{version}-slr-x86_64_v3.tar.xz",
     "proton-ge": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/{tag}/{tag}-x86_64.tar.gz",
     "quickshell": "github:quickshell-mirror/quickshell",
@@ -234,14 +233,6 @@
     "narHash": "sha256-iY8+3U271eUKAl9xgw5FZQKG6l49GkjUYJQT3fmW9os=",
     "lastModified": 1762834008,
     "submodules": true
-  },
-  "preservation": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "preservation",
-    "rev": "00be7f7dd1a11ae0605386f2272288de7cf33abe",
-    "narHash": "sha256-s/A2rSO2Ndf8Y5yiouesnI/3Zkn9pmVGF2NxFxOUvx8=",
-    "lastModified": 1792953443
   },
   "proton-cachyos": {
     "type": "fixed",
