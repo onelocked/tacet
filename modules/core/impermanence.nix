@@ -69,11 +69,10 @@
             let
               assertNoHomeDirs =
                 paths:
-                assert (
-                  lib.assertMsg (
-                    !lib.any (p: lib.hasPrefix "/home/" (if lib.isAttrs p then p.file else p)) paths
-                  ) "/home used in a root persist!"
-                );
+                let
+                  isHomePath = p: (if lib.isAttrs p then p.file else p) |> lib.hasPrefix "/home/";
+                in
+                assert lib.assertMsg (!(paths |> lib.any isHomePath)) "/home used in a root persist!";
                 paths;
             in
             {
