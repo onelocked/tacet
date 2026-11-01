@@ -91,6 +91,9 @@
               session_lock_xray = true,
               render_unfocused_fps = 5,
             },
+            quirks = {
+              skip_non_kms_dmabuf_formats = true,
+            },
 
             layers = {
               layers_hog_keyboard_focus  = false,
