@@ -77,7 +77,7 @@
                   if win then
                       hl.dispatch(hl.dsp.exec_raw("helium --new-window"))
                   else
-                      hl.dispatch(hl.dsp.exec_raw("helium"))
+                      hl.dispatch(hl.dsp.exec_cmd("helium", { workspace = 1 }))
                   end
               end)
             '';
