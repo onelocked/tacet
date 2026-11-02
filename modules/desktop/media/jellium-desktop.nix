@@ -39,9 +39,8 @@
       };
     };
   tack.inputs.jellium-desktop = {
-    url = "gh:andrewrabert/jellium-desktop/14dc0845981cb7c0aef5fa93ff539d927c8f0eb2";
+    url = "gh:andrewrabert/jellium-desktop";
     patches = [ "https://github.com/andrewrabert/jellium-desktop/pull/717" ];
-    frozen = true;
     submodules = true;
     type = "fetch";
     group = "desktop";

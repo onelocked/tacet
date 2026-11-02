@@ -69,12 +69,11 @@ group = "hypr"
 url = "gh:hyprwm/Hyprland"
 
 [inputs.jellium-desktop]
-frozen = true
 group = "desktop"
 patches = ["https://github.com/andrewrabert/jellium-desktop/pull/717"]
 submodules = true
 type = "fetch"
-url = "gh:andrewrabert/jellium-desktop/14dc0845981cb7c0aef5fa93ff539d927c8f0eb2"
+url = "gh:andrewrabert/jellium-desktop"
 
 [inputs.lan-mouse]
 group = "desktop"
@@ -90,6 +89,12 @@ url = "gh:flightlessmango/MangoHud"
 [inputs.nito]
 group = "general"
 url = "gh:onelocked/nito"
+
+[inputs.nix-cachyos-kernel]
+exclude_follow = ["nixpkgs"]
+frozen = true
+group = "gaming"
+url = "gh:xddxdd/nix-cachyos-kernel/release"
 
 [inputs.nixos-core]
 group = "nix"
@@ -141,7 +146,7 @@ url = "gh:oxalica/rust-overlay"
 
 [inputs.scroll-overview]
 group = "hypr"
-patches = ["https://github.com/yayuuu/hyprland-scroll-overview/pull/83","https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch","https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch"]
+patches = ["https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch","https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch"]
 type = "fetch"
 url = "gh:yayuuu/hyprland-scroll-overview/new-release"
 
