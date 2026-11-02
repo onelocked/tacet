@@ -169,7 +169,66 @@
               workspace      = "6",
               idle_inhibit   = "focus",
               suppress_event = "maximize",
+              tag = "proton-game",
+              content = "game",
           })
+          -- focus steam when the game window is closed
+          local GAME_TAG    = "proton-game"
+          local STEAM_CLASS = "^steam$"
+
+          local function is_game(win)
+              if not win then return false end
+
+              if win.xdg_tag == GAME_TAG then
+                  return true
+              end
+
+              for _, tag in ipairs(win.tags or {}) do
+                  if tag == GAME_TAG or tag == GAME_TAG .. "*" then
+                      return true
+                  end
+              end
+
+              return false
+          end
+
+          local function game_window_exists()
+              for _, mapped in ipairs({ true, false }) do
+                  for _, win in ipairs(hl.get_windows({ mapped = mapped })) do
+                      if is_game(win) then
+                          return true
+                      end
+                  end
+              end
+
+              return false
+          end
+
+          local sawGame = game_window_exists()
+
+          hl.on("window.open", function(win)
+              if is_game(win) then
+                  sawGame = true
+              end
+          end)
+
+          hl.on("window.close", function(win)
+              if is_game(win) then
+                  sawGame = true
+              end
+          end)
+
+          hl.on("window.destroy", function(_)
+              if not sawGame then return end
+              if game_window_exists() then return end
+
+              sawGame = false
+
+              local steam = hl.get_window("class:" .. STEAM_CLASS)
+              if steam and not steam.active then
+                  hl.dispatch(hl.dsp.focus({ window = steam }))
+              end
+          end)
         '';
 
       hj.systemd.services = {
