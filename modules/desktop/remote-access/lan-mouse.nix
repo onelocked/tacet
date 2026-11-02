@@ -40,7 +40,7 @@
               after = [ "graphical-session.target" ];
               serviceConfig = {
                 Type = "simple";
-                ExecStart = "${lib.getExe cfg.package} --config ${tomlFormat.generate "config.toml" cfg.settings} --capture-backend dummy daemon"; # TODO: temporary fix for this bug https://github.com/hyprwm/xdg-desktop-portal-hyprland/issues/419
+                ExecStart = "${lib.getExe cfg.package} --config ${tomlFormat.generate "config.toml" cfg.settings} --capture-backend dummy daemon";
                 Restart = "on-failure";
                 RestartSec = 1;
                 TimeoutStopSec = 10;
