@@ -117,9 +117,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "01339298dd9165e961a6975e35364eb49fe929e8",
-    "narHash": "sha256-jVx5cGTxU862QnrWyQrz1nkc4NHF81ZRpicjQ9JEX4o=",
-    "lastModified": 1793407847
+    "rev": "a371b8d10579a66ae67d8b132c6bbb7c8b20126f",
+    "narHash": "sha256-1uEypOIoirefc7eJt/M7VJRqSjHzRPcC3khUalQFZkE=",
+    "lastModified": 1793623677
   },
   "hjem": {
     "type": "github",
@@ -141,9 +141,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "d55a55d72a2ecfbb31b875b0b45c27559ce86691",
-    "narHash": "sha256-4Ce6YOJDxHxpR+zZIA0t5XrqQZTp4owwhxYGeV1GL0E=",
-    "lastModified": 1793557552
+    "rev": "a8a2c24c5bdcec8fc0f65eb24b2933488d90851e",
+    "narHash": "sha256-6aDXwGMzPWw4jviz7SUTSw5JseseVSk/lAScABvB7y0=",
+    "lastModified": 1793738900
   },
   "jellium-desktop": {
     "type": "git",
@@ -253,11 +253,11 @@
   },
   "proton-ge": {
     "type": "fixed",
-    "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-11/GE-Proton11-11-x86_64.tar.gz",
-    "sha256": "sha256-qoWYbK2lcJqou/qK3X87+5JcvhVxDJiZWJjTCP8so8E=",
+    "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-12/GE-Proton11-12-x86_64.tar.gz",
+    "sha256": "sha256-BZUVnkF8Pbv7fMOuDT7RWmF8xgeqI+91bqeQKdevXXA=",
     "unpack": "tarball",
-    "tag": "GE-Proton11-11",
-    "version": "11-11"
+    "tag": "GE-Proton11-12",
+    "version": "11-12"
   },
   "quickshell": {
     "type": "github",
@@ -279,9 +279,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "6b29b8e8d3cc8ebda9342fbbcc7ac06eff58e2fb",
-    "narHash": "sha256-5V08BokWHSUU962Kcr/uSTWyy+1NqB7pjuyqjqXTqQU=",
-    "lastModified": 1793610678
+    "rev": "fb3eee9d296214ebbcc53921f34e80bb4166e859",
+    "narHash": "sha256-KgJnMIR0ltd7pMcpDWn5q40bzmC7xtlb71clPFNUu+Y=",
+    "lastModified": 1793697474
   },
   "scroll-overview": {
     "type": "github",
@@ -333,17 +333,17 @@
     "type": "github",
     "owner": "Mic92",
     "repo": "sops-nix",
-    "rev": "60182817ee048ac94b4c68ea76d5ef2e8aac730d",
-    "narHash": "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=",
-    "lastModified": 1793052255
+    "rev": "b18e01ce148eb3efff5de2f2d3181ca53b2b2a54",
+    "narHash": "sha256-GoOvpdsjO5hqZuO6T6ok9u6sJEjO0iPli2zRr9oNUNw=",
+    "lastModified": 1793657466
   },
   "spicetify-nix": {
     "type": "github",
     "owner": "Gerg-L",
     "repo": "spicetify-nix",
-    "rev": "d818ab64010272bc0072d0c325838a63038796e9",
-    "narHash": "sha256-rbmfLn4/UWs1mrMJgMEJXMfdhN7o7i++c5jPtUdlP+8=",
-    "lastModified": 1793531264
+    "rev": "13e6fed4eb99f809d390fb50f591bed6cb716dc0",
+    "narHash": "sha256-a+za5QCDlOe/PsuMlZiBcQ13cyiyOscK17BAJFu1/dE=",
+    "lastModified": 1793662659
   },
   "spot": {
     "type": "github",
@@ -373,9 +373,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "e23a2e52e369636d3f753c1e6a1929a9c2f23cf6",
-    "narHash": "sha256-GmTLGnYVdPmmh/DRfL3hQDChNnJoYw31F0zmmbG2sjc=",
-    "lastModified": 1793433204
+    "rev": "aea40b8c73e6e7552229d87885fde8d1f69a060a",
+    "narHash": "sha256-MkkhlJZhaUzGRu1XbAg2y77B9/qUZZaItZRv3e6Hinc=",
+    "lastModified": 1793636072
   },
   "theme-store": {
     "type": "github",
@@ -405,9 +405,9 @@
     "type": "github",
     "owner": "sxyazi",
     "repo": "yazi",
-    "rev": "1b2508c6f04a48fa0e09b5116134760102854792",
-    "narHash": "sha256-RzGpJNc94phidtSnHpj+QRp+W1OBkA2EZOQLVcweM2U=",
-    "lastModified": 1793607867
+    "rev": "606096f6af225d0d433d77fa77cff074bde63279",
+    "narHash": "sha256-9va+t2rfZX2ghIBhQanuM0v85vXEv0vfOlp4qbHyGnU=",
+    "lastModified": 1793625688
   },
   "yazi-plugins": {
     "type": "github",
@@ -421,8 +421,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "536b03dea1ab7460afd44565e81f0a72c371c70f",
-    "narHash": "sha256-1MkvkLk4WEJkPrKvCZa3wapvXmdmNAgjh7Ap97GUqVQ=",
-    "lastModified": 1793498088
+    "rev": "d87bba54c0ddc367b2801ef5c66eed8b8e0ac072",
+    "narHash": "sha256-NapxfokR49AvYX5ldtkjrdtH5pWxEj9BXU0Gw+rYX+E=",
+    "lastModified": 1793710409
   }
 }
