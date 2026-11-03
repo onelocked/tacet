@@ -53,6 +53,10 @@
                   non_shader_cm = 2,
                 },
               })
+
+              hl.on("hyprland.start", function()
+                hl.dispatch(hl.dsp.exec_cmd("sleep 5 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.35"))
+              end)
             '';
 
           sops.secrets."wireguard/rclip-sync/lucatiel" = { };

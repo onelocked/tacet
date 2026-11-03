@@ -10,11 +10,6 @@
       forte.hyprland.lua.settings = # lua
         ''
           hl.permission({ binary = "${config.forte.hyprland.portalPackage}/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
-
-          hl.on("hyprland.start", function()
-            hl.dispatch(hl.dsp.exec_cmd("sleep 5 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.6"))
-          end)
-
           --                                      ▀█
           -- ▄▀▀▀█ ▄▀▀▀▄ █▀▀▀▄ ▄▀▀▀▄ █▄▀▀▀  ▀▀▀▄   █
           -- █   █ █▀▀▀▀ █   █ █▀▀▀▀ █     ▄▀▀▀█   █
