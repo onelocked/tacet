@@ -77,6 +77,9 @@
                 );
               };
             };
+
+            services.scx.scheduler = "scx_lavd";
+
             forte.allowUnfree = [
               "steam"
               "steam-unwrapped"
