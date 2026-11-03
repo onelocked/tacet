@@ -100,7 +100,7 @@
 
             render = {
               async_commit = true,
-              direct_scanout = 1,
+              direct_scanout = 2,
               new_render_scheduling = false,
               use_fp16 = 1,
             },
