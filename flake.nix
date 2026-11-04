@@ -61,24 +61,19 @@
       };
 
       # Evaluate perSystem blocks for each system
-      systemOutputs =
-        topEval.config.systems
-        |> (
-          systems:
-          lib.genAttrs systems (
-            system:
-            withSystem system (
-              specialArgs:
-              (lib.evalModules {
-                inherit specialArgs;
-                modules = [
-                  topEval.config.perSystem
-                  { config._module.freeformType = lib.types.lazyAttrsOf lib.types.unspecified; }
-                ];
-              }).config
-            )
-          )
-        );
+      systemOutputs = lib.genAttrs topEval.config.systems (
+        system:
+        withSystem system (
+          specialArgs:
+          (lib.evalModules {
+            inherit specialArgs;
+            modules = [
+              topEval.config.perSystem
+              { config._module.freeformType = lib.types.lazyAttrsOf lib.types.unspecified; }
+            ];
+          }).config
+        )
+      );
 
       # Transpose system-dependent configurations to the top level
       transposed = lib.genAttrs systemOutputKeys (
