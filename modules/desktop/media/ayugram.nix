@@ -16,17 +16,19 @@
         forte.hyprland.lua.window-rules = # lua
           ''
             hl.window_rule({
-              name            = "Telegram",
-              match           = { class = "com.ayugram.desktop", title = "negative:^Media viewer$" },
-              fullscreen      = false,
-              scrolling_width = 0.21,
-              workspace       = "4 silent",
-              suppress_event  = "fullscreen maximize activate activatefocus",
+                name           = "Telegram",
+                match          = { class = "com.ayugram.desktop", title = "negative:^Media viewer$" },
+                fullscreen     = false,
+                float          = true,
+                size           = "700 1330",
+                move           = "35 78",
+                workspace      = "special:magic silent",
+                suppress_event = "fullscreen maximize activate activatefocus",
             })
             hl.window_rule({
               name             = "Telegram-media",
               match            = { class = "com.ayugram.desktop", title = "^Media viewer$" },
-              workspace        = "4 silent",
+              workspace        = "special:magic silent",
               fullscreen       = false,
               fullscreen_state = "0 1",
               float            = true,
