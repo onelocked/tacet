@@ -41,15 +41,7 @@
             stores."/persist" = {
               commonMountOptions = [ "x-gvfs-hide" ];
 
-              entries =
-                lib.unique (
-                  [
-                    "/var/log"
-                    "/var/lib/systemd"
-                  ]
-                  ++ cfg.root.directories
-                )
-                ++ map asFile cfg.root.files;
+              entries = lib.unique ([ "/var/lib/systemd" ] ++ cfg.root.directories) ++ map asFile cfg.root.files;
 
               users.${constants.username} =
                 lib.unique (

@@ -17,12 +17,6 @@
           };
         };
 
-        services.journald.settings = {
-          Journal = {
-            Storage = lib.mkForce "volatile";
-          };
-        };
-
         programs.seahorse.enable = false;
         services.gnome.gnome-keyring.enable = true;
         security.pam.services.login.enableGnomeKeyring = true;
