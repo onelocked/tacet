@@ -3,7 +3,6 @@
     {
       fuzzy-search = "gh:onelocked/fuzzy-search.yazi";
       confirm-dialog = "gh:onelocked/confirm-dialog.yazi";
-      extra-metadata = "gh:boydaihungst/file-extra-metadata.yazi";
       no-header-prompt = "gh:onelocked/no-header-prompt.yazi";
       yazbar = "gh:onelocked/yazbar.yazi";
       yazi-plugins = "gh:yazi-rs/plugins";
@@ -27,55 +26,47 @@
     }:
     {
       forte.yazi = {
-        plugins = {
-          inherit (pkgs.yaziPlugins)
-            ouch
-            wl-clipboard
-            ;
-        }
-        // (
-          [
-            "fuzzy-search"
-            "yazbar"
-            "no-header-prompt"
-            "confirm-dialog"
-            "extra-metadata"
-          ]
-          |> map (
-            name:
-            lib.nameValuePair name (
-              pkgs.yaziPlugins.mkYaziPlugin {
-                pname = name;
-                version = "git";
-                src = inputs.${name};
-              }
+        plugins =
+          (
+            [
+              "fuzzy-search"
+              "yazbar"
+              "no-header-prompt"
+              "confirm-dialog"
+            ]
+            |> map (
+              name:
+              lib.nameValuePair name (
+                pkgs.yaziPlugins.mkYaziPlugin {
+                  pname = name;
+                  version = "git";
+                  src = inputs.${name};
+                }
+              )
             )
+            |> lib.listToAttrs
           )
-          |> lib.listToAttrs
-        )
-        // (
-          [
-            "full-border"
-            "toggle-pane"
-            "piper"
-            "chmod"
-            "git"
-          ]
-          |> map (
-            name:
-            lib.nameValuePair name (
-              pkgs.yaziPlugins.mkYaziPlugin {
-                pname = name;
-                version = inputs._meta.yazi-plugins.rev;
-                src = pkgs.lib.cleanSourceWith {
+          // (
+            [
+              "full-border"
+              "toggle-pane"
+              "piper"
+              "chmod"
+              "git"
+              "compress"
+            ]
+            |> map (
+              name:
+              lib.nameValuePair name (
+                pkgs.yaziPlugins.mkYaziPlugin {
+                  pname = name;
+                  version = inputs._meta.yazi-plugins.rev;
                   src = "${inputs.yazi-plugins}/${name}.yazi";
-                  filter = path: _type: baseNameOf path == "main.lua";
-                };
-              }
+                }
+              )
             )
-          )
-          |> lib.listToAttrs
-        );
+            |> lib.listToAttrs
+          );
         settings.plugin =
           let
             piper = "piper -- CLICOLOR_FORCE=1 ${lib.getExe pkgs.glow} -w=$w -s=dracula -- $1";
@@ -108,8 +99,7 @@
               (mkKeymap [ "<S-s>" ] "plugin fuzzy-search -- rg --TL=3" "Ripgrep Search")
               (mkKeymap [ "<S-z>" ] "plugin fuzzy-search -- zoxide --TL=3" "Zoxide Search")
               (mkKeymap [ "c" "m" ] "plugin chmod" "chmod on files")
-              (mkKeymap [ "C" ] "plugin ouch" "Compress files with ouch")
-              (mkKeymap [ "<C-y>" ] "plugin wl-clipboard" "copy to clipboard")
+              (mkKeymap [ "C" ] "plugin compress" "Compress files")
             ];
         };
       };

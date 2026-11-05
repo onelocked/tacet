@@ -5,7 +5,6 @@
     "cliphist-tui": "github:SHORiN-KiWATA/cliphist-tui",
     "confirm-dialog": "github:onelocked/confirm-dialog.yazi",
     "disko": "github:nix-community/disko",
-    "extra-metadata": "github:boydaihungst/file-extra-metadata.yazi",
     "fuzzy-search": "github:onelocked/fuzzy-search.yazi",
     "helium-browser": "github:amaanq/helium-flake",
     "hjem": "github:feel-co/hjem",
@@ -80,14 +79,6 @@
     "rev": "cedd626e11b635470fa6f9fdb8ad79b0075dd7f9",
     "narHash": "sha256-3hSJlv8mUVnZPMWK2+CM7a9O+nR6Z4mCh27NfLCmTPc=",
     "lastModified": 1792526520
-  },
-  "extra-metadata": {
-    "type": "github",
-    "owner": "boydaihungst",
-    "repo": "file-extra-metadata.yazi",
-    "rev": "98baba68b611a11636c1323d061f42d51e8f5e4f",
-    "narHash": "sha256-iPNMy/UGMNMyUg4zRC5X/J427bMM0UStixUNsNIu5zI=",
-    "lastModified": 1788870970
   },
   "flake-parts": {
     "type": "github",

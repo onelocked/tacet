@@ -41,11 +41,6 @@ url = "gh:onelocked/confirm-dialog.yazi"
 group = "nix"
 url = "gh:nix-community/disko"
 
-[inputs.extra-metadata]
-group = "sxyazi"
-type = "fetch"
-url = "gh:boydaihungst/file-extra-metadata.yazi"
-
 [inputs.fuzzy-search]
 group = "sxyazi"
 type = "fetch"
