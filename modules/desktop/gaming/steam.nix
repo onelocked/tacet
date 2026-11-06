@@ -116,8 +116,11 @@
 
           hl.window_rule({
             name = "steam-move-workspace",
-            match = { class = "^steam$" },
-            workspace = "5",
+            match = {
+                class = "^steam$",
+                title = "negative:^(notificationtoasts_.*_desktop)$",
+            },
+            workspace = "5 silent",
             scrolling_width = 0.505,
           })
 
