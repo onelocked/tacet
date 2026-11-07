@@ -9,12 +9,10 @@
 
         services.gvfs.enable = false;
 
-        services = {
-          scx = {
-            enable = true;
-            package = pkgs.scx.rustscheds;
-            scheduler = lib.mkDefault "scx_cake"; # https://wiki.cachyos.org/configuration/sched-ext/#scx_cake
-          };
+        services.scx-loader = {
+          enable = true;
+          package = pkgs.scx.rustscheds;
+          config.scheduler = "scx_cake"; # 🎂
         };
 
         programs.seahorse.enable = false;

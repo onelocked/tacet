@@ -78,7 +78,7 @@
               };
             };
 
-            services.scx.scheduler = "scx_lavd";
+            services.scx-loader.config.scheduler = lib.mkForce "scx_lavd";
 
             forte.allowUnfree = [
               "steam"
