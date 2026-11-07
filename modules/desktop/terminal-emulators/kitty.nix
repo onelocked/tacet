@@ -15,8 +15,6 @@
           placement_strategy = "bottom";
           update_check_interval = "24";
           allow_hyperlinks = true;
-          allow_remote_control = true;
-          listen_on = "unix:/tmp/kitty-\${kitty_pid}";
 
           scrollback_lines = "10000";
           wheel_scroll_multiplier = "5.0";

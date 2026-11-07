@@ -180,9 +180,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nito",
-    "rev": "49748c8f63df76381a01dd6d63e3f4d2d3dbd259",
-    "narHash": "sha256-O0s6wFb2igtsemi2+7JNRq2NnzmyFemOWkX+q9rPRiI=",
-    "lastModified": 1792967488
+    "rev": "659102d25863a43cf61a5193f9eaf62bfb910a85",
+    "narHash": "sha256-ZxWq2iObjUVpaC3ov7bAWEAXuQMrJRVK+Nj8m+qHYuw=",
+    "lastModified": 1794096365
   },
   "nixos-core": {
     "type": "github",

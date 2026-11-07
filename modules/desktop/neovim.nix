@@ -31,41 +31,19 @@
           ''
             local target = vim.uv.fs_realpath(arg[1]) or vim.fn.fnamemodify(arg[1], ":p")
             local line = tonumber(arg[2]) or 0
+            local pos = line > 0 and { line, 0 } or nil
 
-            local remote_code = [==[
-              local target, line = ...
-              local function real(p)
-                return (vim.uv.fs_realpath(p)) or vim.fn.fnamemodify(p, ":p")
-              end
-              for _, b in ipairs(vim.api.nvim_list_bufs()) do
-                local name = vim.api.nvim_buf_get_name(b)
-                if name ~= "" and vim.bo[b].buflisted and real(name) == target then
-                  local wins = vim.fn.win_findbuf(b)
-                  if #wins > 0 then
-                    vim.api.nvim_set_current_win(wins[1])
-                  else
-                    vim.api.nvim_set_current_buf(b)
-                  end
-                  if line > 0 then
-                    pcall(vim.api.nvim_win_set_cursor, 0, { line, 0 })
-                    vim.cmd("normal! zz")
-                  end
-                  return vim.env.KITTY_WINDOW_ID or false
-                end
-              end
-              return false
-            ]==]
-
-            local uid = vim.fn.system("id -u"):gsub("%s+", "")
-            local sockets = vim.fn.glob("/run/user/" .. uid .. "/nvim.*.0", true, true)
-            for _, socket in ipairs(sockets) do
+            for _, socket in ipairs(vim.fn.serverlist({ peer = true })) do
               if socket ~= vim.v.servername then
                 local ok, chan = pcall(vim.fn.sockconnect, "pipe", socket, { rpc = true })
                 if ok and chan > 0 then
-                  local req_ok, result = pcall(vim.rpcrequest, chan, "nvim_exec_lua", remote_code, { target, line })
+                  local req_ok, result = pcall(
+                    vim.rpcrequest, chan, "nvim_exec_lua",
+                    "return _G.nvim_focus_file(...)", { target, pos }
+                  )
                   pcall(vim.fn.chanclose, chan)
-                  if req_ok and result and result ~= vim.NIL then
-                    io.write(tostring(result))
+                  if req_ok and type(result) == "table" and result.found and result.kitty_id then
+                    io.write(result.kitty_id)
                     os.exit(0)
                   end
                 end
@@ -76,29 +54,26 @@
 
       nvimFocus = pkgs.writeShellApplication {
         name = "nvim-focus";
-        runtimeInputs = [
-          pkgs.kitty
-          pkgs.coreutils
-        ];
+        runtimeInputs = [ pkgs.kitty ];
         text = ''
           file=""
           line=0
-          if [ "$#" -eq 1 ]; then
-            file=$1
-          elif [ "$#" -eq 2 ] && [[ "$1" == +[0-9]* ]]; then
-            line=''${1#+}
-            file=$2
-          fi
+          for arg in "$@"; do
+            case $arg in
+              +[0-9]*) line=''${arg#+} ;;
+              -*) ;;
+              *) file=$arg ;;
+            esac
+          done
 
           if [ -n "$file" ] && [ -f "$file" ]; then
-            if id=$(${pkgs.neovim}/bin/nvim --clean -l ${nvimFindScript} "$file" "$line" 2>/dev/null) && [ -n "$id" ]; then
-              if kitty @ focus-window -m "id:$id" >/dev/null 2>&1; then
-                exit 0
-              fi
+            id=$(${lib.getExe cfg.package} -l ${nvimFindScript} "$file" "$line" 2>/dev/null) || id=""
+            if [ -n "$id" ] && kitty @ focus-window -m "id:$id" >/dev/null 2>&1; then
+              exit 0
             fi
           fi
 
-          exec nvim "$@"
+          exec ${lib.getExe cfg.package} "$@"
         '';
       };
     in
@@ -112,6 +87,12 @@
           EDITOR = "nvim-focus";
           VISUAL = "nvim-focus";
         };
+        forte.kitty.settings = {
+          allow_remote_control = "password";
+          # Passwordless requests may only focus a window.
+          remote_control_password = "\"\" focus-window";
+          listen_on = "unix:/tmp/kitty-\${kitty_pid}";
+        };
         forte.lazygit.settings = {
           os =
             let
@@ -122,25 +103,21 @@
                   file=$(realpath -m -- "$1")
                   line=''${2:-0}
 
-                  if [ -z "''${NVIM:-}" ]; then
-                    if [ "$line" -gt 0 ]; then
-                      exec nvim-focus "+$line" "$file"
-                    fi
+                  if [ -n "''${NVIM:-}" ]; then
+                    ${lib.getExe cfg.package} --server "$NVIM" --remote-send '<C-\><C-n><cmd>close<cr>'
+                    ${lib.getExe cfg.package} --server "$NVIM" --remote-expr "v:lua.LazygitEdit([==[$file]==], $line)" >/dev/null
+                  elif [ "$line" -gt 0 ]; then
+                    exec nvim-focus "+$line" "$file"
+                  else
                     exec nvim-focus "$file"
                   fi
-
-                  q="'"
-                  esc=''${file//$q/$q$q}
-
-                  nvim --server "$NVIM" --remote-send '<C-\><C-n><cmd>close<cr>'
-                  nvim --server "$NVIM" --remote-expr "v:lua.LazygitEdit('$esc', $line)" >/dev/null
                 '';
               };
             in
             {
               editInTerminal = true;
-              edit = "${lazygitEdit}/bin/lazygit-edit {{filename}}";
-              editAtLine = "${lazygitEdit}/bin/lazygit-edit {{filename}} {{line}}";
+              edit = "${lib.getExe lazygitEdit} {{filename}}";
+              editAtLine = "${lib.getExe lazygitEdit} {{filename}} {{line}}";
             };
         };
       };
