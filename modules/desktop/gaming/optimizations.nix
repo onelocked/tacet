@@ -78,8 +78,6 @@
               };
             };
 
-            services.scx-loader.config.scheduler = lib.mkForce "scx_lavd";
-
             forte.allowUnfree = [
               "steam"
               "steam-unwrapped"
