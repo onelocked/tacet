@@ -3,9 +3,20 @@
     { lib, scheme, ... }:
     {
       forte.yazi = with scheme; {
-        theme.flavor = lib.genAttrs [ "dark" "light" ] (_: "oneshill");
+        theme = {
+          flavor = lib.genAttrs [ "dark" "light" ] (_: "oneshill");
+        };
         flavorContent = # toml
           ''
+            [confirm]
+            border_set = { as = "plain" }
+
+            [app]
+            border_set = { as = "plain" }
+
+            [pick]
+            border_set = { as = "plain" }
+
             [mgr]
             border_set = { as = "plain" }
             cwd = { fg = "${base05}" }
@@ -26,10 +37,13 @@
 
 
             [indicator]
+            border_set = { as = "plain" }
             padding = { open = "▐", close = "▌" }
 
 
             [status]
+            border_set = { as = "plain" }
+
             overall = { fg = "${base0D}" }
             sep_left  = { open = "", close = "" }
             sep_right = { open = "", close = "" }
@@ -125,6 +139,7 @@
             ]
 
             [icon]
+            border_set = { as = "plain" }
             globs = []
               dirs  = [
                 { name = ".config", text = "", fg = "${base0D}" },

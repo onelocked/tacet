@@ -27,46 +27,46 @@
     {
       forte.yazi = {
         plugins =
-          (
+          lib.genAttrs
             [
               "fuzzy-search"
               "yazbar"
               "no-header-prompt"
               "confirm-dialog"
             ]
-            |> map (
+            (
               name:
-              lib.nameValuePair name (
-                pkgs.yaziPlugins.mkYaziPlugin {
-                  pname = name;
-                  version = "git";
-                  src = inputs.${name};
-                }
-              )
+              pkgs.yaziPlugins.mkYaziPlugin {
+                pname = name;
+                version = "git";
+                src = inputs.${name};
+              }
             )
-            |> lib.listToAttrs
-          )
-          // (
-            [
-              "full-border"
-              "toggle-pane"
-              "piper"
-              "chmod"
-              "git"
-              "compress"
-            ]
-            |> map (
-              name:
-              lib.nameValuePair name (
+          //
+            lib.genAttrs
+              [
+                "full-border"
+                "toggle-pane"
+                "piper"
+                "chmod"
+                "git"
+                "compress"
+              ]
+              (
+                name:
                 pkgs.yaziPlugins.mkYaziPlugin {
                   pname = name;
                   version = inputs._meta.yazi-plugins.rev;
                   src = "${inputs.yazi-plugins}/${name}.yazi";
+                  postPatch =
+                    lib.optionalString (name == "compress") # bash
+                      ''
+                        substituteInPlace form.lua \
+                          --replace-fail ':set("rounded")' ':set("plain")'
+                      '';
                 }
-              )
-            )
-            |> lib.listToAttrs
-          );
+              );
+
         settings.plugin =
           let
             piper = "piper -- CLICOLOR_FORCE=1 ${lib.getExe pkgs.glow} -w=$w -s=dracula -- $1";
