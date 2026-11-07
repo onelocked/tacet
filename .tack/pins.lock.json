@@ -14,7 +14,6 @@
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
     "nito": "github:onelocked/nito",
-    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/release",
     "nixos-core": "github:manic-systems/nixos-core",
     "nixos-hardware": "github:NixOS/nixos-hardware",
     "nixpkgs": "github:nixos/nixpkgs/nixos-unstable",
@@ -185,14 +184,6 @@
     "narHash": "sha256-O0s6wFb2igtsemi2+7JNRq2NnzmyFemOWkX+q9rPRiI=",
     "lastModified": 1792967488
   },
-  "nix-cachyos-kernel": {
-    "type": "github",
-    "owner": "xddxdd",
-    "repo": "nix-cachyos-kernel",
-    "rev": "697211adfa90ee3d355f61da1dbcc62fb68e6775",
-    "narHash": "sha256-tOuBdSRJPkrsYq2ECK+h0zHDjuSFmVeMug+d3JrqLqk=",
-    "lastModified": 1793568255
-  },
   "nixos-core": {
     "type": "github",
     "owner": "manic-systems",
@@ -282,10 +273,16 @@
     "narHash": "sha256-684XIZXg/MPkFClgTJGUAVB/bEc4C2aTdD/nfQEt81o=",
     "lastModified": 1793558258,
     "patched": {
-      "path": "/nix/store/lxm4gjhy1rwlz1q69s7viw90zkqav6y1-source",
-      "narHash": "sha256-unRTH09B4C2bmCL5YtvrAWDHSjpZh7TCaWaKAtfp6Hg=",
+      "path": "/nix/store/if6as1wy20rpncfb6d0cn45yaiyb5x86-source",
+      "narHash": "sha256-OkBz/Q5HuF5n62URHxtKbx52jj2ZouX1o6iWw4U7PpA=",
       "lastModified": 1793558258,
       "patches": [
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/105fbe95fbca65589c7939d33ab14c15/raw/271db1c8f9beee8ffa8215cf9a54ea0caf0b7265/fix-workspaces.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/105fbe95fbca65589c7939d33ab14c15/raw/271db1c8f9beee8ffa8215cf9a54ea0caf0b7265/fix-workspaces.patch",
+          "file": "patches/scroll-overview/fix-workspaces.patch",
+          "sha256": "28a28ecedf16b255c1c8b6845b369919b0e6acd9468bb128e92acd8e4345214a"
+        },
         {
           "source": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
           "url": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
@@ -299,7 +296,7 @@
           "sha256": "9a2fbbe1675532ba44b30129a7d7fd08995d5f54310b8e39398514bad3283788"
         }
       ],
-      "diff": "21dca2dd9fcdb6b94726d20c9e1e78a9d223d01d9ecb374b61370c8ed5b780d0"
+      "diff": "6ee5d377863f58ea8af1676aa0bb853d9a88f3e81c20bf8f121cc698883a347b"
     }
   },
   "sf-compact": {

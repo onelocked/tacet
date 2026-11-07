@@ -161,7 +161,12 @@ diff --git a/globals.hpp b/globals.hpp
 diff --git a/main.cpp b/main.cpp
 --- a/main.cpp
 +++ b/main.cpp
-@@ -51,6 +51,68 @@
+@@ -47,10 +47,72 @@
+ typedef void (*origSendFrameEventsToWorkspace)(void*, PHLMONITOR, PHLWORKSPACE, const Time::steady_tp&);
+ typedef void (*origSurfaceFrame)(void*, const Time::steady_tp&);
+ typedef void (*origMoveMouse)(void*, const Vector2D&);
+-using origChangeWorkspace = Config::Actions::ActionResult (*)(PHLWORKSPACE);
++using origChangeWorkspace = Config::Actions::ActionResult (*)(PHLWORKSPACE, bool);
  
  static bool g_unloading = false;
  
@@ -230,6 +235,24 @@ diff --git a/main.cpp b/main.cpp
  // Do NOT change this function.
  APICALL EXPORT std::string PLUGIN_API_VERSION() {
      return HYPRLAND_API_VERSION;
+@@ -71,7 +133,7 @@
+ static void disableNativeDragHook();
+ static void reconcileNativeDragHook();
+ 
+-static Config::Actions::ActionResult hkChangeWorkspace(PHLWORKSPACE workspace) {
++static Config::Actions::ActionResult hkChangeWorkspace(PHLWORKSPACE workspace, bool noFocus) {
+     if (workspace && !g_unloading) {
+         const auto overviews = scrollOverviews();
+         for (const auto& overview : overviews)
+@@ -78,7 +140,7 @@
+             removeOverview(overview.get());
+     }
+ 
+-    return rc<origChangeWorkspace>(g_pScrollChangeWorkspaceHook->m_original)(workspace);
++    return rc<origChangeWorkspace>(g_pScrollChangeWorkspaceHook->m_original)(workspace, noFocus);
+ }
+ 
+ bool ensureScrollOverviewHooks() {
 @@ -325,6 +387,7 @@
      auto overview = makeShared<CScrollOverview>(monitor->m_activeWorkspace, swipe, monitor);
      registerScrollOverview(overview);
@@ -238,6 +261,15 @@ diff --git a/main.cpp b/main.cpp
      return {.overview = overview, .created = true};
  }
  
+@@ -677,7 +740,7 @@
+     // rendering hooks inside hkChangeWorkspace, which still needs its original function.
+     g_pScrollChangeWorkspaceHook = HyprlandAPI::createFunctionHook(
+         SCROLLOVERVIEW_HANDLE,
+-        findFnOrThrow("changeWorkspace", {"Config::Actions::changeWorkspace(Hyprutils::Memory::CSharedPointer<Workspace::CHLWorkspace>)"}),
++        findFnOrThrow("changeWorkspace", {"Config::Actions::changeWorkspace(Hyprutils::Memory::CSharedPointer<Workspace::CHLWorkspace>, bool)"}),
+         rc<void*>(hkChangeWorkspace));
+     if (!g_pScrollChangeWorkspaceHook || !g_pScrollChangeWorkspaceHook->hook()) {
+         failNotif("Failed enabling workspace change hook");
 @@ -689,7 +752,10 @@
              overview->onPreRender();
      });
