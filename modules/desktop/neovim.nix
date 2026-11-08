@@ -1,6 +1,6 @@
 {
-  tack.inputs.nito = {
-    url = "gh:onelocked/nito";
+  tack.inputs.nitovim = {
+    url = "gh:onelocked/nitovim";
     group = "general";
   };
   exo.mods.neovim = {
@@ -125,7 +125,7 @@
         enable = lib.mkEnableOption "neovim";
         package = lib.mkOption {
           type = lib.types.package;
-          default = inputs'.nito.packages.${theme};
+          default = inputs'.nitovim.packages.${theme};
           defaultText = "default package for neovim";
         };
       };

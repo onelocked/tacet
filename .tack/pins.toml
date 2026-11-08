@@ -82,9 +82,9 @@ submodules = true
 type = "fetch"
 url = "gh:flightlessmango/MangoHud"
 
-[inputs.nito]
+[inputs.nitovim]
 group = "general"
-url = "gh:onelocked/nito"
+url = "gh:onelocked/nitovim"
 
 [inputs.nixos-core]
 group = "nix"
