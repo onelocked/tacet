@@ -1,6 +1,6 @@
 {
   exo.core =
-    { scheme, ... }:
+    { scheme, self', ... }:
     {
       forte.lazygit = {
         enable = true;
@@ -94,11 +94,18 @@
           promptToReturnFromSubprocess = false;
           customCommands = [
             {
-              key = "D";
-              command = "nvim -c 'DiffviewOpen {{.SelectedLocalCommit.Hash}}^!' -c 'autocmd User DiffviewViewClosed qa'";
+              key = "E";
+              command = "${self'.legacyPackages.diffWorktree}/bin/diffWorktree {{.SelectedLocalCommit.Hash}}";
               context = "commits";
-              output = "terminal";
-              description = "Open selected commit in diffview";
+              output = "none";
+              description = "Open commit diff in diffview (edits become unstaged)";
+            }
+            {
+              key = "E";
+              command = "${self'.legacyPackages.diffWorktree}/bin/diffWorktree {{.SelectedCommit.Sha}} '{{.SelectedCommitFile.Name}}'";
+              context = "commitFiles";
+              output = "none";
+              description = "Open file diff in diffview (edits become unstaged)";
             }
           ];
         };
@@ -181,4 +188,75 @@
         };
       };
     };
+  perSystem = { pkgs, ... }: {
+    legacyPackages.diffWorktree =
+      pkgs.writeShellScriptBin "diffWorktree" # bash
+        ''
+          set -euo pipefail
+
+          case "''${1:-}" in
+            apply)
+              git -C "$LG_WT" add -A --sparse -- . >/dev/null 2>&1 || true
+              patch=$(mktemp)
+              git -C "$LG_WT" diff --binary HEAD > "$patch"
+              if [[ -s "$patch" ]] && git -C "$LG_REPO" apply "$patch"; then
+                git -C "$LG_WT" -c user.name=lazygit -c user.email=lazygit@localhost \
+                  -c commit.gpgsign=false commit --no-verify -q -m "lazygit save"
+              fi
+              rm -f "$patch"
+              exit 0
+              ;;
+            cleanup)
+              cd /
+              git -C "$LG_REPO" worktree remove --force "$LG_WT" >/dev/null 2>&1 || true
+              exit 0
+              ;;
+          esac
+
+          commit=$1
+          file=''${2:-}
+          repo=$(git rev-parse --show-toplevel)
+          short=$(git rev-parse --short "$commit")
+
+          if git rev-parse --verify --quiet "$commit^1" >/dev/null; then
+            base=$(git rev-parse "$commit^1")
+          else
+            base=$(git hash-object -t tree /dev/null)
+          fi
+
+          runtime_dir="''${TMPDIR:-/tmp}"
+          mkdir -p "$runtime_dir/lazygit-diff"
+          wt=$(mktemp -d "$runtime_dir/lazygit-diff/$short.XXXXXX")
+          git -C "$repo" worktree add --detach --no-checkout "$wt" "$commit" >/dev/null 2>&1
+
+          if [[ -n "$file" ]]; then
+            paths=("$file")
+          else
+            mapfile -d $'\x00' -t paths < <(git -C "$repo" diff --name-only -z "$base" "$commit")
+          fi
+          patterns=()
+          for path in "''${paths[@]}"; do
+            path=''${path//\\/\\\\}
+            path=''${path//\*/\\*}
+            path=''${path//\?/\\?}
+            path=''${path//\[/\\[}
+            path=''${path//\]/\\]}
+            patterns+=("/$path")
+          done
+          if (( ''${#patterns[@]} > 0 )); then
+            git -C "$wt" sparse-checkout set --no-cone -- "''${patterns[@]}"
+          else
+            git -C "$wt" sparse-checkout set --no-cone -- "/.lazygit-no-files"
+          fi
+          git -C "$wt" read-tree -mu HEAD
+
+          exec kitty -1 \
+            --app-id=diff-nvim --directory "$wt" \
+            env LG_REPO="$repo" LG_WT="$wt" LG_COMMIT="$commit" LAZYGIT_DIFF_PATH="$file" \
+            nvim -c "execute 'DiffviewOpen $base' . (empty(\$LAZYGIT_DIFF_PATH) ? \"\" : ' -- ' . fnameescape(\$LAZYGIT_DIFF_PATH))" \
+            -c "autocmd BufWritePost * call system('$0 apply')" \
+            -c "autocmd VimLeavePre * call system('$0 cleanup')" \
+            -c 'autocmd User DiffviewViewClosed qa'
+        '';
+  };
 }

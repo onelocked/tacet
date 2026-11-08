@@ -186,6 +186,13 @@
                     match = { class = "kitty", workspace = "r[3-4] w[t3-99]" },
                     scrolling_width = 0.333,
                   })
+                  hl.window_rule({
+                    name             = "kitty-diff",
+                    match            = { class = "diff-nvim" },
+                    float = true,
+                    size = "2100 1200",
+                    center = true,
+                  })
                 '';
               keybinds = # lua
                 ''
