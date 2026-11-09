@@ -67,42 +67,6 @@
         keybindings = {
           # scrollback-kitty nvim plugin
           "alt+a" = "kitty_scrollback_nvim";
-          "alt+g" = "kitty_scrollback_nvim --config ksb_builtin_last_cmd_output";
-          "alt+h" = "kitten hints --type regex --regex 'sha256-[A-Za-z0-9+/=]{44}' --program @";
-
-          # Splits
-          "ctrl+a>p>d" = "launch --location=hsplit --cwd=current";
-          "ctrl+a>p>n" = "launch --location=vsplit --cwd=current";
-          "ctrl+n" = "combine : launch --location=hsplit --cwd=current: layout_action bias 20";
-          "alt+f" = "toggle_layout stack";
-
-          # Navigation with Alt + arrows
-          "alt+left" = "neighboring_window left";
-          "alt+right" = "neighboring_window right";
-          "alt+up" = "neighboring_window up";
-          "alt+down" = "neighboring_window down";
-
-          # Resize panes
-          "ctrl+alt+left" = "resize_window narrower";
-          "ctrl+alt+right" = "resize_window wider";
-          "ctrl+alt+up" = "resize_window taller";
-          "ctrl+alt+down" = "resize_window shorter";
-          "ctrl+a>r" = "start_resizing_window";
-
-          # --- Tab Management ---
-          # Create a new tab
-          "ctrl+a>c" = "new_tab_with_cwd";
-
-          # Switch to specific tabs (1 through 9)
-          "ctrl+a>1" = "goto_tab 1";
-          "ctrl+a>2" = "goto_tab 2";
-          "ctrl+a>3" = "goto_tab 3";
-          "ctrl+a>4" = "goto_tab 4";
-          "ctrl+a>5" = "goto_tab 5";
-          "ctrl+a>6" = "goto_tab 6";
-          "ctrl+a>7" = "goto_tab 7";
-          "ctrl+a>8" = "goto_tab 8";
-          "ctrl+a>9" = "goto_tab 9";
         };
         mouseBindings = {
           "right press ungrabbed" = "combine : copy_to_clipboard : clear_selection";
