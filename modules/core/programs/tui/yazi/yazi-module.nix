@@ -209,10 +209,14 @@
       };
     };
   perSystem =
-    { inputs', ... }:
+    { inputs', pkgs, ... }:
     {
-      remotePackages.yazi = inputs'.yazi.packages.default.overrideAttrs {
-        doCheck = false;
+      remotePackages.yazi = inputs'.yazi.packages.default.override {
+        yazi-unwrapped = inputs'.yazi.packages.yazi-unwrapped.overrideAttrs (prev: {
+          doCheck = false;
+          nativeBuildInputs = (prev.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+          buildInputs = (prev.buildInputs or [ ]) ++ [ pkgs.oniguruma ];
+        });
       };
     };
 }

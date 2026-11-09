@@ -82,6 +82,9 @@
         doCheck = false;
         buildNoDefaultFeatures = true;
 
+        nativeBuildInputs = [ pkgs.pkg-config ];
+        buildInputs = [ pkgs.libgit2 ];
+
         buildFeatures = [
           "layer_shell_capture"
           "wlroots_emulation"
