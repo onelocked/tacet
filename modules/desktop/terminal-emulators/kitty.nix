@@ -211,6 +211,7 @@
           (lib.mkIf cfg.server.enable {
             hj.systemd.services.kitty-server = {
               description = "Kitty background instance";
+              enableDefaultPath = false;
               after = [ "graphical-session.target" ];
               partOf = [ "graphical-session.target" ];
               wantedBy = [ "graphical-session.target" ];

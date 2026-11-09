@@ -18,7 +18,6 @@
       wrapPackage,
       self',
       config,
-      constants,
       theme,
       ...
     }:
@@ -38,7 +37,6 @@
               Type = "simple";
               ExecStart = "${cfg.package}/bin/tuishell";
               Restart = "on-failure";
-
               MemoryHigh = "512M";
               MemoryMax = "768M";
             };
