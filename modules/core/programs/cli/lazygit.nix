@@ -11,6 +11,14 @@
             overrideGpg = true;
             diffRenderers = [
               {
+                colorArg = "always";
+                command = "hunk pager";
+              }
+              {
+                colorArg = "always";
+                command = "hunk pager --mode=split";
+              }
+              {
                 command = ''delta --file-style "${base0E}" --features space-separated --light --diff-highlight --true-color always --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --line-fill-method=ansi --navigate --keep-plus-minus-markers --commit-style="${base0B}"'';
               }
               {
@@ -113,11 +121,11 @@
           hj.packages = [
             cfg.package
             pkgs.gh
-            pkgs.diffnav
+            pkgs.hunk
             pkgs.delta
           ];
           hj.environment.sessionVariables = {
-            GIT_PAGER = "diffnav";
+            GIT_PAGER = "hunk pager";
           };
           forte.persist.home.directories = [
             ".local/state/lazygit"

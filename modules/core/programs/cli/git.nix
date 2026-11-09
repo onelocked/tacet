@@ -50,9 +50,9 @@
             algorithm = "histogram";
           };
           pager = {
-            diff = "diffnav";
-            show = "diffnav";
-            log = "diffnav";
+            diff = "hunk pager --mode=split";
+            show = "hunk pager --mode=split";
+            log = "hunk pager --mode=split";
           };
           init.defaultBranch = "main";
           advice.objectNameWarning = false;
