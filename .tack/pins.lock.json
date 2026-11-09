@@ -107,9 +107,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "72d88147285f4a2dd183460f6d06b1709823749c",
-    "narHash": "sha256-DhKcqLTODYxr/mstPAgink4lTj1a1p3DAce41cfeWm4=",
-    "lastModified": 1794230081
+    "rev": "20568958fc47239af0a4ac7441bc52357ca95f7d",
+    "narHash": "sha256-0dKSs9yz1zJ5Fr1ouWRoc3pCSm16Dq1NiGe0INkDKJc=",
+    "lastModified": 1794313532
   },
   "hjem": {
     "type": "github",
@@ -131,9 +131,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "a1d7a78b6c8e54ad72d401bfa8b85fdc89ee66a6",
-    "narHash": "sha256-P6LkrX13khvsMiNOLEC4hvHTpTwXv5IXiikZQMXPwPU=",
-    "lastModified": 1794221806
+    "rev": "4ade6e4cfced4ee38bb6690d2e60b591d9227c6d",
+    "narHash": "sha256-1Je6fe8zep1Nhfkkha75c8lM0Fk4CP6GTPQuPqz5Bcs=",
+    "lastModified": 1794310469
   },
   "jellium-desktop": {
     "type": "git",
@@ -171,9 +171,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "060f935e9b3c3b4c745c3b18685f3a47a333b113",
-    "narHash": "sha256-br0zUDdDI9Iq92wUmrLdcPP7y3v2P8nQ5SH4OZ5MjHw=",
-    "lastModified": 1793943093,
+    "rev": "3547acb7dfcee38b8e9f7bf271ed3cca3b220ebd",
+    "narHash": "sha256-sZDmGVYmAIGzg+yP7O/h4RE/n90vskJ/0NSlzdutx9I=",
+    "lastModified": 1794274156,
     "submodules": true
   },
   "nitovim": {
@@ -261,9 +261,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "b70538330f20adc9665afa2976471eb5b85ebd1f",
-    "narHash": "sha256-J+4v+Olc/2mN/bSc9CuAQ/PB7c0w1mzDJK8JvS7rKmM=",
-    "lastModified": 1794216702
+    "rev": "89750a2ef1c6a44db9f4251b16c23deffdcfddff",
+    "narHash": "sha256-UZMtOt43/HRVssXPSuPv8t11Toq9+CjyWUfYQ3tqGVE=",
+    "lastModified": 1794303164
   },
   "scroll-overview": {
     "type": "github",
@@ -299,9 +299,9 @@
     "type": "github",
     "owner": "Mic92",
     "repo": "sops-nix",
-    "rev": "89a234ce2daf6e568a7d4b4fe250afdd23d84e20",
-    "narHash": "sha256-ZlE4BtMjWhfC6rFXLO9Qimn36Ene1INqCgKDDvazjhc=",
-    "lastModified": 1793995029
+    "rev": "fe7b4228405aeac2ce7192c2049a6e2bc8637082",
+    "narHash": "sha256-Ivif/kuD68yEOKcZZG3zSwNMFUuIgzUgeJuzcHrQy+8=",
+    "lastModified": 1794261845
   },
   "spicetify-nix": {
     "type": "github",
@@ -315,12 +315,12 @@
     "type": "github",
     "owner": "AminurAlam",
     "repo": "yazi-plugins",
-    "rev": "937ae3b151155f9c571c51b8ee5f43115d3872c7",
-    "narHash": "sha256-Sc452SDksieYR85wpXpE4h35Ijomm3OPlMuWNCbu6rI=",
-    "lastModified": 1794051266,
+    "rev": "acdbca5fe4b371490de3d6080aebcd101240e856",
+    "narHash": "sha256-sAffV0lOvxD2zzi839KY7ghiWt91TuGw2hp9jYZwddQ=",
+    "lastModified": 1794300491,
     "archive": {
-      "hash": "sha256-O30P8RTAoDNcwFux/FgT8qH/xNF7m+jITPcZqQY6QQU=",
-      "outHash": "sha256-Aval19f2Kgvvq/pfteYEwnhzpsaEXC8R5zWntJEE40g="
+      "hash": "sha256-9BT99e0B/8233psTdL0C1F2RxZrJ28QjgHhVFk6Ymd8=",
+      "outHash": "sha256-UceIjA2gk+cF2TAnVo8hnWJD6SvTA1mvmVfpt2Qz5UA="
     }
   },
   "systemctl-tui": {
@@ -375,20 +375,20 @@
     "type": "github",
     "owner": "sxyazi",
     "repo": "yazi",
-    "rev": "3ba88877f39282a0b1cb912787d7293cf82c718c",
-    "narHash": "sha256-Gfdh7yVB/9pGYFL6HU0437y/rMF5gkhgoiYR5Q5iB0A=",
-    "lastModified": 1794242157
+    "rev": "805579e9832e315134da551bda2705c83e3c75d7",
+    "narHash": "sha256-ue5WAbCgFG2ZwsCDK6pX0WmAHcFGyDRHlLqMHdMqRrI=",
+    "lastModified": 1794292790
   },
   "yazi-plugins": {
     "type": "github",
     "owner": "yazi-rs",
     "repo": "plugins",
-    "rev": "70e03737ef91546e33114f94eabaad90d3b75c5f",
-    "narHash": "sha256-a4oddfENYnRD1AhDSBPBRMHgl+MPFnWELuO5uepOsqA=",
-    "lastModified": 1794242476,
+    "rev": "1ef5fe02a6122f8f3bb47a41056aab3f4b8598bf",
+    "narHash": "sha256-Nz6AvWAiwdmH2HJ2vA3rMfbDDHSkXG20Ml6vc5yrjRM=",
+    "lastModified": 1794293599,
     "archive": {
-      "hash": "sha256-QafMjulvA6pY9G275/sVJBAKF/1ODWi7/DCBrijwUYI=",
-      "outHash": "sha256-KO8HqKHaL4mcbzCyDTxdoJTpWTcw5J2PTpt80x9ArNE="
+      "hash": "sha256-8oCPD/WFHN6DnD82o+A4ZHRJrRArHJe5t3WgZw8YYDg=",
+      "outHash": "sha256-2yRN5eaVybu0Wgn4MbqXPL0QsIeJ8+X/et3WfVjevHY="
     }
   },
   "zen-browser": {
