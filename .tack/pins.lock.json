@@ -24,7 +24,7 @@
     "quickshell": "github:quickshell-mirror/quickshell",
     "rclip-sync": "github:onelocked/rclip-sync",
     "rust-overlay": "github:oxalica/rust-overlay",
-    "scroll-overview": "github:yayuuu/hyprland-scroll-overview/new-release",
+    "scroll-overview": "github:onelocked/hyprland-scroll-overview/master",
     "sf-compact": "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg",
     "sf-mono": "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg",
     "sf-pro": "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg",
@@ -267,36 +267,14 @@
   },
   "scroll-overview": {
     "type": "github",
-    "owner": "yayuuu",
+    "owner": "onelocked",
     "repo": "hyprland-scroll-overview",
-    "rev": "a8dcca6fe3ddc2164774cb6925bc67c0b974a78f",
-    "narHash": "sha256-684XIZXg/MPkFClgTJGUAVB/bEc4C2aTdD/nfQEt81o=",
-    "lastModified": 1793558258,
-    "patched": {
-      "path": "/nix/store/if6as1wy20rpncfb6d0cn45yaiyb5x86-source",
-      "narHash": "sha256-OkBz/Q5HuF5n62URHxtKbx52jj2ZouX1o6iWw4U7PpA=",
-      "lastModified": 1793558258,
-      "patches": [
-        {
-          "source": "https://gist.githubusercontent.com/onelocked/105fbe95fbca65589c7939d33ab14c15/raw/271db1c8f9beee8ffa8215cf9a54ea0caf0b7265/fix-workspaces.patch",
-          "url": "https://gist.githubusercontent.com/onelocked/105fbe95fbca65589c7939d33ab14c15/raw/271db1c8f9beee8ffa8215cf9a54ea0caf0b7265/fix-workspaces.patch",
-          "file": "patches/scroll-overview/fix-workspaces.patch",
-          "sha256": "28a28ecedf16b255c1c8b6845b369919b0e6acd9468bb128e92acd8e4345214a"
-        },
-        {
-          "source": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
-          "url": "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch",
-          "file": "patches/scroll-overview/scrollview.patch",
-          "sha256": "38269529fdf6b12145ea3e753640ab15137b0fb636f2a9cdcc21d935ded6e691"
-        },
-        {
-          "source": "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch",
-          "url": "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch",
-          "file": "patches/scroll-overview/scroll-overview-events.patch",
-          "sha256": "9a2fbbe1675532ba44b30129a7d7fd08995d5f54310b8e39398514bad3283788"
-        }
-      ],
-      "diff": "6ee5d377863f58ea8af1676aa0bb853d9a88f3e81c20bf8f121cc698883a347b"
+    "rev": "19c8db12cf1bf93290e07ad04124565abbd5b5ef",
+    "narHash": "sha256-Zipw81GiT0Cha+YMW3XqYSlvdoJOeMYOrnODpQO6JEc=",
+    "lastModified": 1794317552,
+    "archive": {
+      "hash": "sha256-PVLi1z4ETAoTPgnmyCNicZ3TjaaCgb5jM5pXv6zyUFs=",
+      "outHash": "sha256-FqcINtJDPbOf42oQLstZFkyTRKZz8r0/dNILfTZfNeA="
     }
   },
   "sf-compact": {

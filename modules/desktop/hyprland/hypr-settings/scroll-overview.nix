@@ -1,12 +1,7 @@
 {
   tack.inputs = {
     scroll-overview = {
-      url = "gh:yayuuu/hyprland-scroll-overview/new-release";
-      patches = [
-        "https://gist.githubusercontent.com/onelocked/105fbe95fbca65589c7939d33ab14c15/raw/271db1c8f9beee8ffa8215cf9a54ea0caf0b7265/fix-workspaces.patch"
-        "https://gist.githubusercontent.com/onelocked/45255ba95ff9d552a86751f1ea6ae733/raw/8d833b2f9b039d19eed5f12b82aa70697553773f/scrollview.patch"
-        "https://gist.githubusercontent.com/onelocked/5068e76e05e470feba3141db3435eb07/raw/d0a1a6521ed58249731211df8d9d895155f3b327/scroll-overview-events.patch"
-      ];
+      url = "gh:onelocked/hyprland-scroll-overview/master";
       type = "fetch";
       group = "hypr";
     };
