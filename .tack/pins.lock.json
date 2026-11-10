@@ -180,9 +180,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nitovim",
-    "rev": "171c5718f4a2e4f7ab4d0e3740255db0fcc2e231",
-    "narHash": "sha256-pPq95lJaTDmu4KctX6HTby5TOvuX6TGSwvWO/EtbPN4=",
-    "lastModified": 1794251665
+    "rev": "f4209e70d9743d2f38ed87430a5e6864875a3df9",
+    "narHash": "sha256-VaJkQD6m2eubrub6wr3zmJZcfu9Rs/eZvpaT9RljEBk=",
+    "lastModified": 1794421808
   },
   "nixos-core": {
     "type": "github",
@@ -359,9 +359,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "afef2ef039fba2c71086c4d41dfad0a32715170e",
-    "narHash": "sha256-XEQN5/vP8MMJNsK009njqj7niyfnnyrEZvvgRX5Ogf4=",
-    "lastModified": 1793790605
+    "rev": "999860d67c1021f1943c5847c358de5e18a23445",
+    "narHash": "sha256-7qrwWoUSf60UU3n6VuCtUtsV1vNByXobI6261yWPvn4=",
+    "lastModified": 1794530517
   },
   "yazbar": {
     "type": "github",

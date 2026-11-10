@@ -3,7 +3,7 @@
     {
       lib,
       self',
-      pkgs,
+      config,
       ...
     }:
     {
@@ -32,7 +32,7 @@
           in
           {
             images = [
-              (mkOpener "Set Wallpaper" "${pkgs.awww}/bin/awww img %s --transition-duration 2 --transition-fps 60 --transition-bezier .43,1.19,1,.4 --transition-type any")
+              (mkOpener "Set Wallpaper" "${config.forte.quickshell.package}/bin/tuishell ipc call wallpaper set %s")
               (mkOpener "Open with Loupe" "${lib.getExe self'.packages.loupe} %s")
             ];
           };

@@ -41,58 +41,6 @@
               MemoryMax = "768M";
             };
           };
-          systemd.services.awww = {
-            description = "awww wallpaper daemon";
-            wantedBy = [ "graphical-session.target" ];
-            partOf = [ "graphical-session.target" ];
-            after = [ "graphical-session.target" ];
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${lib.getExe' pkgs.awww "awww-daemon"}";
-              Restart = "on-failure";
-              RestartSec = 1;
-              TimeoutStopSec = 10;
-
-              # --- Hardening ---
-              ProtectSystem = "strict";
-              ProtectHome = "read-only";
-
-              ReadWritePaths = [ "%t" ];
-              PrivateTmp = true;
-
-              InaccessiblePaths = [
-                "-%h/.ssh"
-                "-%h/.gnupg"
-                "-%h/.config/sops"
-                "-/persist/home"
-              ];
-
-              NoNewPrivileges = true;
-              CapabilityBoundingSet = "";
-
-              ProtectKernelTunables = true;
-              ProtectKernelModules = true;
-              ProtectKernelLogs = true;
-              ProtectControlGroups = true;
-              ProtectClock = true;
-              ProtectHostname = true;
-              ProtectProc = "invisible";
-
-              RestrictAddressFamilies = [ "AF_UNIX" ];
-
-              SystemCallArchitectures = "native";
-              SystemCallFilter = [
-                "~@mount"
-                "~@module"
-                "~@raw-io"
-                "~@reboot"
-                "~@swap"
-                "~@obsolete"
-                "~@privileged"
-                "~@setuid"
-              ];
-            };
-          };
         };
         forte.hyprland.lua.settings = # lua
           ''
@@ -152,7 +100,6 @@
                       imagemagick
                       cava
                       python3
-                      awww
                       app2unit
                       libnotify
                       config.forte.mpv.mpv-wlpaste
