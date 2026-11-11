@@ -6,10 +6,6 @@
       pkgs,
       ...
     }:
-    let
-      mkOpener = desc: run: { inherit desc run; };
-      mkNixRun = desc: pkg: mkOpener desc "${pkgs.nix}/bin/nix run nixpkgs#${pkg} %s";
-    in
     {
       forte.yazi.settings = {
         open = {
@@ -30,17 +26,16 @@
             }
           ];
         };
-        opener = {
-          images = [
-            (mkOpener "Set Wallpaper" "${pkgs.awww}/bin/awww img %s --transition-duration 2 --transition-fps 60 --transition-bezier .43,1.19,1,.4 --transition-type any")
-            (mkNixRun "Edit with Gimp" "gimp")
-            (mkOpener "Open with Loupe" "${lib.getExe self'.packages.loupe} %s")
-          ];
-
-          videos = [
-            (mkNixRun "Videos Trimmer" "video-trimmer")
-          ];
-        };
+        opener =
+          let
+            mkOpener = desc: run: { inherit desc run; };
+          in
+          {
+            images = [
+              (mkOpener "Set Wallpaper" "${pkgs.awww}/bin/awww img %s --transition-duration 2 --transition-fps 60 --transition-bezier .43,1.19,1,.4 --transition-type any")
+              (mkOpener "Open with Loupe" "${lib.getExe self'.packages.loupe} %s")
+            ];
+          };
       };
     };
   perSystem =
