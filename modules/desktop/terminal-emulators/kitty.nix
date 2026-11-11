@@ -183,7 +183,7 @@
                   })
                   hl.window_rule({
                     name  = "kitty-scroll",
-                    match = { class = "kitty", workspace = "r[3-4] w[t3-99]" },
+                    match = { class = "kitty" },
                     scrolling_width = 0.333,
                   })
                   hl.window_rule({
