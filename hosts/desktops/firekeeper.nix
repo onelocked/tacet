@@ -272,6 +272,7 @@
         ];
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
         postInstall = (old.postInstall or "") + ''
+          rm -rf $out/share/applications
           makeWrapper $out/bin/amdgpu_top $out/bin/gtop \
             --add-flags '--dark'
         '';
