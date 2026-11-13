@@ -25,6 +25,7 @@
         package = pkgs.steam.override {
           extraLibraries = pkgs: [
             self'.packages.mangohud
+            pkgs.gamemode
             pkgs.gamemode.lib
           ];
           extraEnv = {
