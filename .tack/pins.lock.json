@@ -10,7 +10,7 @@
     "hjem": "github:feel-co/hjem",
     "hypr-plugs": "github:hyprwm/hyprland-plugins",
     "hyprland": "github:hyprwm/Hyprland",
-    "jellium-desktop": "github:andrewrabert/jellium-desktop/14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
+    "jellium-desktop": "github:andrewrabert/jellium-desktop",
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
     "nitovim": "github:onelocked/nitovim",
@@ -138,25 +138,25 @@
   "jellium-desktop": {
     "type": "git",
     "url": "https://github.com/andrewrabert/jellium-desktop.git",
-    "ref": "14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
-    "rev": "14dc0845981cb7c0aef5fa93ff539d927c8f0eb2",
-    "narHash": "sha256-vU7Fuw2gMvGdBBYEJ4ngu7cHayffEPdHswQA7NtNGj8=",
-    "lastModified": 1789852673,
+    "ref": "HEAD",
+    "rev": "96bae1cff2e412f836fc41b42187422ed467759e",
+    "narHash": "sha256-ezELJWs9fuJH7WLk4Mib4xy8H4rFJaX2LsPIZHkFcPE=",
+    "lastModified": 1794526223,
     "submodules": true,
     "patched": {
-      "path": "/nix/store/9kwfj6vl6qfr5nz8cc6qpw84j8n5ss3x-source",
-      "narHash": "sha256-jrdMoQfxET+EdSWEuoY9Kz6E1DUIXTuoc79lHzYYqMo=",
-      "lastModified": 1789852673,
+      "path": "/nix/store/3dcwrasw2yfas53mkcgxnnmzzm5sgh3n-source",
+      "narHash": "sha256-Zn/x2YQgHxbpQQhbwGH2knoGE1NnjCXgcr5d/tfEP44=",
+      "lastModified": 1794526223,
       "patches": [
         {
           "source": "https://github.com/andrewrabert/jellium-desktop/pull/717",
           "url": "https://github.com/andrewrabert/jellium-desktop/pull/717",
           "file": "patches/jellium-desktop/pr-717.patch",
-          "sha256": "ab7b954ec7e6de3a736bd34faa9ff3897ce6fad24dfac87bcef07c13d209342b",
-          "head": "49deceea901fcc7a43bc6a15280506034ca3b3bd"
+          "sha256": "d1a130e7257b8fe616f41f7d05019b560a6e2ffd31c40db1e6b8c7341db08697",
+          "head": "1f0e7baaa34eae0d8c33b8b52fbc0f08c399869d"
         }
       ],
-      "diff": "365d240c73edc9ee4e726dbefd85f052c87fe7c7de729097b77b5452990d3e75"
+      "diff": "0e603b958a4b8ed7f0f690e5f4cab02150e1711209e5c4b6138e3e5b24333849"
     }
   },
   "lan-mouse": {
