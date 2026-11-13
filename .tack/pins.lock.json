@@ -107,17 +107,17 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "20568958fc47239af0a4ac7441bc52357ca95f7d",
-    "narHash": "sha256-0dKSs9yz1zJ5Fr1ouWRoc3pCSm16Dq1NiGe0INkDKJc=",
-    "lastModified": 1794313532
+    "rev": "2020dd6dafaa4406f5ce628ae2f62c8c729d0ca4",
+    "narHash": "sha256-XBrjhDk8Hl8SV4+48CCBF1/T5JpLG9BXIV9Yqk4PoNk=",
+    "lastModified": 1794584015
   },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "28cec3017cc94842f919f8f294c8b7136216b79b",
-    "narHash": "sha256-tttNqwFIXsClznNv3uEltACsfBm8xIDo9bPl+BHqYZc=",
-    "lastModified": 1794190356
+    "rev": "5469a3ae3cd5cc182ddc4201a21a8de44b2c26f2",
+    "narHash": "sha256-N6aGkpxbDeisIUygDapIVX2aXZuGEK4kRmUPMhtu1zc=",
+    "lastModified": 1794572558
   },
   "hypr-plugs": {
     "type": "github",
@@ -131,9 +131,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "8333bb7546c80e13b5c57e66ab72191d43b21505",
-    "narHash": "sha256-c/iIqiKwX9ysf0Vf92D82NvmoxhoUOEzpSzksH5SW0c=",
-    "lastModified": 1794520086
+    "rev": "0767f6347a69607638a4f93b3cd613af15a121e0",
+    "narHash": "sha256-1I8u6r86xSBRVUd6qTFBffifRqS/DcUv4n7pdtL9M8c=",
+    "lastModified": 1794583226
   },
   "jellium-desktop": {
     "type": "git",
@@ -196,9 +196,9 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixos-hardware",
-    "rev": "b6ca87f78ec5bafc4b2aef7b29803dcf419266af",
-    "narHash": "sha256-4s5CRvkYX4oAJVZ+zu2bBKFH2gG2GqN6OKHEWgJr1AY=",
-    "lastModified": 1794425805
+    "rev": "75206a855c8de3bc71f8b513edf29ca427941c3a",
+    "narHash": "sha256-rNEpg5aWAPgBPdF1vhhwztYtV7hgzE3fQiby+FZMuCQ=",
+    "lastModified": 1794567267
   },
   "nixpkgs": {
     "type": "github",
@@ -261,9 +261,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "8bbfc858c7b85f5e6ed6d6cc201ffcee1bb08a9b",
-    "narHash": "sha256-NmwbbRaUf/AoY+NoJimXOdjlbkwl6+aDbe8nodaaZzY=",
-    "lastModified": 1794518310
+    "rev": "84edd48f141b0c8910dffdd0296ddd577e829132",
+    "narHash": "sha256-oWtItM1eQqkp9OJXq2/Zo10Y9Vu9PDE6O8JRjj4+EkE=",
+    "lastModified": 1794561628
   },
   "scroll-overview": {
     "type": "github",
@@ -363,9 +363,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "fe0072b27100469ddb7f870bb7df9de8c419288d",
-    "narHash": "sha256-ns95UZ+aOmDFm/YpzSYqhznRM6HheYI6tskEdaxgGpA=",
-    "lastModified": 1794531740
+    "rev": "62848ccc16fe2851fd22986be35cac0ece3efb20",
+    "narHash": "sha256-EVdUgk6Pm9W8tPzEsevAZZt+r60SMuOgfYkqVauQ+yI=",
+    "lastModified": 1794598050
   },
   "yazbar": {
     "type": "github",

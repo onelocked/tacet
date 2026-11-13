@@ -61,7 +61,7 @@
             "ALT + SHIFT + equal" = "brightness increase";
             "ALT + SHIFT + minus" = "brightness decrease";
             "ALT + SHIFT + W" = "desktop toggleWidgets";
-            "SUPER + SPACE" = "launcher toggle";
+            "SUPER + SPACE" = "dock search";
             "SUPER + ALT + L" = "lock lock";
             "SUPER + SHIFT + Z" = "emoji toggle";
             "ALT + SHIFT + A " = "booru toggle";
