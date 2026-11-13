@@ -89,7 +89,10 @@
             type = lib.types.package;
             default = wrapPackage {
               binName = "tuishell";
-              args = [ "-p ${inputs.tuishell}" ];
+              args = [
+                "-p"
+                "${inputs.tuishell}"
+              ];
               package =
                 let
                   extraPkgs =

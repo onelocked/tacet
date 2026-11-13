@@ -164,14 +164,14 @@
           default = wrapPackage {
             package = pkgs.lazygit;
             files."configuration/lazygit.yml" = wrapPackage.yaml cfg.settings;
-            env.LG_CONFIG_FILE = wrapPackage.out + "configuration/lazygit.yml";
+            env.LG_CONFIG_FILE = "${wrapPackage.out}/configuration/lazygit.yml";
           };
         };
         worktrunkPackage = lib.mkOption {
           type = lib.types.package;
           default = wrapPackage {
             package = pkgs.worktrunk;
-            env.WORKTRUNK_CONFIG_PATH = wrapPackage.out + "/configuration/config.toml";
+            env.WORKTRUNK_CONFIG_PATH = "${wrapPackage.out}/configuration/config.toml";
             files."configuration/config.toml" = wrapPackage.toml {
               skip-shell-integration-prompt = true;
               skip-commit-generation-prompt = true;

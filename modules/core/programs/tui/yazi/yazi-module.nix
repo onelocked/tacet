@@ -69,7 +69,7 @@
               };
             };
             env = {
-              YAZI_CONFIG_HOME = wrapPackage.out + "yazi-config";
+              YAZI_CONFIG_HOME = "${wrapPackage.out}/yazi-config";
             };
           };
           description = "The Yazi package to use, wrapped with required dependencies.";

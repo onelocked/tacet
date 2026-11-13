@@ -106,7 +106,10 @@
           default = wrapPackage {
             package = pkgs.fastfetch-unwrapped;
             files."config.jsonc" = cfg.settings |> wrapPackage.json;
-            args = [ "--config ${wrapPackage.out'}/config.jsonc" ];
+            args = [
+              "--config"
+              "${wrapPackage.out}/config.jsonc"
+            ];
           };
         };
         settings = lib.mkOption {

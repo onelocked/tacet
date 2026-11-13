@@ -60,7 +60,10 @@
           default = wrapPackage {
             package = pkgs.fuzzel;
             files."configuration/fuzzel.ini" = wrapPackage.ini cfg.settings;
-            args = [ "--config ${wrapPackage.out'}/configuration/fuzzel.ini" ];
+            args = [
+              "--config"
+              "${wrapPackage.out}/configuration/fuzzel.ini"
+            ];
           };
         };
       };

@@ -103,10 +103,10 @@
               files.configuration = {
                 "mpv.conf" = cfg.conf;
                 "input.conf" = cfg.input;
-                "scripts" = "${mpvScripts}/share/mpv/scripts";
+                "scripts" = [ "${mpvScripts}/share/mpv/scripts" ];
                 "script-opts/rotate-resize.conf" = "keybinds=r";
               };
-              env.MPV_HOME = wrapPackage.out + "configuration";
+              env.MPV_HOME = "${wrapPackage.out}/configuration";
             };
         };
       };

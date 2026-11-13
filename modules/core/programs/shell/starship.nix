@@ -90,7 +90,7 @@
           default = wrapPackage {
             package = pkgs.starship;
             files.configuration."starship.toml" = wrapPackage.toml cfg.settings;
-            env.STARSHIP_CONFIG = wrapPackage.out + "configuration/starship.toml";
+            env.STARSHIP_CONFIG = "${wrapPackage.out}/configuration/starship.toml";
           };
         };
       };

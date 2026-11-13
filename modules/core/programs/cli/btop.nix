@@ -136,8 +136,10 @@
               }
               // (cfg.themes |> lib.mapAttrs' (name: content: lib.nameValuePair "themes/${name}.theme" content));
               args = [
-                "--config ${wrapPackage.out'}/configuration/btop.conf"
-                "--themes-dir ${wrapPackage.out'}/configuration/themes"
+                "--config"
+                "${wrapPackage.out}/configuration/btop.conf"
+                "--themes-dir"
+                "${wrapPackage.out}/configuration/themes"
               ];
             };
         };

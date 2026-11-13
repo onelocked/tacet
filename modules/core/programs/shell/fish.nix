@@ -168,7 +168,7 @@
               filter_mode = "session-preload";
               search_mode = "fuzzy";
             };
-            env.ATUIN_CONFIG_DIR = wrapPackage.out + "configuration";
+            env.ATUIN_CONFIG_DIR = "${wrapPackage.out}/configuration";
           };
         };
       };

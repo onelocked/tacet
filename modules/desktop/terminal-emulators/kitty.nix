@@ -264,7 +264,7 @@
                   ''}
                 '';
               };
-              env.KITTY_CONFIG_DIRECTORY = "${wrapPackage.out'}/configuration";
+              env.KITTY_CONFIG_DIRECTORY = "${wrapPackage.out}/configuration";
             };
         };
         server.enable = lib.mkEnableOption "kitty-server" // {

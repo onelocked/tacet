@@ -9,47 +9,59 @@ let
     }:
     {
       config = {
-        makeWrapperArgs = lib.mkMerge [
-          (lib.mkIf (config.args != [ ]) (
+        makeWrapperArgs =
+          let
+            renderEnv =
+              value:
+              if lib.isPath value then
+                "${value}"
+              else if lib.isString value then
+                value
+              else
+                toString value;
+          in
+          lib.optionals (config.env != { }) (
+            config.env
+            |> lib.mapAttrsToList (
+              name: value: [
+                "--set"
+                name
+                (renderEnv value)
+              ]
+            )
+            |> lib.concatLists
+          )
+          ++ lib.optionals (config.extraPkgs != [ ]) [
+            "--prefix"
+            "PATH"
+            ":"
+            (config.extraPkgs |> lib.makeBinPath)
+          ]
+          ++ lib.optionals (config.args != [ ]) (
             config.args
             |> lib.concatMap (value: [
-              "--add-flags"
+              "--add-flag"
               value
             ])
-          ))
-          (lib.mkIf (config.runShell != [ ]) (
+          )
+          ++ lib.optionals (config.runShell != [ ]) (
             config.runShell
             |> lib.concatMap (value: [
               "--run"
               value
             ])
-          ))
-          (lib.mkIf (config.env != { }) (
-            lib.attrNames config.env
-            |> map (name: [
-              "--set"
-              name
-              (config.env.${name} |> toString)
-            ])
-            |> lib.concatLists
-          ))
-          (lib.mkIf (config.extraPkgs != [ ]) [
-            "--prefix"
-            "PATH"
-            ":"
-            (config.extraPkgs |> lib.makeBinPath)
-          ])
-        ];
+          );
         wrapper =
           let
             inherit (config)
               package
-              paths
               binName
               files
-              aliases
               makeWrapperArgs
               ;
+            paths = lib.unique config.paths;
+            aliases = lib.unique config.aliases;
+            sourceBin = package.meta.mainProgram or (lib.getName package);
             flattenFiles =
               prefix: attrs:
               lib.concatLists (
@@ -69,18 +81,14 @@ let
                     ]
                 ) attrs
               );
-            inherit
-              (
-                flattenFiles "" files
-                |> builtins.partition (file: lib.isString file.value && !lib.hasPrefix builtins.storeDir file.value)
-              )
+            inherit (flattenFiles "" files |> builtins.partition (file: lib.isString file.value))
               right
               wrong
               ;
             textFiles = right |> lib.imap0 (index: file: file // { key = "f${toString index}"; });
             linkFiles = wrong;
           in
-          pkgs.runCommandLocal "${package.name}-onewrap"
+          pkgs.runCommandLocal "${lib.getName package}-onewrap"
             (
               {
                 nativeBuildInputs = with pkgs; [
@@ -104,7 +112,6 @@ let
             (
               let
                 wrapperArgs = lib.escapeShellArgs makeWrapperArgs;
-                bin = lib.escapeShellArg binName;
               in
               #bash
               ''
@@ -147,17 +154,15 @@ let
                   )
                 }
 
-                if [ ! -e "$out/bin/${bin}" ]; then
-                  makeWrapper ${
-                    lib.getExe' package (package.meta.mainProgram or (lib.getName package))
-                  } "$out/bin/${bin}" ${wrapperArgs}
+                if [ ! -e "$out/bin/${binName}" ]; then
+                  makeWrapper ${lib.getExe' package sourceBin} "$out/bin/${binName}" ${wrapperArgs}
                 else
-                  wrapProgram "$out/bin/${bin}" ${wrapperArgs}
+                  wrapProgram "$out/bin/${binName}" ${wrapperArgs}
                 fi
                 ${
                   aliases
                   |> lib.concatMapStringsSep "\n" (
-                    alias: "ln -sf $out/bin/${bin} $out/bin/${lib.escapeShellArg alias}"
+                    alias: "ln -sf \"$out/bin/${binName}\" \"$out/bin/\"${lib.escapeShellArg alias}"
                   )
                 }
               ''
@@ -167,23 +172,33 @@ let
         package = lib.mkOption {
           type = lib.types.package;
           description = "The main package to wrap.";
+          example = lib.literalExpression "pkgs.foot";
         };
 
         paths = lib.mkOption {
           type = lib.types.listOf lib.types.package;
           default = [ ];
-          description = "Additional packages to symlink into the output directory.";
+          description = ''
+            Additional packages to symlink into the output directory.
+            Earlier entries win on file collisions; the main package always wins.
+          '';
         };
 
         binName = lib.mkOption {
           type = lib.types.str;
           default = config.package.meta.mainProgram or (lib.getName config.package);
+          defaultText = lib.literalExpression "config.package.meta.mainProgram or (lib.getName config.package)";
           description = "Name of the wrapped binary at $out/bin/<binName>.";
         };
 
         args = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
+          description = ''
+            Additional command-line arguments. Each element is passed as a
+            single argument (makeWrapper's `--add-flag`).
+          '';
+          example = lib.literalExpression ''[ "--config" "/etc/foo.conf" ]'';
         };
 
         env = lib.mkOption {
@@ -191,39 +206,77 @@ let
             with lib.types;
             attrsOf (oneOf [
               str
-              number
-              bool
               path
+              int
             ]);
           default = { };
+          description = ''
+            Environment variables set by the wrapper (via `--set`).
+            Path values are copied into the store.
+          '';
+          example = {
+            LC_ALL = "C.UTF-8";
+            FOO_CONFIG = "/etc/foo.conf";
+          };
         };
 
         extraPkgs = lib.mkOption {
           type = lib.types.listOf lib.types.package;
           default = [ ];
+          description = "Packages prepended to PATH at runtime.";
         };
 
         files = lib.mkOption {
-          type = lib.types.attrsOf lib.types.anything;
+          type =
+            let
+              leaf =
+                with lib.types;
+                either
+                  (listOf (oneOf [
+                    str
+                    path
+                    package
+                  ]))
+                  (oneOf [
+                    str
+                    path
+                    package
+                  ]);
+              tree = lib.types.either leaf (lib.types.attrsOf tree);
+            in
+            lib.types.attrsOf tree;
           default = { };
-          description = "Files to link into the wrapper. Can be nested.";
+          description = ''
+            Files to add to the wrapper output. String values are written
+            verbatim; use a path, a package, or a single-element list to
+            symlink something instead. Lists are treated as link sources and
+            merged with `lndir` (directories) or symlinked (files). Attribute
+            sets are treated as nested directories.
+          '';
+          example = lib.literalExpression ''
+            {
+              "configuration/foo.toml" = "key = 1";
+              "share/thing" = pkgs.somePackage;
+            }
+          '';
         };
 
         aliases = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
+          description = "Additional names for the wrapped binary in $out/bin.";
         };
 
         runShell = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
-          description = "Commands to run before executing the main program.";
+          description = "Commands to run before executing the main program. They run after `env` and `extraPkgs` have been applied.";
         };
 
         makeWrapperArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
-          description = "Raw arguments passed to makeWrapper/wrapProgram";
+          description = "Raw arguments passed to makeWrapper/wrapProgram after the arguments generated from the other options.";
         };
 
         wrapper = lib.mkOption {
@@ -236,19 +289,27 @@ let
 
   wrap =
     pkgs: spec:
-    (lib.evalModules {
-      modules = [
-        wrapperModule
-        spec
-      ];
-      specialArgs = { inherit pkgs; };
-    }).config.wrapper;
+    let
+      evaluated = lib.evalModules {
+        modules = [
+          wrapperModule
+          spec
+        ];
+        specialArgs = { inherit pkgs; };
+      };
+    in
+    evaluated.config.wrapper.overrideAttrs (old: {
+      passthru = (old.passthru or { }) // {
+        inherit (evaluated.config) package;
+        unwrapped = evaluated.config.package;
+        override = newSpec: wrap pkgs (spec // newSpec);
+      };
+    });
 
   wrapFunctor = pkgs: {
     inherit pkgs;
     __functor = self: spec: wrap pkgs spec;
-    out = "${placeholder "out"}/";
-    out' = placeholder "out";
+    out = placeholder "out";
     toml = (pkgs.formats.toml { }).generate "config.toml";
     json = (pkgs.formats.json { }).generate "config.json";
     yaml = (pkgs.formats.yaml { }).generate "config.yaml";

@@ -173,7 +173,7 @@
           type = lib.types.package;
           default = wrapPackage {
             package = pkgs.mpv;
-            env.MPV_HOME = wrapPackage.out + "configuration";
+            env.MPV_HOME = "${wrapPackage.out}/configuration";
             files.configuration = {
               "mpv.conf" = cfg.conf;
               "input.conf" = cfg.input;
@@ -183,7 +183,7 @@
                 "${modernz}/share/mpv/scripts"
                 "${self'.legacyPackages.mpv-rotate-resize}/share/mpv/scripts"
               ];
-              "fonts" = "${pkgs.mpvScripts.modernz}/share/fonts/truetype";
+              "fonts" = [ "${pkgs.mpvScripts.modernz}/share/fonts/truetype" ];
               "script-opts/rotate-resize.conf" = "keybinds=r";
               "script-opts/modernz.conf" = lib.generators.toKeyValue { } {
                 download_path = config.hj.directory + "/Videos/mpv";
