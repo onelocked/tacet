@@ -64,9 +64,7 @@ group = "hypr"
 url = "gh:hyprwm/Hyprland"
 
 [inputs.jellium-desktop]
-frozen = true
 group = "desktop"
-patches = ["https://github.com/andrewrabert/jellium-desktop/pull/717"]
 submodules = true
 type = "fetch"
 url = "gh:andrewrabert/jellium-desktop"

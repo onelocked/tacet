@@ -40,8 +40,6 @@
     };
   tack.inputs.jellium-desktop = {
     url = "gh:andrewrabert/jellium-desktop";
-    patches = [ "https://github.com/andrewrabert/jellium-desktop/pull/717" ];
-    frozen = true;
     submodules = true;
     type = "fetch";
     group = "desktop";

@@ -107,9 +107,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "2020dd6dafaa4406f5ce628ae2f62c8c729d0ca4",
-    "narHash": "sha256-XBrjhDk8Hl8SV4+48CCBF1/T5JpLG9BXIV9Yqk4PoNk=",
-    "lastModified": 1794584015
+    "rev": "77d203f33ad11f9a4ce20ca4d453128e9b7fe67a",
+    "narHash": "sha256-FvvgdimPdhG5xUOX6LFlQ1cK7EOvqBV4TxTH8ZMyypU=",
+    "lastModified": 1794699865
   },
   "hjem": {
     "type": "github",
@@ -139,25 +139,10 @@
     "type": "git",
     "url": "https://github.com/andrewrabert/jellium-desktop.git",
     "ref": "HEAD",
-    "rev": "96bae1cff2e412f836fc41b42187422ed467759e",
-    "narHash": "sha256-ezELJWs9fuJH7WLk4Mib4xy8H4rFJaX2LsPIZHkFcPE=",
-    "lastModified": 1794526223,
-    "submodules": true,
-    "patched": {
-      "path": "/nix/store/3dcwrasw2yfas53mkcgxnnmzzm5sgh3n-source",
-      "narHash": "sha256-Zn/x2YQgHxbpQQhbwGH2knoGE1NnjCXgcr5d/tfEP44=",
-      "lastModified": 1794526223,
-      "patches": [
-        {
-          "source": "https://github.com/andrewrabert/jellium-desktop/pull/717",
-          "url": "https://github.com/andrewrabert/jellium-desktop/pull/717",
-          "file": "patches/jellium-desktop/pr-717.patch",
-          "sha256": "d1a130e7257b8fe616f41f7d05019b560a6e2ffd31c40db1e6b8c7341db08697",
-          "head": "1f0e7baaa34eae0d8c33b8b52fbc0f08c399869d"
-        }
-      ],
-      "diff": "0e603b958a4b8ed7f0f690e5f4cab02150e1711209e5c4b6138e3e5b24333849"
-    }
+    "rev": "09de0a6d8c3fe7620df71b469c78752892de12e4",
+    "narHash": "sha256-oqwpHXA5fWNfRdf2yOS4zHVyimVaxJLiK3lerdMLHzw=",
+    "lastModified": 1794720480,
+    "submodules": true
   },
   "lan-mouse": {
     "type": "github",
@@ -171,42 +156,42 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "791f92016625c866323b35d01da3844531b6c237",
-    "narHash": "sha256-ALr9FthBzAWDpg7xeZmYBwja70WtkMM15sxbslJxfvE=",
-    "lastModified": 1794468245,
+    "rev": "199227b197455f8099d5ffef688bfee875e62efc",
+    "narHash": "sha256-i+hySi97ah2Vn3tq5sheS/lj9iFcW7RcSnsdm1MV3DY=",
+    "lastModified": 1794723169,
     "submodules": true
   },
   "nitovim": {
     "type": "github",
     "owner": "onelocked",
     "repo": "nitovim",
-    "rev": "f1fcc38c44b943de951b7e0fcad7f2ec911fef9b",
-    "narHash": "sha256-B9WnwRarFqHsPMf5j2PjmbV1lR57Pwunoa9cx0ySj0c=",
-    "lastModified": 1794532471
+    "rev": "eeaa1a34b5c30294f806da0e2d8fadce0b3db087",
+    "narHash": "sha256-ktHuDNjntFPxIpzG7w66VRbizcpzb64DFnUm1N4Hvrs=",
+    "lastModified": 1794612011
   },
   "nixos-core": {
     "type": "github",
     "owner": "manic-systems",
     "repo": "nixos-core",
-    "rev": "411f45761a532a02f056bb1b366aa07abb7cf34e",
-    "narHash": "sha256-Vl9FOeAOqr94iSFnRpOUqI0P2nffULmtKj2wtnRvdFs=",
-    "lastModified": 1794025402
+    "rev": "80edbeb8f8d45f72c4e788b586ce59fa4a2611b4",
+    "narHash": "sha256-vadrXCxy5s8uAZ+4bB5/gNuR71SbaIgHpGq0JeRY2g4=",
+    "lastModified": 1794651602
   },
   "nixos-hardware": {
     "type": "github",
     "owner": "NixOS",
     "repo": "nixos-hardware",
-    "rev": "75206a855c8de3bc71f8b513edf29ca427941c3a",
-    "narHash": "sha256-rNEpg5aWAPgBPdF1vhhwztYtV7hgzE3fQiby+FZMuCQ=",
-    "lastModified": 1794567267
+    "rev": "eb3c90bd715f7a9a28719bb014f53d309ccb2fc8",
+    "narHash": "sha256-bUkc9dMpCFiJuuf5Efr7pnCDs5q18aA8zJah+MYZl9w=",
+    "lastModified": 1794597451
   },
   "nixpkgs": {
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
-    "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
-    "lastModified": 1794386569
+    "rev": "d5cc6833999746cffdfe0598f7bc801a57b887a9",
+    "narHash": "sha256-Wpz/7x/YWnDIBu7yj6ixe8j6fIMsidd9Y+o1PqPF3iM=",
+    "lastModified": 1794537146
   },
   "no-header-prompt": {
     "type": "github",
@@ -261,9 +246,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "84edd48f141b0c8910dffdd0296ddd577e829132",
-    "narHash": "sha256-oWtItM1eQqkp9OJXq2/Zo10Y9Vu9PDE6O8JRjj4+EkE=",
-    "lastModified": 1794561628
+    "rev": "67f1944c7c99d8dbb57fa3d83043bc0a92cbcc56",
+    "narHash": "sha256-VaXNWDU+9dXckN4BlZbrcYTTd9pIscLeiknbhHX4+lk=",
+    "lastModified": 1794733384
   },
   "scroll-overview": {
     "type": "github",
@@ -299,9 +284,9 @@
     "type": "github",
     "owner": "Mic92",
     "repo": "sops-nix",
-    "rev": "fe7b4228405aeac2ce7192c2049a6e2bc8637082",
-    "narHash": "sha256-Ivif/kuD68yEOKcZZG3zSwNMFUuIgzUgeJuzcHrQy+8=",
-    "lastModified": 1794261845
+    "rev": "11e5885d241743ff0193465d533b20e754bc3ce0",
+    "narHash": "sha256-3q/hxp/flW1PnV3Dx+H3p8kHGEHJ7251BqVMNsAAB9E=",
+    "lastModified": 1794624949
   },
   "spicetify-nix": {
     "type": "github",
@@ -347,9 +332,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "c107b0fc252b0b33b01e6b7d6111aaaedc49613e",
-    "narHash": "sha256-bdNCaHUF3c8hgsYw6FCI+lGcZanZIDxt2Sefu5AsERY=",
-    "lastModified": 1794450976
+    "rev": "4bb81b579e2072b02f8a7a56e9da317e6faf5407",
+    "narHash": "sha256-PSwYLv40mPN9//mGLA+5Q3YUPfS16dMTrd4BARJhCuo=",
+    "lastModified": 1794730228
   },
   "theme-store": {
     "type": "github",
@@ -363,9 +348,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "62848ccc16fe2851fd22986be35cac0ece3efb20",
-    "narHash": "sha256-EVdUgk6Pm9W8tPzEsevAZZt+r60SMuOgfYkqVauQ+yI=",
-    "lastModified": 1794598050
+    "rev": "4a5af4a4d443c1ff3806025f23e8f9126c38c214",
+    "narHash": "sha256-0LjNKKmNYBw51BD3+IYKJ6pdUMz4Ad/nTtNvEyOKYVo=",
+    "lastModified": 1794747887
   },
   "yazbar": {
     "type": "github",
@@ -399,8 +384,8 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "46c4140b55328bc3ee32f22c42185bc534998a1d",
-    "narHash": "sha256-YufvHb7O/52Cp+B9a3HRVO0HluXSEQ75+WMIcU6YPyE=",
-    "lastModified": 1794495687
+    "rev": "ad99018e37999e659ae43f9c6ac126161ca147bc",
+    "narHash": "sha256-uoTlmcxa6ewsctJ6/NPgMADN7317QohlUMGBjtQjQmY=",
+    "lastModified": 1794641110
   }
 }
