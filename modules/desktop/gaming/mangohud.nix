@@ -241,6 +241,24 @@
                  fi
               '';
 
+          # Shim includes <vulkan/vulkan.h> but lacks vulkan_headers_dep.
+          shimVulkanHeadersPatch =
+            pkgs.writeText "mangohud-shim-vulkan-headers.patch" # meson
+              ''
+                diff --git a/src/meson.build b/src/meson.build
+                --- a/src/meson.build
+                +++ b/src/meson.build
+                @@ -309,7 +309,7 @@
+                 if is_unixy
+                   shim_files = []
+                -  shim_deps = [dep_dl]
+                +  shim_deps = [dep_dl, vulkan_headers_dep]
+                   shim_args = pre_args
+                   if get_option('with_wayland').enabled() and dep_wayland_client.version().version_compare('>=1.24')
+                     shim_files += files('gl/wayland_color.cpp')
+                     shim_args += '-DHAVE_WAYLAND_COLOR_TRACKING'
+              '';
+
           hardcodePatch =
             pkgs.writeText "hardcode-dependencies.patch" # cpp
               ''
@@ -338,6 +356,7 @@
 
           patches = with pkgs; [
             preloadPatch
+            shimVulkanHeadersPatch
 
             (pkgs.replaceVars hardcodePatch {
               path = lib.makeBinPath [
