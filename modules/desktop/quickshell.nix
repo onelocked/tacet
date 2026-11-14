@@ -44,6 +44,7 @@
         };
         forte.hyprland.lua.settings = # lua
           ''
+            hl.permission({ binary = "/nix/store/.*/bin/[.]quickshell-wrapped", type = "screencopy", mode = "allow" })
             hl.layer_rule({
               name = "tuishell",
               match = {
