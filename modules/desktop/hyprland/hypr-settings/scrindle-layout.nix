@@ -23,6 +23,10 @@
 
             local count = #hl.get_windows({ workspace = ws, floating = false })
 
+            if count == 0 then
+                return
+            end
+
             if count == 1 then
                 hl.dispatch(hl.dsp.layout("colresize " .. w169))
             elseif count <= 3 then
