@@ -64,6 +64,7 @@ group = "hypr"
 url = "gh:hyprwm/Hyprland"
 
 [inputs.jellium-desktop]
+frozen = true
 group = "desktop"
 submodules = true
 type = "fetch"

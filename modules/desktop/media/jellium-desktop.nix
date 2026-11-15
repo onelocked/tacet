@@ -40,6 +40,7 @@
     };
   tack.inputs.jellium-desktop = {
     url = "gh:andrewrabert/jellium-desktop";
+    frozen = true;
     submodules = true;
     type = "fetch";
     group = "desktop";
@@ -111,6 +112,7 @@
 
             # Archive and scripting support
             lua,
+            luajit,
             mujs,
             libarchive,
 
@@ -161,8 +163,9 @@
             cargoLock = {
               lockFile = "${inputs.jellium-desktop}/src/Cargo.lock";
               outputHashes = {
-                "cryoglyph-0.1.0" = "sha256-KJeEzzp5UCsF6Q2VlfHdjsY+N8vzTjgEZUAZtlIpfiU=";
-                "iced_core-0.15.0-dev" = "sha256-cZhPMpqeCsHfXCmqOumVaw1k3Y3r2cNzqmifmtE3UlI=";
+                "cryoglyph-0.1.0" = "sha256-KOKHPv+PZkwdMkGoR2nNixUAatUR23VYPW0hLHFQ08M=";
+                "iced_core-0.15.0-dev" = "sha256-MUV9CrQF2AhgpSxHqJS7DAhKrrW46AW5TyA6KM7KImI=";
+                "cosmic-text-0.19.0" = "sha256-93zdZ04BRwQTKqsdwYtFOaQkOsTzp2Aq4VQhNwFE8cQ=";
               };
             };
 
@@ -250,6 +253,7 @@
               libxrandr
               libxscrnsaver
               lua
+              luajit
               mujs
               nv-codec-headers-12
               pipewire
