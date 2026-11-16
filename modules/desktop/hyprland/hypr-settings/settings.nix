@@ -22,7 +22,7 @@
               col         = {
                 inactive_border = { colors = { "${if theme == "dark" then "#362D40" else scheme.base03}" } },
                 active_border   = { colors = { "${
-                  if theme == "dark" then scheme.base0F else scheme.base05
+                  if theme == "dark" then scheme.base0D else scheme.base05
                 }" } },
               },
 

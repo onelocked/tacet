@@ -41,6 +41,7 @@
       systemd.network.enable = false;
       networking = {
         useDHCP = true;
+        dhcpcd.enable = true;
         useNetworkd = false;
       };
     };
