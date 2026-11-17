@@ -23,7 +23,8 @@
                 size           = "700 1330",
                 move           = "35 78",
                 workspace      = "special:magic silent",
-                suppress_event = "fullscreen maximize activate activatefocus",
+                scrolling_width = 0.21,
+                suppress_event = "fullscreen maximize",
             })
             hl.window_rule({
               name             = "Telegram-media",

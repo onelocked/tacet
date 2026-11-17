@@ -339,7 +339,7 @@
               match           = { class = "vesktop" },
               scrolling_width = 0.5,
               workspace       = "5 silent",
-              suppress_event  = "fullscreen maximize activate activatefocus",
+              suppress_event  = "fullscreen maximize",
               fullscreen_state = "0 3",
             })
           '';
