@@ -66,6 +66,7 @@
             "SUPER + ALT + L" = "lock lock";
             "SUPER + SHIFT + Z" = "emoji toggle";
             "ALT + SHIFT + A " = "booru toggle";
+            "Print" = "screenshot open";
           }
           |> lib.mapAttrsToList (
             key: cmd: # lua

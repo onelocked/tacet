@@ -352,9 +352,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "3e7283ff043808c5d9053e1336fc6c73607b479c",
-    "narHash": "sha256-1Saz+T9O/zZ9o3OvnMFWY90N3RH+jZCpAE2EffDE7i8=",
-    "lastModified": 1794876790
+    "rev": "35fe11ec934e0d15498c66ca9fa247ea46ba5b87",
+    "narHash": "sha256-EIYpd2Qxvy1QcjycRGndqNRomID6zwsECohzV0TKVW8=",
+    "lastModified": 1794961436
   },
   "yazbar": {
     "type": "github",

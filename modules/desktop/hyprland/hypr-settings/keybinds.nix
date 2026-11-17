@@ -61,11 +61,6 @@
           -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
           hl.bind("SUPER + Q", hl.dsp.window.close())
 
-          -- screenshot
-          hl.permission({ binary = "${pkgs.grim}/bin/grim", type = "screencopy", mode = "allow" })
-          hl.permission({ binary = "${pkgs.wayfreeze}/bin/wayfreeze", type = "screencopy", mode = "allow" })
-          hl.bind("Print", hl.dsp.exec_raw("${pkgs.wayfreeze}/bin/wayfreeze --after-freeze-cmd '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | wl-copy; killall wayfreeze'"))
-
           -- cycle keyboard lang layout
           hl.bind("CTRL + Space", hl.dsp.exec_cmd("hyprctl switchxkblayout all next"))
 
