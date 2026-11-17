@@ -7,6 +7,7 @@ wireguard:
     rclip-sync:
         firekeeper: ENC[AES256_GCM,data:P+hRzxDMMZKLXcgs/39FjHulnIsVQZbfzeZyAO2jTfOJcscw4yEUJWJLP0E=,iv:HXQ/3yYJeu0fh5OXlGpt7juLZQ8Ylk+7yg+42PWso/E=,tag:sZsV0X7rZzkgnpeB2/iXmw==,type:str]
         lucatiel: ENC[AES256_GCM,data:J2CznJISk4Y+aDUmxkGhy7i3mypMIjAKvAw12T3QIVhTwbdnsZaNrN3TsTs=,iv:Ed9g2a54Sr9U9U2KSHO+QCHBA2e51pk9Vx5aZVjuFLk=,tag:fOB3T1TAOxs23PL4GJBHrg==,type:str]
+kitty: ENC[AES256_GCM,data:X2B/hOHOUCVYklfk3WaYhMEI5RXONo6pPYH8Ij6st0FKB/mVFIkuQMyVd272wA/n,iv:WhaDs28Mlu3QAcx84kWeWCXX7o/erhqoV+iDDV21Vv8=,tag:+aQiRemuxiJYRp+ibKJZ/Q==,type:str]
 sops:
     age:
         - enc: |
@@ -18,7 +19,7 @@ sops:
             Sn1H32atf/JWJ12T+NSMatF9byNu4vGk4oM7WBJab9c7FApGX1pyCA==
             -----END AGE ENCRYPTED FILE-----
           recipient: age1cu7gutqmcpxgst7xfqzq6tjmvr02w33ew0q7678nj85zqe7ly99s5fjx0m
-    lastmodified: "2026-10-09T15:37:32Z"
-    mac: ENC[AES256_GCM,data:l7RML3ZY+FDgwt6nShZPujRGEzaWxyS2LX11a7QXe+InYzZ9MsVw4ak3W/xYKwknRFm8fFge4b5j0E8mxg73AbxGiDo3YDu0c4qlzJbrqeargnAC4vOL5G9JmD8c87XVwAm33CNtRAiCrzqhl4Mb/sCrTsaMpqFC7RVxjDjD21Y=,iv:PqPhdZfMm545a+XbvjbvsRYCtHu2SLMnfEcBcr8PPFI=,tag:LihM3u0sdOkJWf3EFhKWqg==,type:str]
+    lastmodified: "2026-11-17T19:48:30Z"
+    mac: ENC[AES256_GCM,data:OKHz+0j5lz5mAzuSgzPwa8yb85nVPnT7jIAg/NGI4pmn43CflY0lxybMW+eZxBh52j66M/6Dnwt+Ik3jbARertsDyn4+MR6LXq0OU/qxcrWt3QUBTvyPdgSijemCvkrr49UImSRJxiG4HuLyuazN8JDrl1kZve8qx0R1vJex4C4=,iv:F/VQ/XI2TBD1E48XkZ2k0EP13MQ752sQslY0SQwR7XA=,tag:iRWelG4IUVVN/hQAh7D5Ug==,type:str]
     unencrypted_suffix: _unencrypted
     version: 3.13.3
