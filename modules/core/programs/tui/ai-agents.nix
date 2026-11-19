@@ -3,6 +3,7 @@
     hj.packages = with pkgs; [
       opencode
       omp
+      pi-coding-agent
       python3
       libnotify
     ];
@@ -12,6 +13,7 @@
       ".local/state/opencode"
       ".cache/opencode"
       ".omp"
+      ".pi"
     ];
   };
 }
