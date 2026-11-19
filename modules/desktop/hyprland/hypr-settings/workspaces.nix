@@ -22,7 +22,7 @@
         -- dynamically calculate the scrolling_width for aspect ratios of 16:9 and 21:9
         local gaps_out = 8
         local gaps_in = 4
-        local border_size = 5
+        local border_size = 3
 
         local PIXEL_BIAS = 0
         local BPP_PLUGIN = "borders-plus-plus"

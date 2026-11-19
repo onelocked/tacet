@@ -5,7 +5,7 @@
     group = "hypr";
   };
   exo.mods.desktop = { self', ... }: {
-    forte.hyprland.plugins = [ self'.legacyPackages.borders-plus-plus ];
+    # forte.hyprland.plugins = [ self'.legacyPackages.borders-plus-plus ];
     forte.hyprland.lua.borders-plus-plus = # lua
       ''
         hl.permission("${self'.legacyPackages.borders-plus-plus}/lib/libborders-plus-plus.so", "plugin", "allow")
