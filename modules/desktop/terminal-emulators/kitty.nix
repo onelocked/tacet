@@ -196,7 +196,18 @@
                 '';
               keybinds = # lua
                 ''
-                  hl.bind("SUPER + T", hl.dsp.exec_raw("kitty -1"))
+                  hl.bind("SUPER + T", function()
+                      local win = hl.get_active_window()
+                      if not win or win.class ~= "kitty" then
+                          hl.dispatch(hl.dsp.exec_raw("kitty -1"))
+                          return
+                      end
+                      -- Hyprland has no KITTY_LISTEN_ON variable; pass the socket explicitly.
+                      hl.dispatch(hl.dsp.exec_raw(
+                          "kitty @ --to ${cfg.settings.listen_on}-" .. win.pid ..
+                          " launch --type=os-window --cwd=current --source-window=state:focused || kitty -1"
+                      ))
+                  end)
                 '';
             };
             xdg.mime.defaultApplications =

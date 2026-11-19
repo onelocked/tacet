@@ -89,9 +89,9 @@
         };
         forte.kitty.settings = {
           allow_remote_control = "password";
-          # Passwordless requests may only focus a window.
-          remote_control_password = "\"\" focus-window";
-          listen_on = "unix:/tmp/kitty-\${kitty_pid}";
+          # Passwordless requests may only focus a window or open a new one.
+          remote_control_password = "\"\" focus-window launch";
+          listen_on = "unix:/tmp/kitty";
         };
         forte.lazygit.settings = {
           os =
