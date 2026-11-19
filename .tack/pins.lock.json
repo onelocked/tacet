@@ -107,17 +107,19 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "e043ae9c2685fb6799535c2e84c0ab72e0bae0c1",
-    "narHash": "sha256-lBogPqME3iTOahGSsxiu2BZn0bkGTDTry/khh4322Hs=",
-    "lastModified": 1794834261
+    "rev": "9be7b412d7a7fe42907f3b3627c72e304bab475e",
+    "narHash": "sha256-QpwgEbDFMnKvn5q0eXQwn1es3LNcfxRZMHE9anF54W0=",
+    "lastModified": 1795035192,
+    "public": true
   },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "2f56c85f80a52c23fb3e956119ca80975a2b9ceb",
-    "narHash": "sha256-k/nDw1zTlCmhA2K3odt/gy4uDiS002x8Nc14lQxvpY8=",
-    "lastModified": 1794842388
+    "rev": "2a28f37d253ea3866f85eabe482c68a84fc32ed5",
+    "narHash": "sha256-IjFbnKzAkaG+tiZxwpP5CfTYVNxKKYSMioLynWAaGd0=",
+    "lastModified": 1795054265,
+    "public": true
   },
   "hypr-plugs": {
     "type": "github",
@@ -135,9 +137,10 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "f3e076844484255b77629acc5c75379817c405a8",
-    "narHash": "sha256-iQ1yaNszaMkK6/qbpPC4yX3t/PYA17Xsk+GaTZrsdaU=",
-    "lastModified": 1794866807
+    "rev": "49b566a9780413a2498b7e8b925337ddb41a41a7",
+    "narHash": "sha256-mZ3HOZXL6SZ+nl+IqFym+ZZQxKfhJOgE0e4UlbYf390=",
+    "lastModified": 1795106254,
+    "public": true
   },
   "jellium-desktop": {
     "type": "git",
@@ -185,17 +188,19 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixos-hardware",
-    "rev": "d9da8426d86bd7e937226f5ecef1df1504ead2e8",
-    "narHash": "sha256-B3ox9O5jQ7/RU2IECjP6MtA0BRqL9+yunGJRow0c1gA=",
-    "lastModified": 1794906521
+    "rev": "33475966110df258f52d05ec4d4cd6394637cbb9",
+    "narHash": "sha256-glQAHvZGgBVjzGIWgIZYSf3X10gvtO2LPR4rtyP/Soc=",
+    "lastModified": 1795018746,
+    "public": true
   },
   "nixpkgs": {
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "d5cc6833999746cffdfe0598f7bc801a57b887a9",
-    "narHash": "sha256-Wpz/7x/YWnDIBu7yj6ixe8j6fIMsidd9Y+o1PqPF3iM=",
-    "lastModified": 1794537146
+    "rev": "04906337b6d53e8bb0eaf0470ae9f070a4d4eb55",
+    "narHash": "sha256-lME2lHoDHAaSHP3/okgiVoJ0icVEvsQH8LeU3We7tcc=",
+    "lastModified": 1794890597,
+    "public": true
   },
   "no-header-prompt": {
     "type": "github",
@@ -250,9 +255,10 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "49f68bf7cd35f3ef31fca584a22cf3d4e13f6fec",
-    "narHash": "sha256-wrtn0XCNjqWbuyDOcN5H+4EwgpmxWy22fAyX8e5Ttuk=",
-    "lastModified": 1794911270
+    "rev": "85d4adbbd952fcaf89fed3cb4ba540a4770d6e64",
+    "narHash": "sha256-YK+6Nl8oR2Fhh3YO3DhBNCN7TmIGWw3tLhk25kfiWw4=",
+    "lastModified": 1795082704,
+    "public": true
   },
   "scroll-overview": {
     "type": "github",
@@ -336,9 +342,10 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "bad78453288bfb5d890af856fa2429979e2b944c",
-    "narHash": "sha256-Jn+PT5iYnKcttgR5Rc6oWLNxhFGzyBY3/P3sgvqcQDU=",
-    "lastModified": 1794909624
+    "rev": "1424edc27b6e6f6d4f216410e0a2cc1419d96cb7",
+    "narHash": "sha256-z7m16oDAtHsgbBX6gadOpa6pGPXNEahjwyzPC0pbLvM=",
+    "lastModified": 1795064133,
+    "public": true
   },
   "theme-store": {
     "type": "github",
@@ -352,9 +359,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "35fe11ec934e0d15498c66ca9fa247ea46ba5b87",
-    "narHash": "sha256-EIYpd2Qxvy1QcjycRGndqNRomID6zwsECohzV0TKVW8=",
-    "lastModified": 1794961436
+    "rev": "f14dc40ab269fb494e5c04346448ebed61983231",
+    "narHash": "sha256-jEkmyIuFMDA9uahnqjpNeIzNKQktl9c1Y5vRgurKWTs=",
+    "lastModified": 1795100678
   },
   "yazbar": {
     "type": "github",
@@ -388,8 +395,9 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "54310da1c2e1d4bcd413c6914a0d274afbd4f30b",
-    "narHash": "sha256-u3qknsQ63fQ0GDO65fLsZHFt7G5c2SWZcjajkV+BwjM=",
-    "lastModified": 1794898407
+    "rev": "1a7722e7e35d960a17d2f5dd085631f032a77336",
+    "narHash": "sha256-xOaDTlUys2BZk0P0stG4a6DxW94iA5gJdFCTPAuKzgk=",
+    "lastModified": 1795043840,
+    "public": true
   }
 }
