@@ -27,11 +27,6 @@ group = "general"
 type = "fetch"
 url = "gh:sentriz/cliphist"
 
-[inputs.cliphist-tui]
-group = "general"
-type = "fetch"
-url = "gh:SHORiN-KiWATA/cliphist-tui"
-
 [inputs.confirm-dialog]
 group = "sxyazi"
 type = "fetch"
@@ -171,6 +166,7 @@ url = "gh:AminurAlam/yazi-plugins"
 
 [inputs.systemctl-tui]
 group = "general"
+patches = ["https://gist.githubusercontent.com/onelocked/e48437bfd359f572650840402de884c4/raw/d04b2e1d30eba53cfbf60bf31b5f8998899d6708/systemctl-square-borders.patch","https://gist.githubusercontent.com/onelocked/856e61345d0507dec374b32ef68d12a8/raw/3f1b321bed38f60b82795d4017f7d2a7388c5494/systemctl-colors.patch"]
 type = "fetch"
 url = "gh:rgwood/systemctl-tui"
 

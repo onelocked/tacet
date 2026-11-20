@@ -140,8 +140,6 @@
           unzip
           ripgrep
           killall
-          scooter # search and replace
-          self'.packages.systemctl-tui
         ];
         programs.fish.interactiveShellInit = ''
           ${lib.getExe pkgs.zoxide} init fish | source

@@ -2,7 +2,6 @@
   "$declared": {
     "apple-font-emoji": "https://github.com/samuelngs/apple-emoji-ttf/releases/download/macos-26-20260613-f1fc560b/AppleColorEmoji-Linux.ttf",
     "cliphist": "github:sentriz/cliphist",
-    "cliphist-tui": "github:SHORiN-KiWATA/cliphist-tui",
     "confirm-dialog": "github:onelocked/confirm-dialog.yazi",
     "disko": "github:nix-community/disko",
     "fuzzy-search": "github:onelocked/fuzzy-search.yazi",
@@ -54,14 +53,6 @@
     "rev": "f968c4f01395860e8c989c550c1621124927890f",
     "narHash": "sha256-TK57QB2x9bMXzH08AX/m9oesI+led3gdtho/2YRxfWQ=",
     "lastModified": 1791370903
-  },
-  "cliphist-tui": {
-    "type": "github",
-    "owner": "SHORiN-KiWATA",
-    "repo": "cliphist-tui",
-    "rev": "c54f131bb680b433022df0f5e363793646640d7e",
-    "narHash": "sha256-GtRI74NdZNmIOh8xlgWdMTmW7wCpLpMNDQ1NClr99NY=",
-    "lastModified": 1792771539
   },
   "confirm-dialog": {
     "type": "github",
@@ -328,6 +319,26 @@
     "archive": {
       "hash": "sha256-sK7o8oBH0s5e0MfgXsWM5NIex0QCrojXaOzu8MB+1O8=",
       "outHash": "sha256-VStJNa0blOtpO/UIYq/4lCGfgfCnk9adFmNcxbPT2Nk="
+    },
+    "patched": {
+      "path": "/nix/store/pgq010fa22i5367z946q1p8h0dj1ng38-source",
+      "narHash": "sha256-4jj3MDG1CZJpk4fxKCv+oYg9vdw3lRIyxI9oSYfl3X8=",
+      "lastModified": 1794365610,
+      "patches": [
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/e48437bfd359f572650840402de884c4/raw/d04b2e1d30eba53cfbf60bf31b5f8998899d6708/systemctl-square-borders.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/e48437bfd359f572650840402de884c4/raw/d04b2e1d30eba53cfbf60bf31b5f8998899d6708/systemctl-square-borders.patch",
+          "file": "patches/systemctl-tui/systemctl-square-borders.patch",
+          "sha256": "ed2d5436f63e449dce42ddec5d093fe795410bba948daa7ce1de66535158caaa"
+        },
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/856e61345d0507dec374b32ef68d12a8/raw/3f1b321bed38f60b82795d4017f7d2a7388c5494/systemctl-colors.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/856e61345d0507dec374b32ef68d12a8/raw/3f1b321bed38f60b82795d4017f7d2a7388c5494/systemctl-colors.patch",
+          "file": "patches/systemctl-tui/systemctl-colors.patch",
+          "sha256": "bee2e4afc863e646b1f70f6ac9ced5b12b85c29c1051e72e592c1c7d1ae587d9"
+        }
+      ],
+      "diff": "66ecf833437a9c35376186dcb45c3c41e6417dc639272e975aeeb740f14ca206"
     }
   },
   "systems": {
@@ -359,9 +370,9 @@
     "type": "git",
     "url": "https://gitea.onelock.org/onelock/tuishell",
     "ref": "HEAD",
-    "rev": "be31f16f335a2629fa0156296e8359dfea70ce67",
-    "narHash": "sha256-YmgB1HhYZ0BthrLveVs1AQPOb1luG/E62LwMVK4f9yU=",
-    "lastModified": 1795136526
+    "rev": "aa917171d851d5dbce3047557c510e64c55959ae",
+    "narHash": "sha256-Pqd25o9anKWZ4J0qSVIs2DrAG/SQOiP2Cdluw7HsUo4=",
+    "lastModified": 1795285544
   },
   "yazbar": {
     "type": "github",

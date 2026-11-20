@@ -1,0 +1,486 @@
+diff --git a/README.md b/README.md
+index a395f41..daf00d5 100644
+--- a/README.md
++++ b/README.md
+@@ -69,6 +69,20 @@ nix-shell -p systemctl-tui
+ sudo ln -s ~/.cargo/bin/systemctl-tui /usr/bin/systemctl-tui
+ ```
+ 
++## Colours
++
++By default systemctl-tui picks sensible colours for light and dark terminals. To match your terminal theme, put a `config.toml` in the config directory (see `systemctl-tui --version`) or point at a file with `--config <path>`:
++
++```toml
++# All keys are optional; anything you leave out keeps the default.
++accent    = "#c5c0ff" # focused borders, active units, hints
++border    = "#4D415F" # unfocused panel borders
++selection = "#313245" # selected line background
++primary   = "#c5c0ff" # footer and help text
++```
++
++`SYSTEMCTL_TUI_CONFIG` overrides the config directory (or points straight at a config file).
++
+ ## Remote hosts
+ 
+ `systemctl-tui --host user@hostname` and `systemctl-tui --remote` manage a remote machine over SSH, no remote install needed.
+diff --git a/crates/systemctl-tui/src/app.rs b/crates/systemctl-tui/src/app.rs
+index 16ccda1..ea7bb43 100644
+--- a/crates/systemctl-tui/src/app.rs
++++ b/crates/systemctl-tui/src/app.rs
+@@ -8,7 +8,7 @@ use tracing::debug;
+ use crate::{
+   action::Action,
+   components::{
+-    home::{Home, LogOrder, Mode},
++    home::{Home, LogOrder, Mode, Theme},
+     Component,
+   },
+   event::EventHandler,
+@@ -24,8 +24,8 @@ pub struct App {
+ }
+ 
+ impl App {
+-  pub fn new(scope: Scope, limit_units: Vec<String>, log_order: LogOrder) -> Result<Self> {
+-    let home = Home::new(scope, &limit_units, log_order);
++  pub fn new(scope: Scope, limit_units: Vec<String>, log_order: LogOrder, theme: Theme) -> Result<Self> {
++    let home = Home::new(scope, &limit_units, log_order).with_theme(theme);
+     let home = Arc::new(Mutex::new(home));
+     Ok(Self { scope, home, limit_units, should_quit: false })
+   }
+diff --git a/crates/systemctl-tui/src/components/home.rs b/crates/systemctl-tui/src/components/home.rs
+index cc51eb6..9fcfaf1 100644
+--- a/crates/systemctl-tui/src/components/home.rs
++++ b/crates/systemctl-tui/src/components/home.rs
+@@ -195,7 +195,9 @@ const STATUS_CATEGORIES: &[(&str, &[UnitStatus])] = &[
+ #[derive(Clone, Copy)]
+ pub struct Theme {
+   pub primary: Color,   // Cyan (dark) / Blue (light) - used in help popup
+-  pub accent: Color,    // LightGreen (dark) / Green (light) - borders
++  pub accent: Color,    // LightGreen (dark) / Green (light) - focused borders and accents
++  pub border: Color,    // Reset - unfocused panel borders
++  pub selection: Color, // DarkGray - selected line background
+   pub kbd: Color,       // Gray (dark, appears white-ish) / Blue (light) - keyboard shortcuts
+   pub muted: Color,     // Gray (dark) / DarkGray (light)
+   pub muted_alt: Color, // DarkGray (dark) / Reset (light)
+@@ -215,6 +217,8 @@ impl Theme {
+       Self {
+         primary: Color::Blue,
+         accent: Color::Green,
++        border: Color::Reset,
++        selection: Color::DarkGray,
+         kbd: Color::Blue,
+         muted: Color::DarkGray,
+         muted_alt: Color::Reset,
+@@ -223,12 +227,24 @@ impl Theme {
+       Self {
+         primary: Color::Cyan,
+         accent: Color::LightGreen,
++        border: Color::Reset,
++        selection: Color::DarkGray,
+         kbd: Color::Gray, // appears white-ish when bold on dark terminals
+         muted: Color::Gray,
+         muted_alt: Color::DarkGray,
+       }
+     }
+   }
++
++  /// Apply the colour overrides from a user config file, keeping the detected defaults for
++  /// anything the file doesn't set.
++  pub fn with_config(mut self, config: &crate::config::Config) -> Self {
++    self.primary = config.primary.unwrap_or(self.primary);
++    self.accent = config.accent.unwrap_or(self.accent);
++    self.border = config.border.unwrap_or(self.border);
++    self.selection = config.selection.unwrap_or(self.selection);
++    self
++  }
+ }
+ 
+ /// A unit with fuzzy match indices for highlighting
+@@ -444,6 +460,11 @@ impl Home {
+     Self { scope, limit_units, filtered_statuses, filter_cursor: 0, log_order, follow_logs: true, ..Default::default() }
+   }
+ 
++  pub fn with_theme(mut self, theme: Theme) -> Self {
++    self.theme = theme;
++    self
++  }
++
+   fn reset_logs_viewport(&mut self) {
+     self.follow_logs = true;
+     self.logs_scroll_offset = match self.log_order {
+@@ -2005,9 +2026,9 @@ impl Component for Home {
+     //    green       active
+     //    red         failed
+     //    yellow      not-found
+-    fn unit_color(unit: &UnitWithStatus) -> Color {
++    fn unit_color(unit: &UnitWithStatus, accent: Color) -> Color {
+       if unit.is_active() {
+-        Color::Green
++        accent
+       } else if unit.is_failed() {
+         Color::Red
+       } else if unit.is_not_found() {
+@@ -2022,7 +2043,7 @@ impl Component for Home {
+       .items
+       .iter()
+       .map(|m| {
+-        let color = unit_color(&m.unit);
++        let color = unit_color(&m.unit, theme.accent);
+         let name = m.unit.short_name();
+         let kind_prefix = if m.unit.is_template() {
+           "[@] "
+@@ -2076,7 +2097,7 @@ impl Component for Home {
+           .border_style(if self.mode == Mode::ServiceList {
+             Style::default().fg(theme.accent)
+           } else {
+-            Style::default()
++            Style::default().fg(theme.border)
+           })
+           .title(block_title(if self.is_status_filter_active() {
+             format!("Units ({} hidden)", self.status_hidden_count)
+@@ -2084,7 +2105,7 @@ impl Component for Home {
+             "Units".to_string()
+           })),
+       )
+-      .highlight_style(Style::default().bg(Color::DarkGray).add_modifier(Modifier::BOLD));
++      .highlight_style(Style::default().bg(theme.selection).add_modifier(Modifier::BOLD));
+ 
+     let chunks =
+       Layout::new(Direction::Horizontal, [Constraint::Min(30), Constraint::Percentage(100)]).split(main_panel);
+@@ -2112,7 +2133,7 @@ impl Component for Home {
+         vec![Span::styled("template (not an instance)", dim)]
+       } else {
+         let active_color = match m.unit.activation_state.as_str() {
+-          "active" => Color::Green,
++          "active" => theme.accent,
+           "failed" => Color::Red,
+           _ => Color::Reset,
+         };
+@@ -2151,7 +2172,7 @@ impl Component for Home {
+       // Enablement, scope, and any load problem share a line
+       let enablement_state = m.unit.enablement_state.as_deref().unwrap_or("");
+       let enablement_color = match enablement_state {
+-        "enabled" => Color::Green,
++        "enabled" => theme.accent,
+         "disabled" => Color::Yellow,
+         "masked" | "masked-runtime" => Color::Red,
+         _ => Color::Reset,
+@@ -2285,8 +2306,11 @@ impl Component for Home {
+     let details_panel = right_panel[0];
+     let logs_panel = right_panel[1];
+ 
+-    let details_block =
+-      Block::default().title(block_title("Details")).borders(Borders::ALL).border_type(BorderType::Plain);
++    let details_block = Block::default()
++      .title(block_title("Details"))
++      .borders(Borders::ALL)
++      .border_type(BorderType::Plain)
++      .border_style(Style::default().fg(theme.border));
+     let details_inner = details_block.inner(details_panel);
+     f.render_widget(details_block, details_panel);
+ 
+@@ -2448,7 +2472,8 @@ impl Component for Home {
+         Block::default()
+           .title(block_title(format!("Logs — {logs_unit} [{order_label}; ctrl+r to reverse]")))
+           .borders(Borders::ALL)
+-          .border_type(BorderType::Plain),
++          .border_type(BorderType::Plain)
++          .border_style(Style::default().fg(theme.border)),
+       )
+       .style(Style::default())
+       .wrap(Wrap { trim: true });
+@@ -2536,16 +2561,20 @@ impl Component for Home {
+         _ => Style::default(),
+       })
+       .scroll((0, scroll as u16))
+-      .block(Block::default().borders(Borders::ALL).border_type(BorderType::Plain).title(block_title(Line::from(
+-        vec![
+-          Span::raw("Search "),
+-          Span::styled("(", Style::default().fg(theme.muted_alt)),
+-          Span::styled("ctrl+f", Style::default().add_modifier(Modifier::BOLD).fg(theme.kbd)),
+-          Span::styled(" or ", Style::default().fg(theme.muted_alt)),
+-          Span::styled("/", Style::default().add_modifier(Modifier::BOLD).fg(theme.kbd)),
+-          Span::styled(")", Style::default().fg(theme.muted_alt)),
+-        ],
+-      ))));
++      .block(
++        Block::default()
++          .borders(Borders::ALL)
++          .border_type(BorderType::Plain)
++          .border_style(Style::default().fg(theme.border))
++          .title(block_title(Line::from(vec![
++            Span::raw("Search "),
++            Span::styled("(", Style::default().fg(theme.muted_alt)),
++            Span::styled("ctrl+f", Style::default().add_modifier(Modifier::BOLD).fg(theme.kbd)),
++            Span::styled(" or ", Style::default().fg(theme.muted_alt)),
++            Span::styled("/", Style::default().add_modifier(Modifier::BOLD).fg(theme.kbd)),
++            Span::styled(")", Style::default().fg(theme.muted_alt)),
++          ]))),
++      );
+     f.render_widget(input, search_panel);
+     // Only draw the help hint when it fits inside the search panel.
+     let help_width = 24;
+@@ -2748,7 +2777,7 @@ impl Component for Home {
+ 
+           let line_spans = vec![Span::raw("  "), check_span, name_span, Span::raw(" "), key_span];
+           if is_selected {
+-            lines.push(Line::from(line_spans).style(Style::default().bg(Color::DarkGray).add_modifier(Modifier::BOLD)));
++            lines.push(Line::from(line_spans).style(Style::default().bg(theme.selection).add_modifier(Modifier::BOLD)));
+           } else {
+             lines.push(Line::from(line_spans));
+           }
+@@ -2917,7 +2946,7 @@ impl Component for Home {
+             .border_style(Style::default().fg(theme.accent))
+             .title(block_title(title)),
+         )
+-        .highlight_style(Style::default().bg(Color::DarkGray).add_modifier(Modifier::BOLD));
++        .highlight_style(Style::default().bg(theme.selection).add_modifier(Modifier::BOLD));
+ 
+       let offset = self.menu_items.state.offset();
+       for i in offset..self.menu_items.items.len() {
+@@ -3013,7 +3042,7 @@ fn command_palette_line(
+     Span::styled(command.shortcut.to_string(), Style::default().fg(theme.kbd).add_modifier(Modifier::BOLD)),
+   ]);
+   if selected {
+-    line.style(Style::default().bg(Color::DarkGray).add_modifier(Modifier::BOLD))
++    line.style(Style::default().bg(theme.selection).add_modifier(Modifier::BOLD))
+   } else {
+     line
+   }
+@@ -3297,6 +3326,41 @@ mod tests {
+     assert_eq!(style_of("plain info").fg, Some(Color::Reset));
+   }
+ 
++  #[test]
++  fn theme_config_drives_accent_border_and_selection() {
++    use ratatui::{backend::TestBackend, Terminal};
++
++    let accent = Color::Rgb(0xc5, 0xc0, 0xff);
++    let border = Color::Rgb(0x4d, 0x41, 0x5f);
++    let selection = Color::Rgb(0x31, 0x32, 0x45);
++
++    let mut home = Home::new(Scope::All, &[], LogOrder::NewestFirst).with_theme(Theme {
++      accent,
++      border,
++      selection,
++      ..Theme::default()
++    });
++    let unit = test_unit("cron.service");
++    home.all_units.insert(unit.id(), unit.clone());
++    home.filtered_units.items = vec![MatchedUnit { unit, match_indices: vec![] }];
++    home.filtered_units.state.select(Some(0));
++
++    let mut terminal = Terminal::new(TestBackend::new(120, 40)).unwrap();
++    terminal.draw(|f| home.render(f, f.area())).unwrap();
++    let buffer = terminal.backend().buffer();
++    let area = *buffer.area();
++
++    let any_cell =
++      |pred: &dyn Fn(Style) -> bool| (0..area.height).any(|y| (0..area.width).any(|x| pred(buffer[(x, y)].style())));
++
++    // Active unit text uses the accent, unfocused borders and the selected row use their slots,
++    // and the built-in green is gone entirely.
++    assert!(any_cell(&|s| s.fg == Some(accent)));
++    assert!(any_cell(&|s| s.fg == Some(border)));
++    assert!(any_cell(&|s| s.bg == Some(selection)));
++    assert!(!any_cell(&|s| s.fg == Some(Color::LightGreen) || s.fg == Some(Color::Green)));
++  }
++
+   #[test]
+   fn log_lines_render_ansi_styles_on_top_of_priority() {
+     use ratatui::{backend::TestBackend, Terminal};
+diff --git a/crates/systemctl-tui/src/config.rs b/crates/systemctl-tui/src/config.rs
+new file mode 100644
+index 0000000..71113a5
+--- /dev/null
++++ b/crates/systemctl-tui/src/config.rs
+@@ -0,0 +1,126 @@
++//! Optional colour overrides, e.g. to match a base16 terminal theme.
++//!
++//! Read from `<config dir>/config.toml` (see `systemctl-tui --version`) or from `--config <path>`.
++//! Deliberately a tiny hand-rolled parser rather than a TOML dependency: one `key = "#rrggbb"` per
++//! line, `#` starts a comment outside quotes, unknown keys and unparseable values are warned about
++//! and ignored.
++
++use std::path::Path;
++
++use anyhow::{Context, Result};
++use ratatui::style::Color;
++use tracing::warn;
++
++use crate::utils::get_config_dir;
++
++#[derive(Default, Clone, Copy)]
++pub struct Config {
++  pub accent: Option<Color>,
++  pub border: Option<Color>,
++  pub selection: Option<Color>,
++  pub primary: Option<Color>,
++}
++
++impl Config {
++  /// Explicit path from `--config`. Missing or unreadable is an error.
++  pub fn load(path: &Path) -> Result<Self> {
++    let text = std::fs::read_to_string(path).with_context(|| format!("reading config file {}", path.display()))?;
++    Ok(Self::parse(&text))
++  }
++
++  /// `<config dir>/config.toml` if it exists, defaults otherwise.
++  pub fn load_default() -> Self {
++    let Some(dir) = get_config_dir().ok() else {
++      return Self::default();
++    };
++    // `SYSTEMCTL_TUI_CONFIG` may point at a config file as well as a directory.
++    let path = if dir.is_file() { dir } else { dir.join("config.toml") };
++    match std::fs::read_to_string(&path) {
++      Ok(text) => Self::parse(&text),
++      Err(e) if e.kind() == std::io::ErrorKind::NotFound => Self::default(),
++      Err(e) => {
++        warn!("Ignoring config file {}: {e}", path.display());
++        Self::default()
++      },
++    }
++  }
++
++  fn parse(text: &str) -> Self {
++    let mut config = Self::default();
++    for (i, line) in text.lines().enumerate() {
++      let line = strip_comment(line).trim();
++      let Some((key, value)) = line.split_once('=') else {
++        continue;
++      };
++      let (key, value) = (key.trim(), value.trim().trim_matches('"'));
++      let Some(color) = parse_color(value) else {
++        warn!("Config line {}: expected {key} = \"#rrggbb\", got {value:?}", i + 1);
++        continue;
++      };
++      match key {
++        "accent" => config.accent = Some(color),
++        "border" => config.border = Some(color),
++        "selection" => config.selection = Some(color),
++        "primary" => config.primary = Some(color),
++        other => warn!("Config line {}: unknown key {other:?}", i + 1),
++      }
++    }
++    config
++  }
++}
++
++/// A `#` inside a quoted value is part of a colour, not a comment.
++fn strip_comment(line: &str) -> &str {
++  let mut in_quotes = false;
++  for (i, c) in line.char_indices() {
++    match c {
++      '"' => in_quotes = !in_quotes,
++      '#' if !in_quotes => return &line[..i],
++      _ => {},
++    }
++  }
++  line
++}
++
++fn parse_color(value: &str) -> Option<Color> {
++  let hex = value.strip_prefix('#')?;
++  if hex.len() != 6 {
++    return None;
++  }
++  // Parse the whole thing at once: slicing at fixed byte offsets would panic on non-ASCII input.
++  let rgb = u32::from_str_radix(hex, 16).ok()?;
++  Some(Color::Rgb((rgb >> 16) as u8, (rgb >> 8) as u8, rgb as u8))
++}
++
++#[cfg(test)]
++mod tests {
++  use super::*;
++
++  #[test]
++  fn parses_base16_colors_and_comments() {
++    let config = Config::parse(
++      "# a comment line\naccent = \"#c5c0ff\"  # focused border\n\n[theme]\nborder = \"#4D415F\"\nselection =\"#313245\"\n",
++    );
++    assert_eq!(config.accent, Some(Color::Rgb(0xc5, 0xc0, 0xff)));
++    assert_eq!(config.border, Some(Color::Rgb(0x4d, 0x41, 0x5f)));
++    assert_eq!(config.selection, Some(Color::Rgb(0x31, 0x32, 0x45)));
++    assert_eq!(config.primary, None);
++  }
++
++  #[test]
++  fn ignores_bad_values_and_unknown_keys() {
++    let config = Config::parse("accent = \"#fff\"\nbogus = \"#c5c0ff\"\nprimary = \"not-a-color\"\n");
++    assert_eq!(config.accent, None);
++    assert_eq!(config.primary, None);
++  }
++
++  #[test]
++  fn non_ascii_value_is_ignored_instead_of_panicking() {
++    assert_eq!(Config::parse("accent = \"#✓abc\"\n").accent, None);
++  }
++
++  #[test]
++  fn missing_file_is_not_an_error() {
++    assert!(Config::load(Path::new("/nonexistent/config.toml")).is_err());
++  }
++}
+diff --git a/crates/systemctl-tui/src/lib.rs b/crates/systemctl-tui/src/lib.rs
+index ba8b408..debef8c 100644
+--- a/crates/systemctl-tui/src/lib.rs
++++ b/crates/systemctl-tui/src/lib.rs
+@@ -4,6 +4,8 @@ pub mod action;
+ 
+ pub mod components;
+ 
++pub mod config;
++
+ pub mod event;
+ 
+ pub mod terminal;
+diff --git a/crates/systemctl-tui/src/main.rs b/crates/systemctl-tui/src/main.rs
+index 0e0732c..03b4c21 100644
+--- a/crates/systemctl-tui/src/main.rs
++++ b/crates/systemctl-tui/src/main.rs
+@@ -1,9 +1,10 @@
+ use anyhow::Result;
+ use clap::{Parser, Subcommand, ValueEnum};
++use std::path::PathBuf;
+ use systemctl_tui::{
+   app::App,
+-  components::home::LogOrder,
+-  remote_picker, ssh, systemd,
++  components::home::{LogOrder, Theme},
++  config, remote_picker, ssh, systemd,
+   utils::{get_data_dir, initialize_logging, initialize_panic_handler, version},
+ };
+ 
+@@ -36,6 +37,9 @@ struct Args {
+   /// Order used to display service logs
+   #[clap(long, value_enum, default_value_t = CliLogOrder::NewestFirst)]
+   log_order: CliLogOrder,
++  /// Path to a config file with colour overrides (default: config.toml in the config directory)
++  #[clap(long)]
++  config: Option<PathBuf>,
+ }
+ 
+ #[derive(Subcommand, Debug)]
+@@ -90,6 +94,12 @@ async fn main() -> Result<()> {
+   let _guard = initialize_logging(!args.no_log)?;
+   initialize_panic_handler();
+ 
++  let config = match &args.config {
++    Some(path) => config::Config::load(path)?,
++    None => config::Config::load_default(),
++  };
++  let theme = Theme::detect().with_config(&config);
++
+   // There's probably a nicer way to do this than defining the scope enum twice, but this is fine for now
+   let scope = match args.scope {
+     Some(Scope::Global) => systemd::Scope::Global,
+@@ -117,7 +127,7 @@ async fn main() -> Result<()> {
+     }
+   }
+ 
+-  let mut app = App::new(scope, args.limit_units, args.log_order.into())?;
++  let mut app = App::new(scope, args.limit_units, args.log_order.into(), theme)?;
+   let result = app.run().await;
+   ssh::teardown();
+   result?;
+
