@@ -67,6 +67,7 @@
             "SUPER + SHIFT + Z" = "emoji toggle";
             "ALT + SHIFT + A " = "booru toggle";
             "Print" = "screenshot open";
+            "SUPER + V" = "clipboard toggle";
           }
           |> lib.mapAttrsToList (
             key: cmd: # lua
@@ -103,6 +104,7 @@
                     ++ (with pkgs; [
                       ddcutil
                       imagemagick
+                      self'.packages.cliphist
                       cava
                       python3
                       app2unit

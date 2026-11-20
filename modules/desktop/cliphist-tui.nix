@@ -1,6 +1,6 @@
 {
   exo.mods.desktop = {
-    forte.cliphist-tui = {
+    forte.cliphist = {
       enable = true;
       systemd.startup = true;
     };
@@ -10,25 +10,17 @@
       pkgs,
       lib,
       self',
-      wrapPackage,
       config,
       ...
     }:
     let
-      cfg = config.forte.cliphist-tui;
+      cfg = config.forte.cliphist;
     in
     {
-      options.forte.cliphist-tui = {
-        enable = lib.mkEnableOption "cliphist-tui";
+      options.forte.cliphist = {
+        enable = lib.mkEnableOption "cliphist";
         package = lib.mkOption {
-          default = wrapPackage {
-            package = self'.packages.cliphist-tui;
-            extraPkgs = [
-              self'.packages.cliphist
-              pkgs.chafa
-              pkgs.ffmpegthumbnailer
-            ];
-          };
+          default = self'.packages.cliphist;
         };
         systemd.startup = lib.mkEnableOption "cliphist-systemd-startup";
       };
@@ -37,32 +29,6 @@
         <| lib.mkMerge [
           {
             hj.packages = [ cfg.package ];
-            forte.hyprland.lua = {
-              window-rules = # lua
-                ''
-                  hl.window_rule({
-                    name         = "cliphist-tui",
-                    match        = { class = "ClipboardHistory" },
-                    size         = { 830, 1056 },
-                    center       = true,
-                    float        = true,
-                    stay_focused = true,
-                    pin          = true,
-                    opacity      = "1 override",
-                  })
-                '';
-              keybinds = # lua
-                ''
-                  hl.bind("SUPER + V", function()
-                      local win = hl.get_window("class:ClipboardHistory")
-                      if win then
-                          hl.dispatch(hl.dsp.window.close({ window = win }))
-                      else
-                          hl.dispatch(hl.dsp.exec_raw("kitty -1 --app-id=ClipboardHistory -e cliphist-tui"))
-                      end
-                  end)
-                '';
-            };
             forte.persist.home.directories = [ ".cache/cliphist" ];
           }
           (lib.mkIf cfg.systemd.startup {
@@ -95,11 +61,6 @@
         ];
     };
   tack.inputs = {
-    cliphist-tui = {
-      url = "gh:SHORiN-KiWATA/cliphist-tui";
-      type = "fetch";
-      group = "general";
-    };
     cliphist = {
       url = "gh:sentriz/cliphist";
       type = "fetch";
@@ -114,32 +75,6 @@
       ...
     }:
     {
-      remotePackages.cliphist-tui = pkgs.rustPlatform.buildRustPackage (finalAttrs: {
-        pname = inputs._meta.cliphist-tui.repo;
-        version = inputs._meta.cliphist-tui.rev;
-        src = inputs.cliphist-tui;
-        doCheck = false;
-        cargoLock.lockFile = finalAttrs.src + "/Cargo.lock";
-        patches = [
-          (pkgs.writeText "better-binds.patch" # rust
-            ''
-              diff --git a/src/main.rs b/src/main.rs
-              index abea42a..4cbead1 100644
-              --- a/src/main.rs
-              +++ b/src/main.rs
-              @@ -663,6 +663,7 @@ fn run_tui(cache_dir: &Path) {
-                       .arg("--info=hidden").arg("--no-sort").arg("--layout=reverse")
-                       .arg("--with-nth=2..").arg("--delimiter=\t")
-                       .arg("--preview-window=down:60%,wrap")
-              +         .arg("--height=100%")
-                       .arg(format!("--preview={exe} preview {{1}}"))
-                       .arg(format!("--bind=enter:execute-silent({exe} copy {{1}})+accept"))
-                       .arg(format!("--bind=ctrl-f:execute-silent({exe} copy {{1}})+accept"))
-            ''
-          )
-        ];
-      });
-
       remotePackages.cliphist = wrapPackage {
         env.CLIPHIST_MAX_STORE_SIZE = "1GB";
         package = pkgs.buildGoModule (finalAttrs: {
