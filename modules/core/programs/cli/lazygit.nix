@@ -1,6 +1,11 @@
 {
   exo.core =
-    { scheme, self', ... }:
+    {
+      scheme,
+      self',
+      pkgs,
+      ...
+    }:
     {
       forte.lazygit = {
         enable = true;
@@ -108,6 +113,12 @@
               description = "Open file diff in diffview (edits become unstaged)";
             }
           ];
+        };
+      };
+      hj.xdg.config.files = {
+        "hunk/config.toml" = {
+          generator = (pkgs.formats.toml { }).generate "config.toml";
+          value.transparent_background = true;
         };
       };
     };
