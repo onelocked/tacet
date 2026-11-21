@@ -307,6 +307,23 @@
         hyprland = packages'.hyprland.overrideAttrs (oldAttrs: {
           doCheck = false;
           patches = (oldAttrs.patches or [ ]) ++ [
+            (pkgs.writeText "fix-scrolling-spawn" # cpp
+              ''
+                diff --git a/src/layout/algorithm/tiled/scrolling/ScrollTapeController.cpp b/src/layout/algorithm/tiled/scrolling/ScrollTapeController.cpp
+                index a874cef..6d52fa4 100644
+                --- a/src/layout/algorithm/tiled/scrolling/ScrollTapeController.cpp
+                +++ b/src/layout/algorithm/tiled/scrolling/ScrollTapeController.cpp
+                @@ -43,7 +43,7 @@ void CScrollTapeController::setOffset(double offset) {
+                         m_offset = getScrollInhibitor().offsetWhenInhibited;
+                         LOG(Log::DEBUG, "m_offset not set - scrolling inhibited");
+                     } else
+                -        m_offset = std::clamp<double>(offset, 0, std::numeric_limits<double>::max());
+                +        m_offset = offset;
+                 }
+
+                 void CScrollTapeController::adjustOffset(double delta) {
+              ''
+            )
             (pkgs.writeText "virtual-keyboard.patch" # cpp
               ''
                 diff --git a/src/devices/VirtualKeyboard.cpp b/src/devices/VirtualKeyboard.cpp
