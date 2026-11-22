@@ -12,6 +12,7 @@
     "jellium-desktop": "github:andrewrabert/jellium-desktop",
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
+    "mddog": "github:qu8n/mddog/issue-20-add-linux-support",
     "nitovim": "github:onelocked/nitovim",
     "nixos-core": "github:manic-systems/nixos-core",
     "nixos-hardware": "github:NixOS/nixos-hardware",
@@ -159,6 +160,28 @@
     "narHash": "sha256-Tt++dDhx2KhWDJLhu/l5VgbaNyzNcnsSlMxFOszXv2s=",
     "lastModified": 1795371125,
     "submodules": true
+  },
+  "mddog": {
+    "type": "github",
+    "owner": "qu8n",
+    "repo": "mddog",
+    "rev": "85de46d8128474f98a7583256ad0dda47889e417",
+    "narHash": "sha256-GyPw8ugDxGRTvcBYMZC8sfehW7UZonsV9PCMhBjc9s4=",
+    "lastModified": 1795372343,
+    "patched": {
+      "path": "/nix/store/p7a47xkg8p3jxrp4sizigfyxxzf5gxl6-source",
+      "narHash": "sha256-w43opVkX5orfYUCIhXNC03w2YN61yLmcu+XakoYJr2k=",
+      "lastModified": 1795372343,
+      "patches": [
+        {
+          "source": "https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch",
+          "url": "https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch",
+          "file": "patches/mddog/mddog-mardown-fix.patch",
+          "sha256": "fc6dbdfb5f22244327fc7c816ef61f2e9535c65705b3991b4d6aaee5f32d76d2"
+        }
+      ],
+      "diff": "a89f56f3056ab71f3e297453a4f5ea19985565d3f7ba7f8319a07f8533e1c03a"
+    }
   },
   "nitovim": {
     "type": "github",

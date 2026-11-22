@@ -1,0 +1,103 @@
+diff --git a/src/render/doc/mod.rs b/src/render/doc/mod.rs
+--- a/src/render/doc/mod.rs
++++ b/src/render/doc/mod.rs
+@@ -185,7 +185,7 @@
+     List(Option<u64>),
+     Details { open: bool, id: usize },
+     Align(Align, String),
+-    Heading(u8, String),
++    Heading(u8, Option<Align>),
+     Foot(String),
+ }
+ 
+@@ -432,11 +432,44 @@
+                     if matches!(self.top().kind, FrameKind::Root) && body { Block::Alert { kind: k, title: None, fold: None, body: blocks } } else { demote(k, f.marker, blocks) }
+                 }
+             },
+-            FrameKind::Heading(l, id) => {
+-                let v = std::mem::take(&mut self.inl);
+-                let v = finish_inlines(v, &mut self.links);
+-                let id = if id.is_empty() { slug(&plain(&v)) } else { id };
+-                Block::Heading(l, v, id)
++            FrameKind::Heading(l, align) => {
++                // A raw HTML heading flushes its content into blocks at each blank line; keep it in the heading.
++                // GitHub wraps a markdown paragraph in `<p>`, so it starts a new line, while raw HTML blocks flow inline.
++                let mut v = Vec::new();
++                let mut prev_para = false;
++                for b in blocks {
++                    let (part, para) = match b {
++                        Block::Para(part) => (part, true),
++                        Block::Text(part) => (part, false),
++                        _ => continue,
++                    };
++                    let part = trim_inlines(part);
++                    if part.is_empty() {
++                        continue;
++                    }
++                    if !v.is_empty() {
++                        v.push(if prev_para || para { Inline::Hard } else { Inline::Soft });
++                    }
++                    v.extend(part);
++                    prev_para = para;
++                }
++                let tail = std::mem::take(&mut self.inl);
++                let tail = trim_inlines(finish_inlines(tail, &mut self.links));
++                if !tail.is_empty() {
++                    if !v.is_empty() {
++                        v.push(if prev_para { Inline::Hard } else { Inline::Soft });
++                    }
++                    v.extend(tail);
++                }
++                let base = slug(&plain(&v));
++                let n = self.anchors.entry(base.clone()).or_insert(0);
++                let id = if *n > 0 { format!("{base}-{n}") } else { base };
++                *n += 1;
++                let b = Block::Heading(l, v, id);
++                match align {
++                    Some(a) if a != Align::Left => Block::Align(a, vec![b]),
++                    _ => b,
++                }
+             }
+             _ => {
+                 for b in blocks {
+@@ -502,7 +535,12 @@
+             "h1" | "h2" | "h3" | "h4" | "h5" | "h6" => {
+                 self.flush();
+                 let l = name[1..].parse().unwrap_or(1);
+-                self.stack.push(frame(FrameKind::Heading(l, String::new())));
++                let a = match attr("align").as_deref() {
++                    Some("center") => Some(Align::Center),
++                    Some("right") => Some(Align::Right),
++                    _ => None,
++                };
++                self.stack.push(frame(FrameKind::Heading(l, a)));
+             }
+             "br" => self.inl.push(Inline::Hard),
+             "hr" => {
+@@ -1294,7 +1332,7 @@
+                 }
+                 Tag::Heading { level, .. } => {
+                     b.flush();
+-                    b.stack.push(frame(FrameKind::Heading(heading_level(level), String::new())));
++                    b.stack.push(frame(FrameKind::Heading(heading_level(level), None)));
+                 }
+                 Tag::BlockQuote(k) => {
+                     b.flush();
+@@ -1354,16 +1392,7 @@
+                     b.flush();
+                     b.link.truncate(b.para_links);
+                 }
+-                TagEnd::Heading(_) => {
+-                    let base = slug(&plain(&b.inl));
+-                    let n = b.anchors.entry(base.clone()).or_insert(0);
+-                    let id = if *n > 0 { format!("{base}-{n}") } else { base };
+-                    *n += 1;
+-                    if let Some(Frame { kind: FrameKind::Heading(_, i), .. }) = b.stack.last_mut() {
+-                        *i = id;
+-                    }
+-                    b.close_frame();
+-                }
++                TagEnd::Heading(_) => b.close_frame(),
+                 TagEnd::BlockQuote(_) => {
+                     b.flush();
+                     b.close_html_frames();

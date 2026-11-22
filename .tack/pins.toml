@@ -76,6 +76,13 @@ submodules = true
 type = "fetch"
 url = "gh:flightlessmango/MangoHud"
 
+[inputs.mddog]
+frozen = true
+group = "cli"
+patches = ["https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch"]
+type = "fetch"
+url = "gh:qu8n/mddog/issue-20-add-linux-support"
+
 [inputs.nitovim]
 group = "general"
 url = "gh:onelocked/nitovim"
