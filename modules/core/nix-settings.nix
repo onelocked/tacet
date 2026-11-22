@@ -31,14 +31,8 @@
           allow-import-from-derivation = false;
           trusted-users = [ constants.username ];
           # Binary Cache
-          substituters = [
-            "https://cachix.cachix.org"
-            "https://onelock.cachix.org"
-          ];
-          trusted-public-keys = [
-            "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-            "onelock.cachix.org-1:Wyy9XrWqFKcPxkZXQg5yZXtsbKTbkaga44UWRJfgqEg="
-          ];
+          substituters = [ "https://onelock.cachix.org" ];
+          trusted-public-keys = [ "onelock.cachix.org-1:Wyy9XrWqFKcPxkZXQg5yZXtsbKTbkaga44UWRJfgqEg=" ];
           experimental-features = [
             "nix-command"
             "flakes"
