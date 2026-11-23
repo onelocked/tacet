@@ -52,9 +52,6 @@
               },
               no_anim = true,
               ignore_alpha = 0.1,
-              blur = false,
-              blur_popups = false,
-              xray = true,
             })
           '';
         forte.hyprland.lua.keybinds =
