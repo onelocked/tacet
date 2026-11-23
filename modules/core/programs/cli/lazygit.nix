@@ -124,6 +124,7 @@
             cfg.package
             pkgs.gh
             pkgs.hunk
+            pkgs.tuicr
             pkgs.delta
           ];
           hj.environment.sessionVariables = {
