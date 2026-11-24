@@ -114,7 +114,6 @@
       config,
       wrapPackage,
       pkgs,
-      self',
       ...
     }:
     let
@@ -143,7 +142,7 @@
         ];
         programs.fish.interactiveShellInit = ''
           ${lib.getExe pkgs.zoxide} init fish | source
-          ${lib.getExe pkgs.nix-your-shell} --nom fish | source
+          ${lib.getExe pkgs.nix-your-shell} fish | source
           ${lib.getExe cfg.atuin} init fish | source
         '';
         programs.bash.interactiveShellInit = # bash

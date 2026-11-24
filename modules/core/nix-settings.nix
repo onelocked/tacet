@@ -55,11 +55,20 @@
         };
       };
 
-      environment.systemPackages = [ pkgs.nix-output-monitor ];
+      environment.systemPackages = [ pkgs.rom ];
+      hj.xdg.config.files = {
+        "rom/config.toml".text = # bash
+          ''
+            format = "tree"
+            summary = "full"
+            icons = "nerd"
+            legend = "table"
+          '';
+      };
 
       programs.fish.shellAbbrs = {
-        nb = "nom build";
-        nd = "nix develop";
+        nb = "rom build";
+        nd = "rom develop";
         nr = "nix run";
         tr = "nix run .#tack-rebuild";
       };
