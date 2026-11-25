@@ -61,7 +61,6 @@
             "ALT + SHIFT + W" = "desktop toggleWidgets";
             "SUPER + SPACE" = "dock search";
             "SUPER + ALT + L" = "lock lock";
-            "SUPER + SHIFT + Z" = "emoji toggle";
             "ALT + SHIFT + A " = "booru toggle";
             "Print" = "screenshot open";
             "SUPER + V" = "clipboard toggle";

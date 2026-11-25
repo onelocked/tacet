@@ -286,12 +286,12 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "hyprland-scroll-overview",
-    "rev": "5e17b453d6880f61c2baaa32a1692ba1441debbe",
-    "narHash": "sha256-c44Sn9hBcJqf3u2JvFmufi/HrTDuZTIkuK1xw/gVyls=",
-    "lastModified": 1795627586,
+    "rev": "c7602ebfb28f282e8b3fb5ffd5db98dc3adc19bc",
+    "narHash": "sha256-3BvA+MeHrVxJOoTOUXNccAVOgv2JWeHUN8iLYCnQNfw=",
+    "lastModified": 1795639054,
     "archive": {
-      "hash": "sha256-TvvReCiYH28z3VfjD8r4bA5r87QeMBooIgDG5gb6aaY=",
-      "outHash": "sha256-gnzT742uet/px4sor1rWgYBzOUBkGhR5kNlIK8mpp8w="
+      "hash": "sha256-o4+VgvXKq27YxccqeT54JErBSjLxzxJ4TZCHNZbSiuU=",
+      "outHash": "sha256-W0QPnFFheuv4MBxXSzcEBa+5RG80L/is/fEttsLEx8s="
     },
     "public": true
   },

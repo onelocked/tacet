@@ -104,10 +104,16 @@
           end)
 
           -- Move focus with SUPER + arrow keys
-          hl.bind("SUPER + left",  hl.dsp.layout("focus l"))
-          hl.bind("SUPER + right", hl.dsp.layout("focus r"))
-          hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
-          hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
+          hl.bind("SUPER + h",  hl.dsp.layout("focus l"))
+          hl.bind("SUPER + l", hl.dsp.layout("focus r"))
+          hl.bind("SUPER + k", hl.dsp.focus({ direction = "up" }))
+          hl.bind("SUPER + j", hl.dsp.focus({ direction = "down" }))
+
+          hl.bind("SUPER + SHIFT + k", hl.dsp.window.move({ workspace = "e-1" }))
+          hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ workspace = "e+1" }))
+
+          hl.bind("SUPER + SHIFT + h", hl.dsp.layout("swapcol l"))
+          hl.bind("SUPER + SHIFT + l", hl.dsp.layout("swapcol r"))
 
           -- focus through existing windows with SUPER + scroll
           hl.bind("SUPER + mouse_down", hl.dsp.focus({ direction = "right" }))
@@ -144,8 +150,6 @@
             hl.bind(key, scrolling_only(fn))
           end
 
-          scrolling_binds("SUPER + CTRL + left", hl.dsp.layout("swapcol l"))
-          scrolling_binds("SUPER + CTRL + right", hl.dsp.layout("swapcol r"))
           scrolling_binds("SUPER + bracketright", function()
               hl.dispatch(hl.dsp.layout("consume_or_expel next"))
               hl.dispatch(hl.dsp.layout("colresize 0.333"))
@@ -155,6 +159,7 @@
               hl.dispatch(hl.dsp.layout("consume_or_expel prev"))
               hl.dispatch(hl.dsp.layout("colresize 0.333"))
           end)
+
           hl.bind("SUPER + F", function()
               local ws = hl.get_active_workspace()
 
