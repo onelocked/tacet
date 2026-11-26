@@ -148,9 +148,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "766374d84c31f34deb6097059915bb7f8d17c7c7",
-    "narHash": "sha256-d7IstvSGrJ2e9oGSk4ErybGDVzMPxbS3mP+N8WhH0Sg=",
-    "lastModified": 1795653783,
+    "rev": "531d86186984caf9f7fde0759e77eca6769d9acf",
+    "narHash": "sha256-nRL3eS4xIt1NK3H/Z4H3DDspMaYPbmMbn2YICc7Zi/U=",
+    "lastModified": 1795730429,
     "submodules": true
   },
   "mddog": {
@@ -170,9 +170,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nitovim",
-    "rev": "ee326208f0a7b5a83a0885607bf0239021477056",
-    "narHash": "sha256-iESQXywJtwAnszkpWGD/Ze2IyEBa3YU9sCIzp6n3+Ks=",
-    "lastModified": 1795458762,
+    "rev": "faab2a6ac1de02425dfaf19ee7650143c9cee44f",
+    "narHash": "sha256-NpzLpcnga6wQnaEEtT9q7YWBgHCO3A6Clfbph1CJA2g=",
+    "lastModified": 1795730739,
     "public": true
   },
   "nixos-core": {
@@ -365,9 +365,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "147cec2879505729dbcf2d8ff9848be19b6f7094",
-    "narHash": "sha256-qGjfI0mOgZ1WXjocPeDCL0WqjWy2v0/VyMgYqwfmf6k=",
-    "lastModified": 1795654496,
+    "rev": "393ed432b3321a44a87e8a588552b51d5dad8f6e",
+    "narHash": "sha256-CUECELH3ty3Imlmbt88IC+ZkUxHPyd3FHuN9WWG4P+c=",
+    "lastModified": 1795730888,
     "public": true
   },
   "theme-store": {
