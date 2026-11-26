@@ -67,6 +67,12 @@
         keybindings = {
           # scrollback-kitty nvim plugin
           "alt+a" = "kitty_scrollback_nvim";
+
+          "--when-focus-on cmdline:mdd ctrl+w>h" = "neighboring_window left";
+          "--when-focus-on cmdline:mdd ctrl+w>j" = "neighboring_window bottom";
+          "--when-focus-on cmdline:mdd ctrl+w>k" = "neighboring_window top";
+          "--when-focus-on cmdline:mdd ctrl+w>l" = "neighboring_window right";
+          "--when-focus-on cmdline:mdd ctrl+w>q" = "close_window";
         };
         mouseBindings = {
           "right press ungrabbed" = "combine : copy_to_clipboard : clear_selection";
