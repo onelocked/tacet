@@ -40,7 +40,7 @@
 
           detect_urls = true;
           url_style = "curly";
-          mouse_hide_wait = "2.0";
+          mouse_hide_wait = "-1";
 
           focus_follows_mouse = false;
           cursor_shape_unfocused = "hollow";
