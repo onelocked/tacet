@@ -15,6 +15,9 @@
       ];
     };
   };
+  perSystem = { inputs', ... }: {
+    remotePackages.neovim = inputs'.nitovim.packages.neovim;
+  };
   exo.skeleton =
     {
       lib,
