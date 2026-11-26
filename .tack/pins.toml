@@ -49,11 +49,6 @@ url = "gh:amaanq/helium-flake"
 group = "nix"
 url = "gh:feel-co/hjem"
 
-[inputs.hypr-plugs]
-group = "hypr"
-type = "fetch"
-url = "gh:hyprwm/hyprland-plugins"
-
 [inputs.hyprland]
 group = "hypr"
 url = "gh:hyprwm/Hyprland"
@@ -77,11 +72,9 @@ type = "fetch"
 url = "gh:flightlessmango/MangoHud"
 
 [inputs.mddog]
-frozen = true
 group = "cli"
-patches = ["https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch"]
 type = "fetch"
-url = "gh:qu8n/mddog/issue-20-add-linux-support"
+url = "gh:qu8n/mddog"
 
 [inputs.nitovim]
 group = "general"

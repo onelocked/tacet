@@ -7,12 +7,11 @@
     "fuzzy-search": "github:onelocked/fuzzy-search.yazi",
     "helium-browser": "github:amaanq/helium-flake",
     "hjem": "github:feel-co/hjem",
-    "hypr-plugs": "github:hyprwm/hyprland-plugins",
     "hyprland": "github:hyprwm/Hyprland",
     "jellium-desktop": "github:andrewrabert/jellium-desktop",
     "lan-mouse": "github:feschber/lan-mouse",
     "mangohud": "github:flightlessmango/MangoHud",
-    "mddog": "github:qu8n/mddog/issue-20-add-linux-support",
+    "mddog": "github:qu8n/mddog",
     "nitovim": "github:onelocked/nitovim",
     "nixos-core": "github:manic-systems/nixos-core",
     "nixos-hardware": "github:NixOS/nixos-hardware",
@@ -119,18 +118,6 @@
     "lastModified": 1795415752,
     "public": true
   },
-  "hypr-plugs": {
-    "type": "github",
-    "owner": "hyprwm",
-    "repo": "hyprland-plugins",
-    "rev": "2e03a09a92ba8b0adcd2840a69d84ffc2174b886",
-    "narHash": "sha256-8kWnBmEBXqyL/3EmHT/93RRdqb9FX8NxuIvmHEfQmDM=",
-    "lastModified": 1794852562,
-    "archive": {
-      "hash": "sha256-NgBp7BGRXxhsBXQbkMge2bnI1dw4t345LIosHrJOxyQ=",
-      "outHash": "sha256-IrnpHIGU1Dsu9XcYJs0fBeFUb8gOBhHUx6714lDj+6Y="
-    }
-  },
   "hyprland": {
     "type": "github",
     "owner": "hyprwm",
@@ -170,23 +157,14 @@
     "type": "github",
     "owner": "qu8n",
     "repo": "mddog",
-    "rev": "85de46d8128474f98a7583256ad0dda47889e417",
-    "narHash": "sha256-GyPw8ugDxGRTvcBYMZC8sfehW7UZonsV9PCMhBjc9s4=",
-    "lastModified": 1795372343,
-    "patched": {
-      "path": "/nix/store/p7a47xkg8p3jxrp4sizigfyxxzf5gxl6-source",
-      "narHash": "sha256-w43opVkX5orfYUCIhXNC03w2YN61yLmcu+XakoYJr2k=",
-      "lastModified": 1795372343,
-      "patches": [
-        {
-          "source": "https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch",
-          "url": "https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch",
-          "file": "patches/mddog/mddog-mardown-fix.patch",
-          "sha256": "fc6dbdfb5f22244327fc7c816ef61f2e9535c65705b3991b4d6aaee5f32d76d2"
-        }
-      ],
-      "diff": "a89f56f3056ab71f3e297453a4f5ea19985565d3f7ba7f8319a07f8533e1c03a"
-    }
+    "rev": "e86f9d53d7465c9388fca1729103a7e3a905fcc3",
+    "narHash": "sha256-JMxD/2rCq4JNsUcGp3PhqzmnVSBAMFjNE/qmpXBJDgk=",
+    "lastModified": 1795668880,
+    "archive": {
+      "hash": "sha256-twdLZQyj91suxD97kX9pps9x9GLakKjMKV4aIDs00+4=",
+      "outHash": "sha256-8zlciD4cUPBhu3TZyLggkf5ZOgzzJT2FgWrh0uX8LVU="
+    },
+    "public": true
   },
   "nitovim": {
     "type": "github",

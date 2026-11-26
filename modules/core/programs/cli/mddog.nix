@@ -1,12 +1,8 @@
 {
   tack.inputs.mddog = {
-    url = "gh:qu8n/mddog/issue-20-add-linux-support";
+    url = "gh:qu8n/mddog";
     group = "cli";
     type = "fetch";
-    frozen = true;
-    patches = [
-      "https://gist.githubusercontent.com/onelocked/10889b2ce08bd001867958980ef05679/raw/b13c78ccbb9e69a402ae7f89fbb7b35bfeba9ff4/mddog-mardown-fix.patch"
-    ];
   };
   perSystem = { pkgs, inputs, ... }: {
     remotePackages.mddog = pkgs.rustPlatform.buildRustPackage (finalAttrs: {
