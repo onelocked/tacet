@@ -46,11 +46,9 @@ in
         packages = { inherit (packages') tack; };
         packages.tack-fish-completions =
           let
-            # Pin names are declared in Nix, so bake them into the fish completions.
             tackInputNames = lib.concatStringsSep " " (lib.attrNames config.tack.inputs);
           in
           pkgs.writeTextDir "share/fish/vendor_completions.d/tack.fish" /* fish */ ''
-            # Generated from config.tack.inputs by aspects/flakeModules/tack.nix.
             function __tack_patch_subcommand
                 set -l words (commandline -opc)
                 test (count $words) -eq 2; and test "$words[2]" = patch

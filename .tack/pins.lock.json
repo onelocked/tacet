@@ -105,9 +105,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "077f04d80e1ddd98ff86b0709d9916f86385d12f",
-    "narHash": "sha256-a0Q3+z23BSIvsQaiz4fInmIbEuCEDgG+w0wh2hASu8g=",
-    "lastModified": 1795607293,
+    "rev": "bf5bf3c2fb4d002ab8d3e50b9097487e6dfd7acf",
+    "narHash": "sha256-bCoL2NDFgRqlzBveW//quJ5AvDCnGmZmgoU35N+BHx4=",
+    "lastModified": 1795699007,
     "public": true
   },
   "hjem": {
@@ -135,9 +135,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "c58dd14e8a826a130bbe71194215ae63881569cc",
-    "narHash": "sha256-348lB6kUwiSzMO6UCcb+0H3aW67643DlVLMN5w61/a0=",
-    "lastModified": 1795615055,
+    "rev": "e537b2fce29e4bac191e73fd3c77ec3de80b7ffe",
+    "narHash": "sha256-QLEXTg5DzVweldER27L+ou/ElxQlD1kI6dpz7lu2FM4=",
+    "lastModified": 1795693842,
     "public": true
   },
   "jellium-desktop": {
@@ -161,9 +161,9 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "9795b014bb76230d54e3fc7dfc95ee3cd60ab347",
-    "narHash": "sha256-WmQRTajjTMKX0lHh4eYFPGniYuIa036QHzt1h0j9brU=",
-    "lastModified": 1795623021,
+    "rev": "766374d84c31f34deb6097059915bb7f8d17c7c7",
+    "narHash": "sha256-d7IstvSGrJ2e9oGSk4ErybGDVzMPxbS3mP+N8WhH0Sg=",
+    "lastModified": 1795653783,
     "submodules": true
   },
   "mddog": {
@@ -210,9 +210,9 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixos-hardware",
-    "rev": "97a30ee0974b815496bec7b136af6b945bd65aef",
-    "narHash": "sha256-0mlYwyAv7lUDD6HBgPMqBXjMcIfIZBsLryNnkspeIGs=",
-    "lastModified": 1795549782,
+    "rev": "ec39df522f291a1da3bee80d3ff67d99c57a17b0",
+    "narHash": "sha256-9QjYnidlKg7EtcPkr07D3epP7I1WuVBfA5nk47+I5dc=",
+    "lastModified": 1795690694,
     "public": true
   },
   "nixpkgs": {
@@ -277,9 +277,9 @@
     "type": "github",
     "owner": "oxalica",
     "repo": "rust-overlay",
-    "rev": "67021b279bfffe654a0201ede805748a255ae5a7",
-    "narHash": "sha256-rsB/BPQf+Q9p7O7WhqtmG64b3F175ly7swafxWS1etM=",
-    "lastModified": 1795604585,
+    "rev": "8771c4aba509d6efb8bf376fd8cb657cce52b013",
+    "narHash": "sha256-gvke5rg5P9S2TAXdOASCqEPc/OdvPKaHIGoMlbYLJ/E=",
+    "lastModified": 1795689650,
     "public": true
   },
   "scroll-overview": {
@@ -387,9 +387,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "5fba22058c07e258e77005144373845df04aa420",
-    "narHash": "sha256-4y/PrwhX1+kEbYyD9++i03/xjeJiTp0rbD3IEwgAkfI=",
-    "lastModified": 1795612357,
+    "rev": "147cec2879505729dbcf2d8ff9848be19b6f7094",
+    "narHash": "sha256-qGjfI0mOgZ1WXjocPeDCL0WqjWy2v0/VyMgYqwfmf6k=",
+    "lastModified": 1795654496,
     "public": true
   },
   "theme-store": {
@@ -441,9 +441,9 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "6c4d107744ba0760c5176a3993115b9842c19249",
-    "narHash": "sha256-kbm3rhM5/EX5AJEPV9Svkcdk9f1RTqfX+YWQvROKX8w=",
-    "lastModified": 1795577370,
+    "rev": "abbd61739b1d73fe0c2c4413143efb9ccafea59e",
+    "narHash": "sha256-hZTHT7oXTrxXi36tKUN4G0lElMgnHQ1nVEV02qxXRZ0=",
+    "lastModified": 1795668840,
     "public": true
   }
 }

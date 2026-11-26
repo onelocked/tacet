@@ -503,7 +503,6 @@
             self'.packages.hyprland
             self'.packages.xdg-desktop-portal-hyprland
             self'.legacyPackages.scrolloverview
-            self'.legacyPackages.borders-plus-plus
           ];
         };
       };
