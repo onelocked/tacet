@@ -104,9 +104,9 @@
     "type": "github",
     "owner": "amaanq",
     "repo": "helium-flake",
-    "rev": "bf5bf3c2fb4d002ab8d3e50b9097487e6dfd7acf",
-    "narHash": "sha256-bCoL2NDFgRqlzBveW//quJ5AvDCnGmZmgoU35N+BHx4=",
-    "lastModified": 1795699007,
+    "rev": "8f978b543fe1863c84c543d379c543b21eacbb0e",
+    "narHash": "sha256-Qwy97hBOaFd1Om3X3vEJ73rYO1vb9hJk6Zbt4GJqH5o=",
+    "lastModified": 1795732087,
     "public": true
   },
   "hjem": {
@@ -131,9 +131,9 @@
     "type": "git",
     "url": "https://github.com/andrewrabert/jellium-desktop.git",
     "ref": "HEAD",
-    "rev": "09de0a6d8c3fe7620df71b469c78752892de12e4",
-    "narHash": "sha256-oqwpHXA5fWNfRdf2yOS4zHVyimVaxJLiK3lerdMLHzw=",
-    "lastModified": 1794720480,
+    "rev": "194d646bb305de6ec4d47b4965679dc6da763bf5",
+    "narHash": "sha256-9ZvcdsX9rhFif+BhIHhjo4KAJ+eEUrwIVNfJ84kQWYU=",
+    "lastModified": 1795487593,
     "submodules": true
   },
   "lan-mouse": {
@@ -148,21 +148,21 @@
     "type": "git",
     "url": "https://github.com/flightlessmango/MangoHud.git",
     "ref": "HEAD",
-    "rev": "531d86186984caf9f7fde0759e77eca6769d9acf",
-    "narHash": "sha256-nRL3eS4xIt1NK3H/Z4H3DDspMaYPbmMbn2YICc7Zi/U=",
-    "lastModified": 1795730429,
+    "rev": "44f93310f54c8568ed2ad13c4463cdc908092daf",
+    "narHash": "sha256-bRHuL67KgrDUGGYTJ/Yw3DscSHblkkBp1UZUuAP0qbI=",
+    "lastModified": 1795749621,
     "submodules": true
   },
   "mddog": {
     "type": "github",
     "owner": "qu8n",
     "repo": "mddog",
-    "rev": "e86f9d53d7465c9388fca1729103a7e3a905fcc3",
-    "narHash": "sha256-JMxD/2rCq4JNsUcGp3PhqzmnVSBAMFjNE/qmpXBJDgk=",
-    "lastModified": 1795668880,
+    "rev": "6314506ef6168f7ba761354c51aa0e27435a7589",
+    "narHash": "sha256-M/vmO6/5rzoE2rkSc/kAaLIw4jkFfstCq3VQScgoNao=",
+    "lastModified": 1795744871,
     "archive": {
-      "hash": "sha256-twdLZQyj91suxD97kX9pps9x9GLakKjMKV4aIDs00+4=",
-      "outHash": "sha256-8zlciD4cUPBhu3TZyLggkf5ZOgzzJT2FgWrh0uX8LVU="
+      "hash": "sha256-T3nK+0IsUDOl95NcXFMfgVc43jECHZsdq0adr6zvebI=",
+      "outHash": "sha256-+9T1SL1opUKvFjUuUBGy2sv2YJvT3FhBrgkrwisNmCQ="
     },
     "public": true
   },
@@ -170,9 +170,9 @@
     "type": "github",
     "owner": "onelocked",
     "repo": "nitovim",
-    "rev": "faab2a6ac1de02425dfaf19ee7650143c9cee44f",
-    "narHash": "sha256-NpzLpcnga6wQnaEEtT9q7YWBgHCO3A6Clfbph1CJA2g=",
-    "lastModified": 1795730739,
+    "rev": "7c49fbbce2d14e9d4340a9d91fda631929f4f17b",
+    "narHash": "sha256-n2ECSMFpfBG25tHqKsvc/6sc1+FUa/DT8dOAJDuQJgs=",
+    "lastModified": 1795784640,
     "public": true
   },
   "nixos-core": {
@@ -365,9 +365,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "393ed432b3321a44a87e8a588552b51d5dad8f6e",
-    "narHash": "sha256-CUECELH3ty3Imlmbt88IC+ZkUxHPyd3FHuN9WWG4P+c=",
-    "lastModified": 1795730888,
+    "rev": "673997981720feebb3870645932b6cfe6657db9f",
+    "narHash": "sha256-iRVnAKvQh5vC76QppovlxTklJf98EA+GYEY91loasy4=",
+    "lastModified": 1795748364,
     "public": true
   },
   "theme-store": {
@@ -419,9 +419,9 @@
     "type": "github",
     "owner": "0xc000022070",
     "repo": "zen-browser-flake",
-    "rev": "abbd61739b1d73fe0c2c4413143efb9ccafea59e",
-    "narHash": "sha256-hZTHT7oXTrxXi36tKUN4G0lElMgnHQ1nVEV02qxXRZ0=",
-    "lastModified": 1795668840,
+    "rev": "8fff5095fe8dcf614c2a4bec4ca346a800910e11",
+    "narHash": "sha256-tQ5YNz44fWJ7VWWia5ivfr5ZTlPR6GAxJkna4Z8j2bY=",
+    "lastModified": 1795762905,
     "public": true
   }
 }
